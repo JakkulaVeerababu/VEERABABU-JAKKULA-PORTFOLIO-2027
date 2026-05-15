@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
-import { useState } from "react";
-
 const projects = [
   {
     num: "01",

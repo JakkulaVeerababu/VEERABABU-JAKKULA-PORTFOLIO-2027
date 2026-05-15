@@ -174,7 +174,7 @@ export default function Skills() {
             <div className="line" />
           </div>
 
-          <p className="text-[#555] text-xs font-mono mb-10 -mt-4">
+          <p className="text-[#555] text-xs font-mono mb-8 -mt-4">
             // proficiency shown as self-assessment — still building in all areas
           </p>
 
