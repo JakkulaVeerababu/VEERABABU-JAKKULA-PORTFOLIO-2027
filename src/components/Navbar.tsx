@@ -28,38 +28,44 @@ export default function Navbar() {
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 flex justify-center ${
         scrolled
-          ? "bg-[var(--bg)]/70 backdrop-blur-md border-b border-white/[0.04] py-3"
-          : "py-5"
+          ? "pt-4 pb-2"
+          : "pt-8 pb-4"
       }`}
     >
-      <div className="container mx-auto px-6 max-w-6xl flex items-center justify-between">
+      <div className={`transition-all duration-500 w-full flex items-center justify-between px-6 ${
+        scrolled ? "max-w-4xl glass rounded-full py-3 mx-4" : "max-w-6xl mx-auto"
+      }`}>
         {/* Logo */}
         <Link
           href="/"
-          className="text-white font-semibold text-lg tracking-tight"
+          className="text-white font-bold text-lg tracking-tight flex items-center gap-2"
         >
-          Veerababu.
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-[#7c3aed] to-[#00f5ff] blur-[2px]" />
+          <span>Veerababu.</span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-7">
+        <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm text-[#888] hover:text-white transition-colors link-underline"
+              className="relative group text-sm font-medium text-zinc-400 hover:text-white transition-colors"
             >
               {link.name}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-[#7c3aed] to-[#00f5ff] transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
           <Link
             href="mailto:jakkulaveerababu429@gmail.com"
-            className="ml-2 px-4 py-1.5 rounded-full text-sm font-medium bg-white text-black hover:bg-[#e2e2e2] transition-colors"
+            className="ml-2 px-5 py-2 rounded-full text-sm font-medium text-white relative overflow-hidden group border border-white/10"
           >
-            Hire me
+            <div className="absolute inset-0 bg-white/5 transition-colors group-hover:bg-white/10" />
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.4)_0%,transparent_100%)] blur-md" />
+            <span className="relative">Hire me</span>
           </Link>
         </nav>
 

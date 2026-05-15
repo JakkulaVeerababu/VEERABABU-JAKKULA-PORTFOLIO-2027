@@ -90,13 +90,13 @@ export default function Projects() {
                 key={project.num}
                 variants={cardAnim}
                 custom={i}
-                className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.03] transition-colors flex flex-col h-full group"
+                className="p-6 flex flex-col h-full group glass-card"
               >
                 {/* Thumbnail Support */}
-                <div className="w-full aspect-[16/9] mb-6 rounded-xl bg-white/[0.01] border border-white/[0.02] overflow-hidden flex items-center justify-center relative group-hover:border-white/[0.05] transition-colors">
+                <div className="w-full aspect-[16/9] mb-6 rounded-xl bg-[#000000]/50 border border-white/[0.02] overflow-hidden flex items-center justify-center relative transition-colors shadow-inner shadow-black/50">
                   {/* Image placeholder / Number */}
                   <span
-                    className="font-mono text-5xl font-bold opacity-10 transition-opacity group-hover:opacity-20"
+                    className="font-bold text-6xl opacity-10 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-20"
                     style={{ color: project.accent }}
                   >
                     {project.num}
@@ -105,19 +105,19 @@ export default function Projects() {
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
                     style={{
-                      background: `radial-gradient(circle at center, ${project.accent}0a 0%, transparent 70%)`,
+                      background: `radial-gradient(circle at center, ${project.accent}1a 0%, transparent 70%)`,
                     }}
                   />
                 </div>
 
-                <div className="mb-3 flex-1">
-                  <h3 className="text-lg font-semibold text-white tracking-tight leading-snug mb-1">
+                <div className="mb-4 flex-1">
+                  <h3 className="text-xl font-bold text-white tracking-tight leading-snug mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#a1a1aa] transition-all">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-[#888] font-medium">
+                  <p className="text-sm text-[#00f5ff] font-medium mb-3">
                     {project.subtitle}
                   </p>
-                  <p className="text-[13px] text-[#aaa] mt-3 leading-relaxed line-clamp-3">
+                  <p className="text-[14px] text-zinc-400 leading-relaxed line-clamp-3">
                     {project.description}
                   </p>
                 </div>
@@ -126,34 +126,34 @@ export default function Projects() {
                   {project.tech.slice(0, 5).map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-1 text-[10px] font-medium text-[#888] bg-white/[0.03] border border-white/[0.05] rounded-md cursor-default"
+                      className="px-2.5 py-1 text-[11px] font-medium text-zinc-300 bg-white/[0.02] border border-white/[0.05] rounded-md cursor-default group-hover:border-white/10 transition-colors"
                     >
                       {t}
                     </span>
                   ))}
                   {project.tech.length > 5 && (
-                    <span className="px-2 py-1 text-[10px] font-medium text-[#666]">
+                    <span className="px-2 py-1 text-[11px] font-medium text-zinc-500">
                       +{project.tech.length - 5}
                     </span>
                   )}
                 </div>
 
-                <div className="flex items-center gap-5 pt-4 border-t border-white/[0.04] mt-auto">
+                <div className="flex items-center gap-5 pt-5 border-t border-white/[0.04] mt-auto">
                   <Link
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[#666] hover:text-white transition-colors text-sm"
+                    className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-sm"
                   >
                     <FiGithub className="w-4 h-4" />
                     <span className="font-medium text-xs">Source</span>
                   </Link>
                   <Link
                     href={project.demo}
-                    className="flex items-center gap-2 text-[#666] hover:text-white transition-colors text-sm"
+                    className="flex items-center gap-2 text-zinc-400 hover:text-[#00f5ff] transition-colors text-sm"
                   >
                     <FiExternalLink className="w-4 h-4" />
-                    <span className="font-medium text-xs">Live</span>
+                    <span className="font-medium text-xs">Live Demo</span>
                   </Link>
                 </div>
               </motion.article>

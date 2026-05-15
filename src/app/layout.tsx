@@ -34,6 +34,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased bg-[var(--bg)] text-[var(--fg)] bg-noise`}
       >
+        <div className="fixed top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.15)_0%,rgba(0,245,255,0.05)_50%,transparent_70%)] blur-[100px] rounded-full pointer-events-none z-[-1]" />
         <ScrollProgress />
         <Navbar />
         {children}

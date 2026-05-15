@@ -2,15 +2,15 @@
 
 @layer base {
   :root {
-    --bg: #030303;
+    --bg: #050505;
     --bg-1: #0a0a0a;
     --bg-2: #121212;
-    --fg: #f5f5f5;
-    --fg-muted: #888888;
-    --fg-faint: #444444;
-    --accent: #e2e2e2;
-    --accent-dim: #999999;
-    --border: rgba(255, 255, 255, 0.05);
+    --fg: #ffffff;
+    --fg-muted: #a1a1aa;
+    --fg-faint: #52525b;
+    --accent: #7c3aed;
+    --accent-dim: #00f5ff;
+    --border: rgba(255, 255, 255, 0.08);
     --border-hover: rgba(255, 255, 255, 0.15);
   }
 }
@@ -45,12 +45,15 @@ body {
   color: #c8d8ff;
 }
 
-/* ─── Grid Background ─── */
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-  background-size: 64px 64px;
+/* ─── Ambient Glow ─── */
+.ambient-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(0, 245, 255, 0.05) 50%, transparent 70%);
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* ─── Noise Texture ─── */
@@ -66,27 +69,37 @@ body {
 
 /* ─── Glass ─── */
 .glass {
-  background: rgba(255,255,255,0.025);
+  background: rgba(255,255,255,0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
 }
 
 .glass-card {
-  background: rgba(255,255,255,0.025);
+  background: rgba(255,255,255,0.05);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: 14px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
 }
 
 /* ─── Gradient Text ─── */
 .text-gradient {
-  background: linear-gradient(135deg, #7eb2ff 0%, #9b59ff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
