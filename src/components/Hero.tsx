@@ -45,92 +45,7 @@ function TypingRoleRotator() {
   );
 }
 
-/* Minimal particle canvas */
-function ParticleCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    const particles: {
-      x: number; y: number; vx: number; vy: number; r: number; a: number;
-    }[] = [];
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const W = () => canvas.width;
-    const H = () => canvas.height;
-
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * W(),
-        y: Math.random() * H(),
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        r: Math.random() * 1.2 + 0.3,
-        a: Math.random() * 0.4 + 0.1,
-      });
-    }
-
-    const draw = () => {
-      ctx.clearRect(0, 0, W(), H());
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = W();
-        if (p.x > W()) p.x = 0;
-        if (p.y < 0) p.y = H();
-        if (p.y > H()) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(91,127,255,${p.a})`;
-        ctx.fill();
-
-        // Draw connections
-        for (let j = i + 1; j < particles.length; j++) {
-          const q = particles[j];
-          const dx = p.x - q.x;
-          const dy = p.y - q.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 130) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = `rgba(91,127,255,${0.06 * (1 - dist / 130)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full opacity-60"
-      aria-hidden
-    />
-  );
-}
+// Removed ParticleCanvas for a cleaner, minimal look
 
 const container = {
   hidden: {},
@@ -138,7 +53,7 @@ const container = {
 };
 const item = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1], duration: 0.7 } },
+  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.7 } },
 };
 
 export default function Hero() {
@@ -147,11 +62,9 @@ export default function Hero() {
   const y = useTransform(scrollY, [0, 400], [0, -60]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <ParticleCanvas />
-
-      {/* Radial center glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#5b7fff]/6 blur-[120px] pointer-events-none" />
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-24 pb-12">
+      {/* Subtle top glow instead of radial center glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] rounded-[100%] bg-white/[0.03] blur-[80px] pointer-events-none" />
 
       <motion.div
         style={{ opacity, y }}
@@ -177,7 +90,7 @@ export default function Hero() {
           {/* Name */}
           <motion.h1
             variants={item}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] text-white leading-[0.95] mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] text-white leading-tight mb-4"
           >
             Veerababu J.
           </motion.h1>
@@ -185,7 +98,7 @@ export default function Hero() {
           {/* Rotating role */}
           <motion.div
             variants={item}
-            className="text-xl md:text-2xl font-mono h-8 mb-6 flex items-center"
+            className="text-lg md:text-xl font-medium text-[#888] h-8 mb-6 flex items-center"
           >
             <TypingRoleRotator />
           </motion.div>
@@ -204,11 +117,11 @@ export default function Hero() {
           {/* CTA Buttons */}
           <motion.div
             variants={item}
-            className="flex flex-wrap gap-3 mb-12"
+            className="flex flex-wrap gap-4 mb-16"
           >
             <Link
               href="#contact"
-              className="group px-6 py-2.5 rounded-lg bg-[#5b7fff] text-white text-sm font-medium hover:bg-[#6a8aff] transition-all flex items-center gap-2 glow-blue"
+              className="px-5 py-2 rounded-full bg-white text-black text-sm font-medium hover:bg-[#e2e2e2] transition-colors flex items-center gap-2"
             >
               <FiMail className="w-4 h-4" />
               Get in touch
@@ -217,7 +130,7 @@ export default function Hero() {
               href="https://github.com/JakkulaVeerababu"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2.5 rounded-lg glass text-sm font-medium text-[#ccc] hover:text-white hover:border-white/20 transition-all flex items-center gap-2"
+              className="px-5 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-[#ccc] hover:text-white hover:bg-white/[0.05] transition-all flex items-center gap-2"
             >
               <FiGithub className="w-4 h-4" />
               GitHub
@@ -226,14 +139,14 @@ export default function Hero() {
               href="https://www.linkedin.com/in/veerababu/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2.5 rounded-lg glass text-sm font-medium text-[#ccc] hover:text-white hover:border-white/20 transition-all flex items-center gap-2"
+              className="px-5 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-[#ccc] hover:text-white hover:bg-white/[0.05] transition-all flex items-center gap-2"
             >
               <FiLinkedin className="w-4 h-4" />
               LinkedIn
             </Link>
             <Link
               href="#"
-              className="px-6 py-2.5 rounded-lg glass text-sm font-medium text-[#ccc] hover:text-white hover:border-white/20 transition-all flex items-center gap-2"
+              className="px-5 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-[#ccc] hover:text-white hover:bg-white/[0.05] transition-all flex items-center gap-2"
             >
               <FileText className="w-4 h-4" />
               Resume
@@ -252,7 +165,7 @@ export default function Hero() {
               { label: "IEEE Member", value: "✓" },
             ].map((stat) => (
               <div key={stat.label}>
-                <div className="text-2xl font-bold text-white tracking-tight">
+                <div className="text-xl font-medium text-white tracking-tight">
                   {stat.value}
                 </div>
                 <div className="text-xs text-[#666] mt-0.5 font-mono">{stat.label}</div>
@@ -267,10 +180,10 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#555]"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#444]"
       >
-        <span className="text-xs font-mono tracking-widest">scroll</span>
-        <ArrowDown className="w-4 h-4 animate-bounce" />
+        <span className="text-[10px] uppercase tracking-widest font-medium">Scroll to explore</span>
+        <ArrowDown className="w-3 h-3" />
       </motion.div>
     </section>
   );

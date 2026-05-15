@@ -60,7 +60,7 @@ const projects = [
 
 const cardAnim = {
   hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1], duration: 0.65 } },
+  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.65 } },
 };
 
 export default function Projects() {
@@ -72,7 +72,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
         >
           <div className="section-divider">
             <h2>Projects</h2>
@@ -80,7 +80,7 @@ export default function Projects() {
           </div>
 
           <motion.div
-            className="space-y-6"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-60px" }}
@@ -90,109 +90,71 @@ export default function Projects() {
                 key={project.num}
                 variants={cardAnim}
                 custom={i}
-                className="glass-card project-card p-6 md:p-8 group"
+                className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.03] transition-colors flex flex-col h-full group"
               >
-                <div className="flex flex-col lg:flex-row gap-8">
-                  {/* Visual panel */}
-                  <div className="lg:w-[38%] flex-shrink-0">
-                    <div
-                      className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#0a0a0a] border border-white/[0.05] flex items-center justify-center group-hover:border-white/[0.1] transition-colors duration-500"
+                {/* Thumbnail Support */}
+                <div className="w-full aspect-[16/9] mb-6 rounded-xl bg-white/[0.01] border border-white/[0.02] overflow-hidden flex items-center justify-center relative group-hover:border-white/[0.05] transition-colors">
+                  {/* Image placeholder / Number */}
+                  <span
+                    className="font-mono text-5xl font-bold opacity-10 transition-opacity group-hover:opacity-20"
+                    style={{ color: project.accent }}
+                  >
+                    {project.num}
+                  </span>
+                  {/* Subtle gradient */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                    style={{
+                      background: `radial-gradient(circle at center, ${project.accent}0a 0%, transparent 70%)`,
+                    }}
+                  />
+                </div>
+
+                <div className="mb-3 flex-1">
+                  <h3 className="text-lg font-semibold text-white tracking-tight leading-snug mb-1">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-[#888] font-medium">
+                    {project.subtitle}
+                  </p>
+                  <p className="text-[13px] text-[#aaa] mt-3 leading-relaxed line-clamp-3">
+                    {project.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tech.slice(0, 5).map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-1 text-[10px] font-medium text-[#888] bg-white/[0.03] border border-white/[0.05] rounded-md cursor-default"
                     >
-                      {/* Background gradient */}
-                      <div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                        style={{
-                          background: `radial-gradient(ellipse at center, ${project.accent}0a 0%, transparent 70%)`,
-                        }}
-                      />
+                      {t}
+                    </span>
+                  ))}
+                  {project.tech.length > 5 && (
+                    <span className="px-2 py-1 text-[10px] font-medium text-[#666]">
+                      +{project.tech.length - 5}
+                    </span>
+                  )}
+                </div>
 
-                      {/* Circuit-inspired decoration */}
-                      <div className="absolute inset-0 opacity-30">
-                        <div className="absolute top-4 left-4 right-4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                        <div className="absolute bottom-4 left-4 right-4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                        <div className="absolute top-4 bottom-4 left-4 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-                        <div className="absolute top-4 bottom-4 right-4 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-                        <div className="absolute top-1/2 left-1/4 w-1.5 h-1.5 rounded-full bg-white/5" />
-                        <div className="absolute top-1/3 right-1/4 w-1 h-1 rounded-full bg-white/5" />
-                      </div>
-
-                      {/* Number */}
-                      <div
-                        className="font-mono text-6xl font-bold select-none transition-all duration-500 group-hover:opacity-70"
-                        style={{ color: `${project.accent}1a` }}
-                      >
-                        {project.num}
-                      </div>
-
-                      {/* Accent lines on hover */}
-                      <div
-                        className="absolute bottom-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{ background: `linear-gradient(90deg, transparent, ${project.accent}40, transparent)` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-col justify-between gap-4 flex-1">
-                    <div>
-                      <div className="flex items-start gap-4 mb-3">
-                        <div>
-                          <p
-                            className="text-[10px] font-mono mb-1.5 tracking-wider uppercase"
-                            style={{ color: project.accent }}
-                          >
-                            {project.featured ? "// Featured Project" : "// Project"}
-                          </p>
-                          <h3 className="text-lg font-bold text-white leading-tight group-hover:text-[#e8e8e8] transition-colors">
-                            {project.title}
-                          </h3>
-                          <p className="text-sm text-[#555] mt-0.5">{project.subtitle}</p>
-                        </div>
-                      </div>
-
-                      <p className="text-[13px] text-[#888] leading-[1.85]">
-                        {project.description}
-                      </p>
-
-                      <div className="mt-4 p-3 rounded-lg bg-white/[0.018] border border-white/[0.04]">
-                        <span className="text-[11px] font-mono text-[#555]">Problem: </span>
-                        <span className="text-[11px] text-[#666]">{project.problem}</span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {project.tech.map((t) => (
-                          <span
-                            key={t}
-                            className="skill-pill text-[11px]"
-                            style={{}}
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-5">
-                        <Link
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-[#555] hover:text-white transition-colors text-sm"
-                        >
-                          <FiGithub className="w-4 h-4" />
-                          <span className="font-mono text-xs">Source</span>
-                        </Link>
-                        <Link
-                          href={project.demo}
-                          className="flex items-center gap-1.5 text-[#555] hover:text-[#5b7fff] transition-colors text-sm"
-                        >
-                          <FiExternalLink className="w-4 h-4" />
-                          <span className="font-mono text-xs">Live</span>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-5 pt-4 border-t border-white/[0.04] mt-auto">
+                  <Link
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-[#666] hover:text-white transition-colors text-sm"
+                  >
+                    <FiGithub className="w-4 h-4" />
+                    <span className="font-medium text-xs">Source</span>
+                  </Link>
+                  <Link
+                    href={project.demo}
+                    className="flex items-center gap-2 text-[#666] hover:text-white transition-colors text-sm"
+                  >
+                    <FiExternalLink className="w-4 h-4" />
+                    <span className="font-medium text-xs">Live</span>
+                  </Link>
                 </div>
               </motion.article>
             ))}

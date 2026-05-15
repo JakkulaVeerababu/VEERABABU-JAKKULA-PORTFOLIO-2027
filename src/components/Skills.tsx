@@ -91,68 +91,35 @@ const container = {
 };
 const cardAnim = {
   hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1], duration: 0.55 } },
+  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.55 } },
 };
 
 function SkillCard({ group }: { group: typeof skillGroups[0] }) {
-  const [hovered, setHovered] = useState<string | null>(null);
-
   return (
     <motion.div
       variants={cardAnim}
-      className="glass-card p-5 group project-card"
-      onMouseLeave={() => setHovered(null)}
+      className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.03] transition-colors"
     >
-      <div className="flex items-center gap-2.5 mb-5">
+      <div className="flex items-center gap-3 mb-5">
         <span
           className="text-sm font-mono font-bold opacity-80"
           style={{ color: group.color }}
         >
           {group.icon}
         </span>
-        <h3 className="text-sm font-semibold tracking-wide" style={{ color: group.color }}>
+        <h3 className="text-sm font-semibold text-white tracking-wide">
           {group.category}
         </h3>
       </div>
 
-      <div className="space-y-3">
+      <div className="flex flex-wrap gap-2">
         {group.items.map((skill) => (
-          <div
+          <span
             key={skill.name}
-            onMouseEnter={() => setHovered(skill.name)}
-            className="group/skill cursor-default"
+            className="px-3 py-1.5 text-xs font-medium text-[#aaa] bg-white/[0.03] border border-white/[0.05] rounded-lg hover:text-white hover:border-white/10 transition-colors cursor-default"
           >
-            <div className="flex items-center justify-between mb-1">
-              <span
-                className="text-[12px] transition-colors duration-200"
-                style={{ color: hovered === skill.name ? group.color : "#888" }}
-              >
-                {skill.name}
-              </span>
-              <span
-                className="text-[10px] font-mono transition-opacity duration-200"
-                style={{
-                  color: group.color,
-                  opacity: hovered === skill.name ? 1 : 0,
-                }}
-              >
-                {skill.level}%
-              </span>
-            </div>
-            <div className="h-[2px] bg-white/[0.05] rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${skill.level}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                className="h-full rounded-full"
-                style={{
-                  background: `linear-gradient(90deg, ${group.color}aa, ${group.color})`,
-                  boxShadow: hovered === skill.name ? `0 0 8px ${group.color}60` : "none",
-                }}
-              />
-            </div>
-          </div>
+            {skill.name}
+          </span>
         ))}
       </div>
     </motion.div>
@@ -167,16 +134,11 @@ export default function Skills() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
         >
           <div className="section-divider">
             <h2>Technical Arsenal</h2>
-            <div className="line" />
           </div>
-
-          <p className="text-[#555] text-xs font-mono mb-8 -mt-4">
-            // proficiency shown as self-assessment — still building in all areas
-          </p>
 
           <motion.div
             variants={container}

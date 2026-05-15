@@ -96,7 +96,7 @@ const container = {
 };
 const cardAnim = {
   hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1], duration: 0.5 } },
+  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.5 } },
 };
 
 export default function Certifications() {
@@ -107,7 +107,7 @@ export default function Certifications() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
         >
           <div className="section-divider">
             <h2>Certifications</h2>
@@ -115,7 +115,7 @@ export default function Certifications() {
           </div>
 
           <p className="text-[#666] text-sm font-mono mb-10 -mt-4">
-            <span className="text-[#5b7fff]">15+</span> verified certifications across AI, systems, cloud, and analytics
+            <span className="text-[#aaa]">15+</span> verified certifications across AI, systems, cloud, and analytics
           </p>
 
           <motion.div
@@ -129,25 +129,21 @@ export default function Certifications() {
               <motion.div
                 key={cert.title}
                 variants={cardAnim}
-                className="cert-card glass-card p-5 group cursor-default"
+                className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] group hover:bg-white/[0.03] transition-all duration-300 cursor-default"
               >
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div
-                    className="w-1.5 h-full min-h-[3rem] rounded-full flex-shrink-0"
-                    style={{ backgroundColor: cert.color, opacity: 0.7 }}
+                    className="w-1 h-full min-h-[3rem] rounded-full flex-shrink-0 bg-white/[0.1] group-hover:bg-white/[0.2] transition-colors"
                   />
                   <div className="flex-1 min-w-0">
-                    <p
-                      className="text-[10px] font-mono tracking-wider mb-1 uppercase"
-                      style={{ color: cert.color }}
-                    >
+                    <p className="text-[10px] font-mono tracking-wider mb-1 uppercase text-[#888]">
                       {cert.category}
                     </p>
-                    <h3 className="text-[13px] font-semibold text-white leading-snug">
+                    <h3 className="text-[13px] font-semibold text-white/90 leading-snug group-hover:text-white transition-colors">
                       {cert.title}
                     </h3>
                   </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-[#333] group-hover:text-[#5b7fff] transition-colors flex-shrink-0 mt-0.5" />
+                  <ExternalLink className="w-3.5 h-3.5 text-[#333] group-hover:text-white/60 transition-colors flex-shrink-0 mt-0.5" />
                 </div>
                 <div className="flex items-center justify-between pl-3">
                   <span className="text-[11px] text-[#666]">{cert.issuer}</span>

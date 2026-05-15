@@ -2,18 +2,16 @@
 
 @layer base {
   :root {
-    --bg: #080808;
-    --bg-1: #0e0e0e;
-    --bg-2: #111111;
-    --fg: #e8e8e8;
-    --fg-muted: #888;
-    --fg-faint: #444;
-    --accent: #5b7fff;
-    --accent-dim: #3d5ce6;
-    --purple: #9b59ff;
-    --glow: rgba(91, 127, 255, 0.15);
-    --border: rgba(255, 255, 255, 0.07);
-    --border-hover: rgba(91, 127, 255, 0.35);
+    --bg: #030303;
+    --bg-1: #0a0a0a;
+    --bg-2: #121212;
+    --fg: #f5f5f5;
+    --fg-muted: #888888;
+    --fg-faint: #444444;
+    --accent: #e2e2e2;
+    --accent-dim: #999999;
+    --border: rgba(255, 255, 255, 0.05);
+    --border-hover: rgba(255, 255, 255, 0.15);
   }
 }
 
@@ -50,8 +48,8 @@ body {
 /* ─── Grid Background ─── */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(255,255,255,0.019) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.019) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 
@@ -61,7 +59,7 @@ body {
   position: fixed;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.025;
+  opacity: 0.015;
   pointer-events: none;
   z-index: 999;
 }
@@ -96,10 +94,11 @@ body {
 
 /* ─── Glow ─── */
 .glow-blue {
-  box-shadow: 0 0 32px rgba(91,127,255,0.2), 0 0 64px rgba(91,127,255,0.07);
+  /* Removed aggressive glow, leaving subtle shadow if needed */
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
 }
 .glow-blue:hover {
-  box-shadow: 0 0 40px rgba(91,127,255,0.28), 0 0 80px rgba(91,127,255,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 /* ─── Terminal ─── */
@@ -161,19 +160,19 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 56px;
+  margin-bottom: 40px;
 }
 .section-divider h2 {
   white-space: nowrap;
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: #eee;
-  letter-spacing: -0.035em;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--fg);
+  letter-spacing: -0.01em;
 }
 .section-divider .line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.07), transparent);
+  background: linear-gradient(90deg, rgba(255,255,255,0.04), transparent);
 }
 
 /* ─── Project card ─── */
@@ -253,18 +252,7 @@ body {
 .code-comment { color: #404040; font-style: italic; }
 .code-var { color: #e6b455; }
 
-/* ─── Cursor glow ─── */
-#cursor-glow {
-  pointer-events: none;
-  position: fixed;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(91,127,255,0.055) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  transition: opacity 0.3s ease;
-}
+/* ─── Cursor glow removed ─── */
 
 /* ─── Magnetic button effect ─── */
 .magnetic-btn {

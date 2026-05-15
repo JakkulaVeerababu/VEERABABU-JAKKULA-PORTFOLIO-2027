@@ -28,10 +28,10 @@ export default function Navbar() {
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#080808]/80 backdrop-blur-xl border-b border-white/[0.06] py-3"
+          ? "bg-[var(--bg)]/70 backdrop-blur-md border-b border-white/[0.04] py-3"
           : "py-5"
       }`}
     >
@@ -39,15 +39,9 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="group flex items-center gap-2 text-white font-bold text-lg tracking-tight"
+          className="text-white font-semibold text-lg tracking-tight"
         >
-          <span className="font-mono text-[#5b7fff] text-sm font-medium opacity-70 group-hover:opacity-100 transition-opacity">
-            &lt;
-          </span>
-          <span>VJ</span>
-          <span className="font-mono text-[#5b7fff] text-sm font-medium opacity-70 group-hover:opacity-100 transition-opacity">
-            /&gt;
-          </span>
+          Veerababu.
         </Link>
 
         {/* Desktop Nav */}
@@ -63,7 +57,7 @@ export default function Navbar() {
           ))}
           <Link
             href="mailto:jakkulaveerababu429@gmail.com"
-            className="ml-2 px-4 py-1.5 rounded-lg text-sm font-medium border border-white/10 text-[#c8d8ff] hover:border-[#5b7fff]/50 hover:bg-[#5b7fff]/08 transition-all"
+            className="ml-2 px-4 py-1.5 rounded-full text-sm font-medium bg-white text-black hover:bg-[#e2e2e2] transition-colors"
           >
             Hire me
           </Link>
@@ -97,7 +91,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-[#080808]/95 backdrop-blur-xl border-t border-white/[0.06]"
+            className="md:hidden overflow-hidden bg-[var(--bg)]/95 backdrop-blur-md border-t border-white/[0.04]"
           >
             <nav className="flex flex-col px-6 py-4 gap-4">
               {navLinks.map((link) => (

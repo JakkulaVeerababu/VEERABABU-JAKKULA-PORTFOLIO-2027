@@ -70,7 +70,7 @@ const fadeUp = {
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { ease: [0.16, 1, 0.3, 1], duration: 0.65, delay: i * 0.09 },
+    transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.65, delay: i * 0.09 },
   }),
 };
 
@@ -82,7 +82,7 @@ export default function Experience() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
         >
           <div className="section-divider">
             <h2>Experience</h2>
@@ -91,7 +91,7 @@ export default function Experience() {
 
           <div className="relative">
             {/* Vertical line */}
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#5b7fff]/25 to-transparent hidden md:block" />
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-white/[0.05] hidden md:block" />
 
             <div className="space-y-6">
               {experiences.map((exp, i) => (
@@ -106,25 +106,18 @@ export default function Experience() {
                 >
                   {/* Timeline dot */}
                   <div
-                    className="absolute left-[18px] top-6 w-3.5 h-3.5 rounded-full border-2 border-[#080808] hidden md:block transition-all duration-300 group-hover:scale-125"
-                    style={{
-                      backgroundColor: exp.color,
-                      boxShadow: `0 0 12px ${exp.color}60`,
-                    }}
+                    className="absolute left-[20px] top-8 w-2 h-2 rounded-full bg-[#444] hidden md:block transition-all duration-300 group-hover:bg-[#888]"
                   />
 
-                  <div className="glass-card p-6 group-hover:border-white/[0.12] transition-all duration-300">
+                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] group-hover:bg-white/[0.03] transition-all duration-300">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <span
-                            className="text-xs font-mono font-semibold tracking-wider"
-                            style={{ color: exp.color }}
-                          >
+                          <span className="text-xs font-mono font-medium tracking-wider text-[#aaa]">
                             {exp.company}
                           </span>
                           <span className="text-[#333] text-xs">·</span>
-                          <span className="text-xs text-[#555] font-mono">{exp.type}</span>
+                          <span className="text-xs text-[#666] font-mono">{exp.type}</span>
                         </div>
                         <h3 className="text-base font-bold text-white leading-tight">
                           {exp.role}
@@ -132,14 +125,7 @@ export default function Experience() {
                       </div>
                       <div className="flex flex-col items-start sm:items-end gap-1 flex-shrink-0">
                         <time className="text-xs font-mono text-[#555]">{exp.period}</time>
-                        <span
-                          className="text-[10px] font-mono px-2 py-0.5 rounded-full border"
-                          style={{
-                            color: exp.color,
-                            borderColor: `${exp.color}30`,
-                            backgroundColor: `${exp.color}0a`,
-                          }}
-                        >
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md border border-white/[0.05] bg-white/[0.02] text-[#888]">
                           {exp.highlight}
                         </span>
                       </div>
@@ -147,9 +133,9 @@ export default function Experience() {
 
                     <p className="text-[13px] text-[#888] leading-[1.8] mb-4">{exp.description}</p>
 
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {exp.tags.map((tag) => (
-                        <span key={tag} className="skill-pill text-[11px]">
+                        <span key={tag} className="px-2 py-1 text-[10px] font-medium text-[#888] bg-white/[0.02] border border-white/[0.04] rounded-md cursor-default">
                           {tag}
                         </span>
                       ))}

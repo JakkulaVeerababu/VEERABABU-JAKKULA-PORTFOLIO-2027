@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const terminalLines = [
-  { text: "$ cd ~/current-exploration", delay: 0, color: "#7eb2ff" },
-  { text: "Entering workspace...", delay: 0.3, color: "#555" },
-  { text: "$ ls -la", delay: 0.6, color: "#7eb2ff" },
-  { text: "├── vlsi_design_notes/", delay: 0.9, color: "#45d4a8" },
-  { text: "├── asic_flow_experiments/", delay: 1.1, color: "#45d4a8" },
-  { text: "├── gate_prep_2027/", delay: 1.3, color: "#45d4a8" },
-  { text: "├── neural_compiler_poc/", delay: 1.5, color: "#45d4a8" },
-  { text: "└── embedded_linux_notes/", delay: 1.7, color: "#45d4a8" },
-  { text: "$ cat status.txt", delay: 2.0, color: "#7eb2ff" },
-  { text: "All systems active. Coffee level: critical.", delay: 2.3, color: "#e878fa" },
+  { text: "$ cd ~/current-exploration", delay: 0, color: "#888" },
+  { text: "Entering workspace...", delay: 0.3, color: "#666" },
+  { text: "$ ls -la", delay: 0.6, color: "#888" },
+  { text: "├── vlsi_design_notes/", delay: 0.9, color: "#aaa" },
+  { text: "├── asic_flow_experiments/", delay: 1.1, color: "#aaa" },
+  { text: "├── gate_prep_2027/", delay: 1.3, color: "#aaa" },
+  { text: "├── neural_compiler_poc/", delay: 1.5, color: "#aaa" },
+  { text: "└── embedded_linux_notes/", delay: 1.7, color: "#aaa" },
+  { text: "$ cat status.txt", delay: 2.0, color: "#888" },
+  { text: "All systems active. Coffee level: critical.", delay: 2.3, color: "#ccc" },
 ];
 
 const explorations = [
@@ -100,14 +100,14 @@ function TerminalWidget() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       onViewportEnter={() => setInView(true)}
-      transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+      transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
       className="code-block"
     >
       <div className="flex items-center gap-1.5 mb-4">
-        <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-        <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-        <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-        <span className="ml-2 text-[#444] text-[11px] font-mono">veerababu@localhost:~</span>
+        <div className="w-2.5 h-2.5 rounded-full bg-[#444]" />
+        <div className="w-2.5 h-2.5 rounded-full bg-[#444]" />
+        <div className="w-2.5 h-2.5 rounded-full bg-[#444]" />
+        <span className="ml-2 text-[#666] text-[11px] font-mono">veerababu@system:~</span>
       </div>
       <div className="space-y-1">
         {terminalLines.slice(0, visibleLines).map((line, i) => (
@@ -126,7 +126,7 @@ const fadeUp = {
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { ease: [0.16, 1, 0.3, 1], duration: 0.6, delay: i * 0.07 },
+    transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6, delay: i * 0.07 },
   }),
 };
 
@@ -139,7 +139,7 @@ export default function CurrentlyExploring() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
           className="mb-24"
         >
           <div className="section-divider">
@@ -157,23 +157,16 @@ export default function CurrentlyExploring() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true, margin: "-30px" }}
-                  className="glass-card p-4 group hover:border-white/[0.1] transition-all duration-300"
+                  className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.04] group hover:bg-white/[0.03] transition-all duration-300"
                 >
                   <div className="flex items-start gap-3">
-                    <span style={{ color: item.color }} className="text-base mt-0.5 flex-shrink-0">
+                    <span className="text-base mt-0.5 flex-shrink-0 text-[#888]">
                       {item.icon}
                     </span>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <h3 className="text-sm font-semibold text-white">{item.title}</h3>
-                        <span
-                          className="text-[9px] font-mono px-1.5 py-0.5 rounded uppercase tracking-wider"
-                          style={{
-                            color: item.color,
-                            backgroundColor: `${item.color}12`,
-                            border: `1px solid ${item.color}25`,
-                          }}
-                        >
+                        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded uppercase tracking-wider text-[#888] bg-white/[0.05] border border-white/[0.1]">
                           {item.status}
                         </span>
                       </div>
@@ -195,7 +188,7 @@ export default function CurrentlyExploring() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
           className="mb-24"
         >
           <div className="section-divider">
@@ -219,12 +212,12 @@ export default function CurrentlyExploring() {
                 className="flex gap-5 group"
               >
                 <div className="flex-shrink-0 pt-1">
-                  <span className="text-[11px] font-mono text-[#5b7fff]/70 whitespace-nowrap">
+                  <span className="text-[11px] font-mono text-[#888] whitespace-nowrap">
                     {log.time}
                   </span>
                 </div>
-                <div className="flex-1 border-l border-white/[0.05] pl-5 pb-4 group-hover:border-[#5b7fff]/20 transition-colors">
-                  <p className="text-sm text-[#888] leading-[1.8]">{log.entry}</p>
+                <div className="flex-1 border-l border-white/[0.05] pl-5 pb-4 group-hover:border-white/[0.1] transition-colors">
+                  <p className="text-[13px] text-[#aaa] leading-[1.8]">{log.entry}</p>
                 </div>
               </motion.div>
             ))}
@@ -236,7 +229,7 @@ export default function CurrentlyExploring() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
         >
           <div className="section-divider">
             <h2 className="text-xl">Engineering Notes</h2>
@@ -273,12 +266,12 @@ export default function CurrentlyExploring() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, margin: "-30px" }}
-                className="glass-card p-5 group hover:border-white/[0.1] transition-all duration-300"
+                className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] group hover:bg-white/[0.03] transition-all duration-300"
               >
-                <p className="text-[11px] font-mono mb-3" style={{ color: note.color }}>
+                <p className="text-[11px] font-mono mb-3 text-[#666]">
                   {note.tag}
                 </p>
-                <p className="text-[13px] text-[#888] leading-relaxed italic">{note.note}</p>
+                <p className="text-[13px] text-[#aaa] leading-relaxed italic">{note.note}</p>
               </motion.div>
             ))}
           </div>

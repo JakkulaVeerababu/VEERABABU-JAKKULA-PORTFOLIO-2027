@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1], duration: 0.6 } },
+  show: { opacity: 1, y: 0, transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 } },
 };
 
 export default function About() {
@@ -53,70 +53,54 @@ export default function About() {
 
             {/* Right column */}
             <div className="lg:col-span-2 space-y-4">
-              {/* Terminal block */}
-              <div className="code-block">
-                <div className="text-[#333] mb-3 text-[11px]"># whoami</div>
-                <div className="space-y-1.5">
-                  <div>
-                    <span className="code-keyword">name</span>
-                    <span className="text-[#333]"> = </span>
-                    <span className="code-string">&quot;Veerababu J&quot;</span>
+              <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.04] font-mono text-[13px] leading-relaxed">
+                <div className="text-[#555] mb-4 text-[11px] uppercase tracking-wider"># Profile_Data</div>
+                <div className="space-y-2">
+                  <div className="flex">
+                    <span className="text-[#888] w-24">Name:</span>
+                    <span className="text-[#ccc]">Veerababu J.</span>
                   </div>
-                  <div>
-                    <span className="code-keyword">college</span>
-                    <span className="text-[#333]"> = </span>
-                    <span className="code-string">&quot;NEC, Andhra Pradesh&quot;</span>
+                  <div className="flex">
+                    <span className="text-[#888] w-24">Location:</span>
+                    <span className="text-[#ccc]">Andhra Pradesh, India</span>
                   </div>
-                  <div>
-                    <span className="code-keyword">degree</span>
-                    <span className="text-[#333]"> = </span>
-                    <span className="code-string">&quot;BTech ECE&quot;</span>
+                  <div className="flex">
+                    <span className="text-[#888] w-24">Education:</span>
+                    <span className="text-[#ccc]">BTech ECE (2023 - 2027)</span>
                   </div>
-                  <div>
-                    <span className="code-keyword">batch</span>
-                    <span className="text-[#333]"> = </span>
-                    <span className="code-var">2023</span>
-                    <span className="text-[#333]"> – </span>
-                    <span className="code-var">2027</span>
+                  <div className="flex">
+                    <span className="text-[#888] w-24">Focus:</span>
+                    <span className="text-[#ccc]">AI Hardware & Systems</span>
                   </div>
-                  <div>
-                    <span className="code-keyword">focus</span>
-                    <span className="text-[#333]"> = </span>
-                    <span className="code-string">&quot;AI chips + Systems&quot;</span>
-                  </div>
-                  <div className="code-comment"># target: NVIDIA / Qualcomm / Google</div>
-                  <div className="code-comment"># currently: building foundations</div>
                 </div>
               </div>
 
               {/* Interests */}
-              <div className="glass-card p-5 space-y-3">
-                <h3 className="text-[11px] font-mono text-[#5b7fff] mb-4 uppercase tracking-wider">
-                  interests.json
+              <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.04] space-y-3">
+                <h3 className="text-[11px] font-mono text-[#555] mb-4 uppercase tracking-wider">
+                  Core Interests
                 </h3>
                 {[
                   "VLSI & ASIC/FPGA design",
                   "AI chip optimization",
                   "Distributed systems",
                   "Intelligent automation",
-                  "GATE EC/CS preparation",
                   "Neural compilers (TVM, MLIR)",
-                  "Open-source toolchains",
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5">
-                    <span className="text-[#5b7fff] text-xs flex-shrink-0">▹</span>
+                  <div key={item} className="flex items-center gap-3">
+                    <span className="text-[#444] text-[10px] flex-shrink-0">●</span>
                     <span className="text-[#888] text-[13px]">{item}</span>
                   </div>
                 ))}
               </div>
 
               {/* Education quick card */}
-              <div className="glass-card p-5">
+              <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.04]">
                 <h3 className="text-[11px] font-mono text-[#555] mb-3 uppercase tracking-wider">Education</h3>
                 <div className="space-y-1">
                   <p className="text-[13px] font-semibold text-white">Narasaraopeta Engineering College</p>
-                  <p className="text-[12px] text-[#666]">BTech — Electronics &amp; Communication Engineering</p>
-                  <p className="text-[11px] font-mono text-[#444]">Sep 2023 – May 2027</p>
+                  <p className="text-[12px] text-[#888]">BTech — Electronics &amp; Communication</p>
+                  <p className="text-[11px] font-mono text-[#555] pt-1">Sep 2023 – May 2027</p>
                 </div>
               </div>
             </div>

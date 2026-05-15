@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import CursorGlow from "@/components/CursorGlow";
 import ScrollProgress from "@/components/ScrollProgress";
 
 const inter = Inter({
@@ -33,10 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} antialiased bg-[#080808] text-[#e8e8e8] bg-noise`}
+        className={`${inter.variable} antialiased bg-[var(--bg)] text-[var(--fg)] bg-noise`}
       >
         <ScrollProgress />
-        <CursorGlow />
         <Navbar />
         {children}
       </body>
