@@ -64,7 +64,6 @@ const cardAnim = {
 };
 
 export default function Projects() {
-  const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
     <section id="projects" className="relative py-28 w-full">
