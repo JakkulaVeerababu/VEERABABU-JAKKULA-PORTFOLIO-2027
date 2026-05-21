@@ -53,12 +53,13 @@ export default function About() {
 
             {/* Right column */}
             <div className="lg:col-span-2 space-y-4">
-              <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.04] font-mono text-[13px] leading-relaxed">
-                <div className="text-[#555] mb-4 text-[11px] uppercase tracking-wider"># Profile_Data</div>
-                <div className="space-y-2">
+              <div className="p-5 glass-card font-mono text-[13px] leading-relaxed relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <div className="text-zinc-500 mb-4 text-[11px] uppercase tracking-wider relative z-10"># Profile_Data</div>
+                <div className="space-y-2 relative z-10">
                   <div className="flex">
                     <span className="text-[#888] w-24">Name:</span>
-                    <span className="text-[#ccc]">Veerababu J.</span>
+                    <span className="text-[#ccc]">VEERABABU JAKKULA</span>
                   </div>
                   <div className="flex">
                     <span className="text-[#888] w-24">Location:</span>
@@ -69,6 +70,10 @@ export default function About() {
                     <span className="text-[#ccc]">BTech ECE (2023 - 2027)</span>
                   </div>
                   <div className="flex">
+                    <span className="text-[#888] w-24">CGPA (3rd Yr):</span>
+                    <span className="text-[#ccc]">8.71 / 10</span>
+                  </div>
+                  <div className="flex">
                     <span className="text-[#888] w-24">Focus:</span>
                     <span className="text-[#ccc]">AI Hardware & Systems</span>
                   </div>
@@ -76,10 +81,12 @@ export default function About() {
               </div>
 
               {/* Interests */}
-              <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.04] space-y-3">
-                <h3 className="text-[11px] font-mono text-[#555] mb-4 uppercase tracking-wider">
+              <div className="p-5 glass-card space-y-3 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <h3 className="text-[11px] font-mono text-zinc-500 mb-4 uppercase tracking-wider relative z-10">
                   Core Interests
                 </h3>
+                <div className="relative z-10 space-y-3">
                 {[
                   "VLSI & ASIC/FPGA design",
                   "AI chip optimization",
@@ -92,14 +99,17 @@ export default function About() {
                     <span className="text-[#888] text-[13px]">{item}</span>
                   </div>
                 ))}
+                </div>
               </div>
 
               {/* Education quick card */}
-              <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.04]">
-                <h3 className="text-[11px] font-mono text-[#555] mb-3 uppercase tracking-wider">Education</h3>
-                <div className="space-y-1">
+              <div className="p-5 glass-card relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <h3 className="text-[11px] font-mono text-zinc-500 mb-3 uppercase tracking-wider relative z-10">Education</h3>
+                <div className="space-y-1 relative z-10">
                   <p className="text-[13px] font-semibold text-white">Narasaraopeta Engineering College</p>
-                  <p className="text-[12px] text-[#888]">BTech — Electronics &amp; Communication</p>
+                  <p className="text-[12px] text-[#888]">BTech — Electronics &amp; Communication Engineering</p>
+                  <p className="text-[12px] text-[#ccc] font-medium pt-0.5">CGPA (3rd Year): 8.71</p>
                   <p className="text-[11px] font-mono text-[#555] pt-1">Sep 2023 – May 2027</p>
                 </div>
               </div>

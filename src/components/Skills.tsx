@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+
 
 const skillGroups = [
   {
@@ -98,7 +98,7 @@ function SkillCard({ group }: { group: typeof skillGroups[0] }) {
   return (
     <motion.div
       variants={cardAnim}
-      className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.03] transition-colors"
+      className="p-6 flex flex-col h-full group glass-card"
     >
       <div className="flex items-center gap-3 mb-5">
         <span

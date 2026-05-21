@@ -9,6 +9,7 @@ const navLinks = [
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
+  { name: "Hackathons", href: "#hackathons" },
   { name: "Certs", href: "#certifications" },
   { name: "Exploring", href: "#exploring" },
   { name: "Contact", href: "#contact" },
@@ -44,7 +45,7 @@ export default function Navbar() {
           className="text-white font-bold text-lg tracking-tight flex items-center gap-2"
         >
           <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-[#7c3aed] to-[#00f5ff] blur-[2px]" />
-          <span>Veerababu.</span>
+          <span>Veerababu Jakkula.</span>
         </Link>
 
         {/* Desktop Nav */}

@@ -6,61 +6,97 @@ const experiences = [
   {
     id: "01",
     company: "Infosys Springboard",
-    role: "Java Software Engineer",
+    role: "Full Stack Developer",
     type: "Virtual Internship",
     period: "Feb 2026 – Present",
     color: "#7eb2ff",
-    tags: ["Java", "OOP", "Spring", "REST APIs"],
+    tags: ["Java", "React", "Spring Boot", "REST APIs", "SQL", "Web Dev"],
     description:
-      "Working through Infosys Springboard's structured Java engineering track. Covering core Java internals, object-oriented design patterns, and building REST-style APIs. Reinforcing fundamentals I picked up from coursework but now applying them to structured production-style scenarios — error handling, clean architecture, that kind of thing.",
-    highlight: "Currently active",
+      "Engineered clean enterprise Full Stack workflows. Covered core Java internals, React interfaces, Spring Boot architectures, and robust REST APIs. Developed scalable databases and backend logic, applying high-performance software patterns, structured exception handling, and microservice decoupling.",
+    highlight: "Currently Active",
   },
   {
     id: "02",
-    company: "Google",
-    role: "AI/ML Engineer",
+    company: "Google & APSCHE",
+    role: "AI/ML Developer",
     type: "Virtual Internship",
     period: "Jul 2025 – Sep 2025",
     color: "#4ade80",
-    tags: ["Machine Learning", "TensorFlow", "Python", "Model Training"],
+    tags: ["Machine Learning", "TensorFlow", "Python", "Neural Networks"],
     description:
-      "Went through Google's AI/ML internship curriculum. The focus was on practical ML workflows — data preprocessing, training pipelines, and evaluating model performance. Also got into understanding how large-scale ML systems handle inference at production. Opened up a lot of rabbit holes around hardware-aware model design.",
+      "Completed Google's AI/ML internship curriculum focused on practical end-to-end ML workflows. Developed model training pipelines, performed advanced data preprocessing, and handled large-scale model inference. Researched hardware-aware compiler structures and neural optimization pathways.",
     highlight: "Completed",
   },
   {
     id: "03",
-    company: "Microchip Technology",
-    role: "Embedded Systems Developer",
+    company: "Microchip Technology & APSCHE",
+    role: "Embedded System Developer",
     type: "Virtual Internship",
     period: "Jul 2025 – Sep 2025",
     color: "#f5a623",
-    tags: ["Embedded C", "Microcontrollers", "Firmware", "MPLAB"],
+    tags: ["Embedded C", "Microcontrollers", "Firmware", "MPLAB X IDE"],
     description:
-      "Focused on embedded firmware development using Microchip's ecosystem. Worked with PIC microcontrollers, peripheral interfacing, and low-level register programming. This was the most hardware-grounded internship I've done — understanding the gap between software abstractions and what's actually happening on silicon.",
+      "Focused on microcontrollers, register-level hardware programming, and peripheral interfaces. Interfaced analog and digital sensors with PIC/dsPIC microcontrollers. Gained experience compiling low-level code, debugging hardware constraints, and bridging the gap between firmware and silicon.",
     highlight: "Completed",
   },
   {
     id: "04",
-    company: "Emertxe Information Technologies",
-    role: "Embedded Systems Developer",
+    company: "Emertxe Technologies",
+    role: "IoT & Embedded Developer",
     type: "Virtual Internship",
     period: "Aug 2025 – Dec 2025",
     color: "#e878fa",
-    tags: ["Linux Kernel", "C", "Device Drivers", "RTOS"],
+    tags: ["Embedded Linux", "C Programming", "Device Drivers", "RTOS", "IoT"],
     description:
-      "Deep dive into embedded Linux and systems programming. Covered device driver development, kernel module writing, and RTOS fundamentals. Emertxe has a strong reputation for rigorous embedded training — the curriculum pushed me to understand how OS abstractions interact with hardware at a very low level.",
+      "Immersed in systems-level IoT engineering. Wrote character device drivers in C, explored Linux kernel space architecture, and integrated RTOS concepts for predictable multitasking. Interfaced high-frequency sensors and modules for real-time edge processing.",
     highlight: "Completed",
   },
   {
     id: "05",
     company: "Data Valley",
-    role: "AIoT Engineer",
+    role: "Artificial Intelligence & IoT Developer",
     type: "Internship",
-    period: "2025",
+    period: "May 2025 – Jul 2025",
     color: "#45d4a8",
-    tags: ["IoT", "MQTT", "Cloud", "Sensor Integration", "Python"],
+    tags: ["IoT Sensors", "MQTT Protocols", "Edge AI", "Cloud IoT", "Python"],
     description:
-      "Built and deployed IoT sensor pipelines that push data to cloud-based analytics systems. The AIoT angle was interesting — combining traditional sensor data collection with basic AI inference at the edge. Learned a lot about MQTT protocols, data buffering under connectivity constraints, and cloud-to-edge latency tradeoffs.",
+      "Orchestrated real-time sensor pipelines pushing high-throughput edge-data to cloud networks using MQTT protocols. Integrated intelligent edge models to perform basic AI inference on hardware nodes. Designed custom dashboards and automated anomaly alerts.",
+    highlight: "Completed",
+  },
+  {
+    id: "06",
+    company: "Tata Group (Forage)",
+    role: "GenAI Powered Data Analytics",
+    type: "Job Simulation",
+    period: "Aug 2025",
+    color: "#a78bfa",
+    tags: ["Generative AI", "Data Analytics", "Power BI", "Prompt Engineering"],
+    description:
+      "Completed a virtual program simulating high-level GenAI powered data analytics workflows. Conducted interactive prompt-driven analysis, optimized business intelligence pipelines, and built responsive data dashboards to deliver actionable enterprise decisions.",
+    highlight: "Completed",
+  },
+  {
+    id: "07",
+    company: "Deloitte (Forage)",
+    role: "Data Analytics",
+    type: "Job Simulation",
+    period: "Nov 2025",
+    color: "#60a5fa",
+    tags: ["Data Extraction", "SQL", "Tableau", "Business Insight"],
+    description:
+      "Engaged in mock client cases simulating enterprise data analytics pipelines. Extracted, cleaned, and processed multi-layered corporate datasets. Built predictive dashboards, performed exploratory data analysis, and formatted results into executive reports.",
+    highlight: "Completed",
+  },
+  {
+    id: "08",
+    company: "Accenture (Forage)",
+    role: "Data Analytics and Visualization",
+    type: "Job Simulation",
+    period: "Jan 2025",
+    color: "#f472b6",
+    tags: ["Data Visualization", "Content Analysis", "Client Pitch", "Excel"],
+    description:
+      "Simulated consultant engagements focusing on visual data storytelling and project management. Analyzed social content trends, created visual presentation frameworks, and structured high-impact insights to support complex business decisions.",
     highlight: "Completed",
   },
 ];
@@ -109,33 +145,36 @@ export default function Experience() {
                     className="absolute left-[20px] top-8 w-2 h-2 rounded-full bg-[#444] hidden md:block transition-all duration-300 group-hover:bg-[#888]"
                   />
 
-                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] group-hover:bg-white/[0.03] transition-all duration-300">
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                  <div className="p-6 glass-card group-hover:border-white/10 transition-all duration-300 relative overflow-hidden">
+                    {/* Hover Glow */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4 relative z-10">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-xs font-mono font-medium tracking-wider text-[#aaa]">
+                          <span className="text-xs font-mono font-medium tracking-wider text-zinc-300">
                             {exp.company}
                           </span>
-                          <span className="text-[#333] text-xs">·</span>
-                          <span className="text-xs text-[#666] font-mono">{exp.type}</span>
+                          <span className="text-zinc-600 text-xs">·</span>
+                          <span className="text-xs text-zinc-500 font-mono">{exp.type}</span>
                         </div>
-                        <h3 className="text-base font-bold text-white leading-tight">
+                        <h3 className="text-lg font-bold text-white leading-tight">
                           {exp.role}
                         </h3>
                       </div>
                       <div className="flex flex-col items-start sm:items-end gap-1 flex-shrink-0">
-                        <time className="text-xs font-mono text-[#555]">{exp.period}</time>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md border border-white/[0.05] bg-white/[0.02] text-[#888]">
+                        <time className="text-xs font-mono text-zinc-400">{exp.period}</time>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md border border-white/[0.05] bg-white/[0.02] text-zinc-500">
                           {exp.highlight}
                         </span>
                       </div>
                     </div>
 
-                    <p className="text-[13px] text-[#888] leading-[1.8] mb-4">{exp.description}</p>
+                    <p className="text-[14px] text-zinc-400 leading-[1.8] mb-4 relative z-10">{exp.description}</p>
 
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 relative z-10">
                       {exp.tags.map((tag) => (
-                        <span key={tag} className="px-2 py-1 text-[10px] font-medium text-[#888] bg-white/[0.02] border border-white/[0.04] rounded-md cursor-default">
+                        <span key={tag} className="px-2.5 py-1 text-[11px] font-medium text-zinc-400 bg-white/[0.02] border border-white/[0.04] rounded-md cursor-default">
                           {tag}
                         </span>
                       ))}
