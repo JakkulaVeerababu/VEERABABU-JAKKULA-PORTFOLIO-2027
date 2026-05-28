@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 
 const certifications = [
@@ -79,17 +80,16 @@ export default function Certifications() {
                 </div>
                 <h3 className="cert-title mt-2">{cert.name}</h3>
               </div>
-              <div className="flex items-center justify-between mt-3 pt-2 border-t border-gray-100/50">
+              <div className="flex flex-col mt-3 pt-2 border-t border-gray-100/50 gap-3">
                 <span className="cert-desc m-0">Verified Coursework</span>
                 {cert.doc && (
-                  <a
-                    href={cert.doc}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-[10px] font-bold text-cyan-600 hover:text-cyan-700 font-mono cursor-pointer"
-                  >
-                    View PDF
-                  </a>
+                  <div className="w-full h-[250px] rounded-lg overflow-hidden border border-gray-200/50 bg-[#fafafa]">
+                    <iframe 
+                      src={cert.doc} 
+                      className="w-full h-full border-none" 
+                      title={`${cert.name} PDF`}
+                    />
+                  </div>
                 )}
               </div>
             </motion.div>

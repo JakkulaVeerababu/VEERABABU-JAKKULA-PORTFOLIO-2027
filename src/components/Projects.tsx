@@ -98,15 +98,15 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
               >
                 <div className="proj-meta-content">
                   <div className="proj-meta-item">
-                    <strong>Problem:</strong>
+                    # Problem:
                     <p>{project.problem}</p>
                   </div>
                   <div className="proj-meta-item">
-                    <strong>Solution:</strong>
+                    # Solution:
                     <p>{project.solution}</p>
                   </div>
                   <div className="proj-meta-item">
-                    <strong>Key Features:</strong>
+                    # Key Features:
                     <ul className="list-disc pl-4 mt-1 space-y-1">
                       {project.features.map((f, i) => (
                         <li key={i}>{f}</li>
@@ -114,7 +114,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
                     </ul>
                   </div>
                   <div className="proj-meta-item">
-                    <strong>Architecture / Workflow:</strong>
+                    # Architecture / Workflow:
                     <p>{project.workflow}</p>
                   </div>
                 </div>
@@ -140,17 +140,17 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           >
             <FiExternalLink /> Live Demo
           </a>
-          {project.doc && (
-            <a
-              href={project.doc}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="proj-btn-secondary border-cyan-200/60 hover:border-cyan-400 hover:text-cyan-600 bg-cyan-50/5"
-            >
-              <FiFileText /> View PDF
-            </a>
-          )}
         </div>
+
+        {project.doc && (
+          <div className="mt-4 w-full h-[350px] sm:h-[450px] rounded-lg overflow-hidden border border-gray-200/50 bg-[#fafafa]">
+            <iframe 
+              src={project.doc} 
+              className="w-full h-full border-none" 
+              title={`${project.title} PDF`}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

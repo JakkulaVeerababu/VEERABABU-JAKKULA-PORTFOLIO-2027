@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FiFileText } from "react-icons/fi";
 
 const experiences = [
@@ -106,15 +107,12 @@ export default function Experience() {
                   {exp.desc}
                 </p>
                 {exp.doc && (
-                  <div className="mt-3 flex">
-                    <a
-                      href={exp.doc}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-600 hover:text-cyan-700 font-mono border border-cyan-400/30 hover:border-cyan-500/50 rounded px-2.5 py-1 bg-cyan-500/5 hover:bg-cyan-500/10 transition-all cursor-pointer"
-                    >
-                      <FiFileText className="text-[12px]" /> {exp.docLabel}
-                    </a>
+                  <div className="mt-4 w-full h-[350px] sm:h-[450px] rounded-lg overflow-hidden border border-gray-200/50 bg-[#fafafa]">
+                    <iframe 
+                      src={exp.doc} 
+                      className="w-full h-full border-none" 
+                      title={`${exp.company} Certificate`}
+                    />
                   </div>
                 )}
               </div>

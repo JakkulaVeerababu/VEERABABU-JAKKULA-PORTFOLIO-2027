@@ -159,15 +159,12 @@ export default function Hackathons() {
                 )}
 
                 {ach.doc && (
-                  <div className="flex">
-                    <a
-                      href={ach.doc}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-600 hover:text-cyan-700 font-mono border border-cyan-400/30 hover:border-cyan-500/50 rounded px-2.5 py-1 bg-cyan-50/5 hover:bg-cyan-500/10 transition-all cursor-pointer w-fit"
-                    >
-                      <FiFileText className="text-[12px]" /> {ach.docLabel}
-                    </a>
+                  <div className="w-full h-[350px] sm:h-[450px] rounded-lg overflow-hidden border border-gray-200/50 bg-[#fafafa]">
+                    <iframe 
+                      src={ach.doc} 
+                      className="w-full h-full border-none" 
+                      title={`${ach.title} PDF`}
+                    />
                   </div>
                 )}
               </div>
