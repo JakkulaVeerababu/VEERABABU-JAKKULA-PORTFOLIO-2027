@@ -1,43 +1,46 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
-import { FiAward, FiStar } from "react-icons/fi";
+import { useState } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { FiAward, FiStar, FiMaximize2 } from "react-icons/fi";
 
 const achievements = [
   {
-    badge: "🏆 National Round",
+    badge: "National Round",
     title: "Google Big Code Challenge 2026",
     desc: "Cleared the Qualifier Round and Round 1, competing at a national scale in structural coding and algorithmic puzzles.",
     icon: <FiAward />,
     featured: true,
+    images: ["/google-big-code-banner.png", "/google-big-code-email.png"],
   },
   {
-    badge: "⚡ AWS Cloud",
+    badge: "AWS Cloud",
     title: "AWS AI for Bharat Hackathon",
     desc: "Participated and built local-language LLM orchestration agents utilizing AWS Bedrock, Lambda functions, and DynamoDB.",
     icon: <FiStar />,
     featured: false,
   },
   {
-    badge: "🦊 GitLab DevSecOps",
+    badge: "GitLab DevSecOps",
     title: "GitLab AI Hackathon",
     desc: "Participated in designing developer productivity tools using GitLab Duo APIs and automated CI/CD pipeline triggers.",
     icon: <FiStar />,
     featured: false,
   },
   {
-    badge: "♊ Google AI",
+    badge: "Google AI",
     title: "Gemini 3 Hackathon",
     desc: "Built prototype applications using multi-modal Gemini Flash and Pro APIs, demonstrating real-time structured data parsing.",
     icon: <FiStar />,
     featured: false,
   },
   {
-    badge: "🏎️ AMD Hardware",
+    badge: "AMD Hardware",
     title: "AMD AI Hackathon",
     desc: "Developed local model acceleration pipelines leveraging AMD hardware, optimizing inference latency for image generation.",
     icon: <FiStar />,
     featured: false,
+    images: ["/amd-slingshot.png"],
   },
 ];
 
@@ -55,8 +58,9 @@ const cardVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
-
 export default function Hackathons() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <section id="achievements">
       <div className="container">
@@ -77,18 +81,80 @@ export default function Hackathons() {
             <motion.div
               key={i}
               variants={cardVariants}
-              className={`glass-card ach-card ${ach.featured ? "border-cyan-400/30 shadow-cyan-400/5" : ""}`}
+              className={`glass-card ach-card flex flex-col justify-between ${
+                ach.featured ? "border-cyan-400/30 shadow-cyan-400/5 md:col-span-2" : ""
+              }`}
             >
-              <div className="flex items-center justify-between mb-3">
-                <span className="ach-badge">{ach.badge}</span>
-                <span className="text-cyan-500 text-lg">{ach.icon}</span>
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="ach-badge">{ach.badge}</span>
+                  <span className="text-cyan-500 text-lg">{ach.icon}</span>
+                </div>
+                <h3 className="ach-title">{ach.title}</h3>
+                <p className="ach-desc">{ach.desc}</p>
               </div>
-              <h3 className="ach-title">{ach.title}</h3>
-              <p className="ach-desc">{ach.desc}</p>
+
+              {ach.images && (
+                <div className={`mt-4 grid gap-3 ${
+                  ach.images.length > 1 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
+                }`}>
+                  {ach.images.map((img, idx) => (
+                    <div 
+                      key={idx} 
+                      onClick={() => setSelectedImage(img)}
+                      className={`relative overflow-hidden rounded-lg border border-gray-200/50 bg-[#fafafa] group/img cursor-zoom-in ${
+                        ach.images.length === 1 ? "h-[200px]" : "h-[140px] sm:h-[160px]"
+                      }`}
+                    >
+                      <img 
+                        src={img} 
+                        alt={`${ach.title} asset ${idx + 1}`}
+                        className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover/img:scale-102"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/5 transition-all flex items-center justify-center">
+                        <FiMaximize2 className="text-white opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/40 p-1.5 rounded-full w-8 h-8" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </motion.div>
           ))}
         </motion.div>
       </div>
+
+      {/* Image Modal Lightbox */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[10000] bg-[#121314]/75 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div 
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-xl bg-white p-1.5 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={selectedImage} 
+                alt="Enlarged view" 
+                className="max-w-full max-h-[85vh] object-contain rounded-lg" 
+              />
+              <button 
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-2 hover:bg-black/75 transition-all border-none cursor-pointer text-xs"
+              >
+                ✕ Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
