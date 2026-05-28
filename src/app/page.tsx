@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
@@ -9,10 +12,32 @@ import CurrentlyExploring from "@/components/CurrentlyExploring";
 import Contact from "@/components/Contact";
 
 export default function Home() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.05,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    const revealElements = document.querySelectorAll(".reveal");
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   return (
     <main className="relative w-full overflow-hidden">
-      {/* Global grid background */}
-      <div className="fixed inset-0 bg-grid pointer-events-none z-0" aria-hidden />
       <Hero />
       <About />
       <Skills />
@@ -25,3 +50,4 @@ export default function Home() {
     </main>
   );
 }
+

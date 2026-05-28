@@ -1,173 +1,127 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FiGithub, FiLinkedin } from "react-icons/fi";
-import { ChevronRight } from "lucide-react";
-
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.8 } },
-};
 
 export default function Hero() {
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const y = useTransform(scrollY, [0, 400], [0, -40]);
+  const words = [
+    "Full Stack Developer",
+    "AI / ML Engineer",
+    "Embedded Systems Developer",
+    "IoT Engineer",
+    "Open Source Builder"
+  ];
+  
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const activeWord = words[wordIndex];
+    let timer: NodeJS.Timeout;
+
+    if (!isDeleting && charIndex <= activeWord.length) {
+      timer = setTimeout(() => {
+        setText(activeWord.slice(0, charIndex));
+        setCharIndex((prev) => prev + 1);
+      }, 100);
+    } else if (isDeleting && charIndex >= 0) {
+      timer = setTimeout(() => {
+        setText(activeWord.slice(0, charIndex));
+        setCharIndex((prev) => prev - 1);
+      }, 60);
+    }
+
+    if (charIndex === activeWord.length + 1 && !isDeleting) {
+      timer = setTimeout(() => {
+        setIsDeleting(true);
+      }, 1500);
+    } else if (charIndex === -1 && isDeleting) {
+      setIsDeleting(false);
+      setWordIndex((prev) => (prev + 1) % words.length);
+      setCharIndex(0);
+    }
+
+    return () => clearTimeout(timer);
+  }, [charIndex, isDeleting, wordIndex]);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-32 pb-16">
-      {/* Subtle ambient light behind hero, neutral color */}
-      <div className="absolute right-[15%] top-[10%] w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_60%)] blur-[60px] pointer-events-none z-[-1]" />
-
-      <motion.div
-        style={{ opacity, y }}
-        className="relative z-10 container mx-auto px-6 max-w-6xl flex flex-col lg:flex-row items-center gap-20"
-      >
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="flex-1 max-w-2xl"
-        >
-          {/* Status badge */}
-          <motion.div variants={item} className="mb-8">
-            <span className="inline-flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-zinc-400 border border-white/10 rounded-full px-3 py-1 bg-white/[0.02] shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 animate-pulse" />
-              Available for roles
-            </span>
-          </motion.div>
-
-          {/* Name & Headline */}
-          <motion.h1
-            variants={item}
-            className="text-[3rem] md:text-[4.5rem] font-medium tracking-tight text-white leading-[1.05] mb-6"
+    <section id="hero">
+      <div className="hero-bg"></div>
+      <div className="dot-grid"></div>
+      <div className="hero-content">
+        <div className="hero-badge">
+          <span></span> Open to Internships & Opportunities
+        </div>
+        <h1 className="hero-name">
+          VEERABABU<br />
+          <span>JAKKULA</span>
+        </h1>
+        <div className="hero-typed">
+          <span>{text}</span>
+          <span className="cursor">|</span>
+        </div>
+        <p className="hero-sub">
+          3rd Year ECE @ <strong>Narasaraopeta Engineering College</strong> &nbsp;·&nbsp; CGPA <strong>8.71</strong>
+          <br />
+          Building enterprise-grade systems & AI-powered products
+        </p>
+        <div className="hero-btns">
+          <Link href="#projects" className="btn-primary">
+            View Projects
+          </Link>
+          <Link href="#contact" className="btn-outline">
+            Download Resume
+          </Link>
+        </div>
+        <div className="hero-socials">
+          <a
+            href="https://github.com/JakkulaVeerababu"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            title="GitHub"
           >
-            Engineering scalable <br />
-            software <span className="text-zinc-500">&</span> systems.
-          </motion.h1>
-
-          <motion.div variants={item} className="text-xl md:text-2xl text-zinc-300 font-medium tracking-tight mb-6">
-            VEERABABU JAKKULA
-          </motion.div>
-
-          {/* Intro */}
-          <motion.p
-            variants={item}
-            className="text-base text-zinc-400 max-w-lg leading-relaxed mb-10"
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12" />
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/veerababu-jakkula-01309825b/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            title="LinkedIn"
           >
-            I design and build production-ready applications with a focus on architecture, performance, and low-level system optimization.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            variants={item}
-            className="flex flex-wrap items-center gap-4 mb-16"
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+          </a>
+          <a
+            href="mailto:jakkulaveerababu429@gmail.com"
+            className="social-link"
+            title="Email"
           >
-            <Link
-              href="#contact"
-              className="h-11 px-6 rounded-full bg-white text-black text-[13px] font-semibold flex items-center justify-center gap-2 transition-all hover:bg-zinc-200"
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              Start a project
-              <ChevronRight className="w-4 h-4 text-zinc-500" />
-            </Link>
-            <Link
-              href="https://github.com/JakkulaVeerababu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-11 px-5 rounded-full border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] text-[13px] font-medium text-zinc-300 hover:text-white transition-all flex items-center justify-center gap-2"
-            >
-              <FiGithub className="w-4 h-4" />
-              GitHub
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/veerababu/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-11 px-5 rounded-full border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] text-[13px] font-medium text-zinc-300 hover:text-white transition-all flex items-center justify-center gap-2"
-            >
-              <FiLinkedin className="w-4 h-4" />
-              LinkedIn
-            </Link>
-          </motion.div>
-
-          {/* Quick stats */}
-          <motion.div
-            variants={item}
-            className="flex flex-wrap gap-8 border-t border-white/5 pt-8"
-          >
-            {[
-              { label: "Tech Reach", value: "100K+" },
-              { label: "Internships", value: "8+" },
-              { label: "Certifications", value: "80+" },
-            ].map((stat) => (
-              <div key={stat.label} className="flex flex-col gap-1">
-                <div className="text-xl font-semibold text-white tracking-tight">
-                  {stat.value}
-                </div>
-                <div className="text-[11px] text-zinc-500 font-medium uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Right side visual element - SaaS Metrics / Architecture Panel */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="hidden lg:block flex-1 w-full max-w-md"
-        >
-          <div className="glass-card p-6 flex flex-col gap-6 relative overflow-hidden group">
-            {/* Subtle internal gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-            
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-zinc-600" />
-                <span className="text-xs font-mono text-zinc-400">sys_architecture.json</span>
-              </div>
-              <span className="text-[10px] uppercase tracking-wider text-zinc-500">Live</span>
-            </div>
-
-            <div className="space-y-5">
-              {[
-                { label: "Throughput", val: "12,450 req/s", bar: "w-[85%]" },
-                { label: "Latency (p99)", val: "42ms", bar: "w-[20%]" },
-                { label: "Error Rate", val: "0.01%", bar: "w-[5%]" },
-              ].map((metric, i) => (
-                <div key={i} className="space-y-2">
-                  <div className="flex items-center justify-between text-[13px]">
-                    <span className="text-zinc-400">{metric.label}</span>
-                    <span className="text-white font-mono">{metric.val}</span>
-                  </div>
-                  <div className="h-1 w-full bg-white/[0.05] rounded-full overflow-hidden">
-                    <div className={`h-full bg-zinc-400 rounded-full ${metric.bar}`} />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-4 pt-6 border-t border-white/[0.06] grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] flex flex-col gap-1">
-                <span className="text-[10px] uppercase tracking-wider text-zinc-500">Node Status</span>
-                <span className="text-sm font-medium text-white flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                  Healthy
-                </span>
-              </div>
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] flex flex-col gap-1">
-                <span className="text-[10px] uppercase tracking-wider text-zinc-500">Uptime</span>
-                <span className="text-sm font-medium text-white font-mono">99.99%</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
+            </svg>
+          </a>
+        </div>
+        <div className="scroll-hint">
+          <div className="scroll-line"></div>
+        </div>
+      </div>
     </section>
   );
 }

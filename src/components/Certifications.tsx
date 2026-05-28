@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Search, Trophy, CheckCircle, Cpu, Globe } from "lucide-react";
 
 interface Certificate {
   title: string;
@@ -798,7 +796,6 @@ const allCertifications: Certificate[] = [
     issuer: "Infosys Springboard",
     category: "Databases",
     date: "Dec 10, 2025",
-    link: "https://verify.onwingspan.com/",
   },
   {
     title: "Multidimensional Data Modeling",
@@ -981,197 +978,95 @@ const allCertifications: Certificate[] = [
   },
 ];
 
-const categories = [
-  "All",
-  "Professional",
-  "AI & ML",
-  "Data Analytics",
-  "Software & Web Dev",
-  "Cloud & DevOps",
-  "IoT & Industrial",
-  "Cyber & Blockchain",
-  "Databases",
-  "Job Simulations",
-  "Business & Professional",
-];
+const categories = ["All", "Google", "IBM", "AWS", "Infosys", "NVIDIA", "Others"];
 
-const ITEMS_PER_PAGE = 12;
+const INITIAL_VISIBLE_COUNT = 12;
 
 export default function Certifications() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const [showAll, setShowAll] = useState(false);
 
-  // Compute filtered certificates based on search & category
+  // Group by issuers based on the filters
   const filteredCerts = useMemo(() => {
     return allCertifications.filter((cert) => {
-      const matchesCategory =
-        activeCategory === "All" || cert.category === activeCategory;
-      const matchesSearch =
-        cert.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        cert.issuer.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        cert.category.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
+      if (activeCategory === "All") return true;
+      const issuerLower = cert.issuer.toLowerCase();
+      if (activeCategory === "Google") return issuerLower.includes("google");
+      if (activeCategory === "IBM") return issuerLower.includes("ibm");
+      if (activeCategory === "AWS") return issuerLower.includes("aws");
+      if (activeCategory === "Infosys") return issuerLower.includes("infosys");
+      if (activeCategory === "NVIDIA") return issuerLower.includes("nvidia");
+      if (activeCategory === "Others") {
+        return (
+          !issuerLower.includes("google") &&
+          !issuerLower.includes("ibm") &&
+          !issuerLower.includes("aws") &&
+          !issuerLower.includes("infosys") &&
+          !issuerLower.includes("nvidia")
+        );
+      }
+      return true;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory]);
 
   const displayedCerts = useMemo(() => {
-    return filteredCerts.slice(0, visibleCount);
-  }, [filteredCerts, visibleCount]);
-
-  const loadMore = () => {
-    setVisibleCount((prev) => prev + ITEMS_PER_PAGE);
-  };
+    if (showAll) return filteredCerts;
+    return filteredCerts.slice(0, INITIAL_VISIBLE_COUNT);
+  }, [filteredCerts, showAll]);
 
   return (
-    <section id="certifications" className="relative py-28 w-full">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
-        >
-          <div className="section-divider">
-            <h2>Professional Certifications</h2>
-            <div className="line" />
-          </div>
+    <section id="certifications">
+      <div className="container">
+        <div className="reveal">
+          <div className="section-label">Credentials</div>
+          <h2 className="section-title">Certifications</h2>
+          <div className="divider"></div>
+        </div>
 
-          <p className="text-[#666] text-sm font-mono mb-10 -mt-4">
-            <span className="text-[#aaa] font-semibold">{allCertifications.length}+ verified credentials</span> spanning AI research, cloud architecture, system design, and advanced data analytics.
-          </p>
+        <div className="cert-filters reveal">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => {
+                setActiveCategory(cat);
+                setShowAll(false);
+              }}
+              className={`cert-filter ${activeCategory === cat ? "active" : ""}`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
-          {/* Search and Filters panel */}
-          <div className="space-y-6 mb-12">
-            {/* Search Input */}
-            <div className="relative max-w-md w-full">
-              <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
-                <Search className="w-4 h-4" />
-              </span>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setVisibleCount(ITEMS_PER_PAGE);
-                }}
-                placeholder="Search certifications by name, issuer, or keyword..."
-                className="w-full bg-white/[0.02] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-white/[0.2] focus:bg-white/[0.04] transition-all placeholder:text-[#444]"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => {
-                    setSearchQuery("");
-                    setVisibleCount(ITEMS_PER_PAGE);
-                  }}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-mono text-zinc-500 hover:text-white"
+        <div className="certs-grid reveal" id="certsGrid">
+          {displayedCerts.map((cert, i) => (
+            <div key={i} className="cert-card">
+              <div className="cert-issuer">{cert.issuer}</div>
+              <div className="cert-name">{cert.title}</div>
+              <div className="cert-date">{cert.date}</div>
+              {cert.link && (
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cert-verify"
                 >
-                  Clear
-                </button>
+                  Verify ↗
+                </a>
               )}
             </div>
+          ))}
+        </div>
 
-            {/* Category tabs */}
-            <div className="flex flex-wrap gap-2 pt-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => {
-                    setActiveCategory(cat);
-                    setVisibleCount(ITEMS_PER_PAGE);
-                  }}
-                  className={`px-3 py-1.5 text-[11px] font-mono rounded-lg border transition-all duration-300 ${
-                    activeCategory === cat
-                      ? "border-white bg-white text-black font-semibold"
-                      : "border-white/[0.06] bg-white/[0.01] text-zinc-500 hover:text-white hover:bg-white/[0.03]"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Certificates Grid */}
-          {displayedCerts.length > 0 ? (
-            <motion.div
-              layout
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-            >
-              <AnimatePresence mode="popLayout">
-                {displayedCerts.map((cert) => (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    key={cert.title}
-                    className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] group hover:bg-white/[0.03] hover:border-white/[0.08] transition-all duration-300 flex flex-col justify-between h-[160px]"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider block truncate max-w-[150px]">
-                          {cert.category}
-                        </span>
-                        <div className="flex items-center gap-1 flex-shrink-0">
-                          {cert.issuer === "Google" && <CheckCircle className="w-3 h-3 text-[#4ade80]" />}
-                          {cert.issuer.includes("NVIDIA") && <Cpu className="w-3 h-3 text-[#76b900]" />}
-                          {cert.issuer.includes("AWS") && <Globe className="w-3 h-3 text-[#ff9900]" />}
-                        </div>
-                      </div>
-
-                      <h3 className="text-[12px] font-bold text-white/90 leading-snug group-hover:text-white line-clamp-3 transition-colors">
-                        {cert.title}
-                      </h3>
-                    </div>
-
-                    <div className="pt-3 border-t border-white/[0.02] flex items-end justify-between mt-auto">
-                      <div className="min-w-0">
-                        <p className="text-[10px] text-zinc-500 truncate">{cert.issuer}</p>
-                        <p className="text-[9px] font-mono text-zinc-600 mt-0.5">{cert.date}</p>
-                      </div>
-                      
-                      {cert.link && (
-                        <a
-                          href={cert.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-7 h-7 rounded-lg bg-white/[0.02] hover:bg-white/[0.08] flex items-center justify-center border border-white/[0.05] group-hover:border-white/[0.15] text-[#444] group-hover:text-white/80 transition-all flex-shrink-0"
-                          title="Verify Certificate"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-16 border border-dashed border-white/[0.05] rounded-2xl bg-white/[0.01]"
-            >
-              <Trophy className="w-8 h-8 text-zinc-600 mx-auto mb-3" />
-              <p className="text-zinc-400 text-sm font-medium">No certificates found matching your selection.</p>
-              <p className="text-zinc-600 text-xs mt-1">Try modifying your search queries or selecting another category.</p>
-            </motion.div>
-          )}
-
-          {/* Load More Button */}
-          {filteredCerts.length > visibleCount && (
-            <div className="mt-12 text-center">
-              <button
-                onClick={loadMore}
-                className="px-6 py-2.5 rounded-full border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] text-xs font-mono text-zinc-400 hover:text-white transition-all"
-              >
-                Show More (+{filteredCerts.length - visibleCount} remaining)
-              </button>
-            </div>
-          )}
-        </motion.div>
+        {filteredCerts.length > INITIAL_VISIBLE_COUNT && (
+          <button
+            className="show-more-btn"
+            id="showMoreBtn"
+            onClick={() => setShowAll((prev) => !prev)}
+          >
+            {showAll ? "Show Less ↑" : "Show More Certifications ↓"}
+          </button>
+        )}
       </div>
     </section>
   );

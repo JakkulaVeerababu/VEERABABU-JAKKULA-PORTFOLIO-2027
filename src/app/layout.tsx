@@ -1,29 +1,30 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import ScrollProgress from "@/components/ScrollProgress";
 
-const inter = Inter({
-  variable: "--font-inter",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Veerababu J — ECE Engineer & Systems Developer",
+  title: "Veerababu Jakkula | Portfolio",
   description:
-    "Portfolio of Veerababu J, an Electronics & Communication Engineering student at NEC exploring AI chip design, full-stack systems, embedded systems, and intelligent automation.",
+    "Portfolio of Veerababu Jakkula, Electronics & Communication Engineering student exploring AI hardware, embedded systems, and scalable full-stack applications.",
   keywords: [
-    "Veerababu", "ECE", "NEC", "Narasaraopeta Engineering College",
-    "Full Stack Developer", "Embedded Systems", "VLSI", "AI", "Portfolio"
+    "Veerababu Jakkula", "ECE", "Systems Engineer", "VLSI", "Embedded Systems", "Full Stack Developer"
   ],
-  authors: [{ name: "Veerababu J" }],
-  openGraph: {
-    title: "Veerababu J — ECE Engineer & Systems Developer",
-    description: "ECE student exploring intelligent systems, scalable software, and semiconductor technologies.",
-    type: "website",
-  },
+  authors: [{ name: "Veerababu Jakkula" }],
 };
 
 export default function RootLayout({
@@ -32,13 +33,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} antialiased bg-[var(--bg)] text-[var(--fg)] bg-noise`}
+        className={`${plusJakartaSans.variable} ${jetBrainsMono.variable} antialiased`}
       >
-        <div className="fixed top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.15)_0%,rgba(0,245,255,0.05)_50%,transparent_70%)] blur-[100px] rounded-full pointer-events-none z-[-1]" />
-        <ScrollProgress />
         <Navbar />
         {children}
       </body>
     </html>
   );
 }
+

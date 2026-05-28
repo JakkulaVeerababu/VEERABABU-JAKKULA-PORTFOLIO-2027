@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 const explorations = [
   {
     title: "VLSI & ASIC Design Flows",
@@ -30,108 +28,72 @@ const explorations = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 10 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.5, delay: i * 0.05 },
-  }),
-};
+const notes = [
+  {
+    tag: "Hardware Abstraction",
+    note: "The abstraction layers in modern CPUs are incredible — you write Python, LLVM compiles it, the hardware scheduler reorders micro-ops, and branch predictors speculate across it all. And it's still fast. That's decades of engineering.",
+  },
+  {
+    tag: "Distributed Systems",
+    note: "Every large-scale system I've studied has the same core problem: consistency vs. availability under partition. CAP theorem isn't just academic — every design decision in distributed systems flows from it.",
+  },
+  {
+    tag: "Systems Learning",
+    note: "Best way I've found to actually understand something: implement a broken version of it. The wrong answers teach more than reading the right ones.",
+  },
+  {
+    tag: "Career Trajectory",
+    note: "Preparing for roles at companies like NVIDIA or Apple means understanding both the software stack and silicon. That's the intersection I want to work in.",
+  },
+];
 
 export default function CurrentlyExploring() {
   return (
-    <section id="exploring" className="relative py-24 w-full">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-xl font-medium text-white tracking-tight">Active Research</h2>
-            <div className="h-[1px] flex-1 bg-white/[0.06]" />
-          </div>
+    <section id="exploring">
+      <div className="container">
+        <div className="reveal">
+          <div className="section-label">Research &amp; Notes</div>
+          <h2 className="section-title">Active Explorations</h2>
+          <div className="divider"></div>
+          <p className="section-sub">
+            Fields of study, technical deep-dives, and notes on systems engineering.
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {explorations.map((item, i) => (
-              <motion.div
-                key={item.title}
-                custom={i}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-30px" }}
-                className="glass-card p-5 group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-md border border-white/[0.05] bg-white/[0.02] text-zinc-400 uppercase tracking-wider">
-                      {item.status}
-                    </span>
-                  </div>
-                  <h3 className="text-[14px] font-medium text-white mb-2">{item.title}</h3>
-                  <p className="text-[13px] text-zinc-500 leading-relaxed">{item.detail}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <div className="skills-grid reveal" style={{ marginBottom: "3rem" }}>
+          {explorations.map((item) => (
+            <div key={item.title} className="skill-group" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span className="skill-pill" style={{ fontSize: "0.7rem", textTransform: "uppercase" }}>
+                  {item.status}
+                </span>
+              </div>
+              <h3 className="skill-group-title" style={{ fontSize: "0.95rem", color: "var(--text)", textTransform: "none", margin: "0.25rem 0" }}>
+                {item.title}
+              </h3>
+              <p style={{ fontSize: "0.8rem", color: "var(--text2)", lineHeight: "1.5" }}>
+                {item.detail}
+              </p>
+            </div>
+          ))}
+        </div>
 
-        {/* Engineering Notes */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ ease: [0.16, 1, 0.3, 1] as [number, number, number, number], duration: 0.6 }}
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-xl font-medium text-white tracking-tight">Engineering Notes</h2>
-            <div className="h-[1px] flex-1 bg-white/[0.06]" />
-          </div>
+        <div className="reveal" style={{ marginTop: "4rem" }}>
+          <h3 className="section-title" style={{ fontSize: "1.5rem", marginBottom: "1.5rem" }}>Engineering Notes</h3>
+        </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              {
-                tag: "Hardware Abstraction",
-                note: "The abstraction layers in modern CPUs are incredible — you write Python, LLVM compiles it, the hardware scheduler reorders micro-ops, and branch predictors speculate across it all. And it's still fast. That's decades of engineering.",
-              },
-              {
-                tag: "Distributed Systems",
-                note: "Every large-scale system I've studied has the same core problem: consistency vs. availability under partition. CAP theorem isn't just academic — every design decision in distributed systems flows from it.",
-              },
-              {
-                tag: "Systems Learning",
-                note: "Best way I've found to actually understand something: implement a broken version of it. The wrong answers teach more than reading the right ones.",
-              },
-              {
-                tag: "Career Trajectory",
-                note: "Preparing for roles at companies like NVIDIA or Apple means understanding both the software stack and what's happening on silicon. That's the intersection I want to work in.",
-              },
-            ].map((note, i) => (
-              <motion.div
-                key={i}
-                custom={i}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-30px" }}
-                className="glass-card p-6 flex flex-col gap-3"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
-                  <p className="text-[12px] font-medium text-zinc-400">
-                    {note.tag}
-                  </p>
-                </div>
-                <p className="text-[14px] text-zinc-500 leading-relaxed">{note.note}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <div className="projects-grid reveal">
+          {notes.map((note, i) => (
+            <div key={i} className="project-card">
+              <div className="proj-tag">{note.tag}</div>
+              <p className="proj-desc" style={{ marginBottom: 0 }}>
+                {note.note}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+
