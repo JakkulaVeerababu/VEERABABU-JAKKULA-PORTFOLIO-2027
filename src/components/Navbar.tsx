@@ -9,10 +9,9 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["about", "internships", "projects", "hackathons", "certifications", "skills", "contact"];
+      const sections = ["about", "skills", "projects", "experience", "achievements", "certifications", "github", "contact"];
       let current = "";
       
-      // Check if we are at the top of the page
       if (window.scrollY < 100) {
         setActiveSection("");
         return;
@@ -21,7 +20,7 @@ export default function Navbar() {
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
-          const top = el.offsetTop - 100;
+          const top = el.offsetTop - 110;
           if (window.scrollY >= top) {
             current = section;
           }
@@ -31,7 +30,6 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Trigger once on mount
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -41,7 +39,7 @@ export default function Navbar() {
     <nav>
       <div className="nav-inner">
         <Link href="#hero" className="nav-logo">
-          VJ
+          VJ<span>.</span>
         </Link>
         
         <ul className={`nav-links ${menuOpen ? "open" : ""}`} id="navLinks">
@@ -56,11 +54,11 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="#internships"
-              className={activeSection === "internships" ? "active" : ""}
+              href="#skills"
+              className={activeSection === "skills" ? "active" : ""}
               onClick={() => setMenuOpen(false)}
             >
-              Experience
+              Skills
             </Link>
           </li>
           <li>
@@ -74,11 +72,20 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="#hackathons"
-              className={activeSection === "hackathons" ? "active" : ""}
+              href="#experience"
+              className={activeSection === "experience" ? "active" : ""}
               onClick={() => setMenuOpen(false)}
             >
-              Hackathons
+              Experience
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="#achievements"
+              className={activeSection === "achievements" ? "active" : ""}
+              onClick={() => setMenuOpen(false)}
+            >
+              Achievements
             </Link>
           </li>
           <li>
@@ -92,11 +99,11 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="#skills"
-              className={activeSection === "skills" ? "active" : ""}
+              href="#github"
+              className={activeSection === "github" ? "active" : ""}
               onClick={() => setMenuOpen(false)}
             >
-              Skills
+              GitHub
             </Link>
           </li>
           <li>
@@ -111,7 +118,7 @@ export default function Navbar() {
         </ul>
 
         <Link href="#contact" className="nav-cta">
-          Hire Me
+          Contact Me
         </Link>
         
         <button
@@ -126,3 +133,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

@@ -1,77 +1,95 @@
 "use client";
 
-const topAchievements = [
+import { motion, Variants } from "framer-motion";
+import { FiAward, FiStar } from "react-icons/fi";
+
+const achievements = [
   {
-    badge: "🏆 TOP ACHIEVEMENT",
-    name: "Google Big Code Challenge 2026",
-    detail: "Cleared Qualifier Round & Round 1 — competing at national scale",
+    badge: "🏆 National Round",
+    title: "Google Big Code Challenge 2026",
+    desc: "Cleared the Qualifier Round and Round 1, competing at a national scale in structural coding and algorithmic puzzles.",
+    icon: <FiAward />,
+    featured: true,
   },
   {
-    badge: "⭐ INNOVATOR",
-    name: "AMD Slingshot: Human Imagination",
-    detail: "Human Imagination Built with AI — AMD innovation challenge",
+    badge: "⚡ AWS Cloud",
+    title: "AWS AI for Bharat Hackathon",
+    desc: "Participated and built local-language LLM orchestration agents utilizing AWS Bedrock, Lambda functions, and DynamoDB.",
+    icon: <FiStar />,
+    featured: false,
   },
   {
-    badge: "🌐 GLOBAL",
-    name: "Claude Code — Global Virtual Hackathon",
-    detail: "Built with Claude Opus 4.7 — Anthropic&apos;s global hackathon",
+    badge: "🦊 GitLab DevSecOps",
+    title: "GitLab AI Hackathon",
+    desc: "Participated in designing developer productivity tools using GitLab Duo APIs and automated CI/CD pipeline triggers.",
+    icon: <FiStar />,
+    featured: false,
+  },
+  {
+    badge: "♊ Google AI",
+    title: "Gemini 3 Hackathon",
+    desc: "Built prototype applications using multi-modal Gemini Flash and Pro APIs, demonstrating real-time structured data parsing.",
+    icon: <FiStar />,
+    featured: false,
+  },
+  {
+    badge: "🏎️ AMD Hardware",
+    title: "AMD AI Hackathon",
+    desc: "Developed local model acceleration pipelines leveraging AMD hardware, optimizing inference latency for image generation.",
+    icon: <FiStar />,
+    featured: false,
   },
 ];
 
-const otherPills = [
-  "BUILDATHON 2025 — Flutter & DreamFlow",
-  "AI for Bharat — AWS & Hack2Skill",
-  "GenAI Exchange Hackathon",
-  "HackHazards 2026 — Namespace",
-  "World's Largest Hackathon — Bolt",
-  "Solution Challenge 2026 — Google",
-  "Gemini 3 Hackathon",
-  "GitLab AI Hackathon",
-  "AWS Lambda Hackathon",
-  "IBM Dev Day AI Demystified",
-  "Meta Horizon Creator Competition",
-  "Prompt Wars — Google for Developers",
-  "AI Agent Olympics",
-  "Economic Times AI Hackathon",
-  "AMD Developer Hackathon",
-  "Build with Medo Hackathon",
-  "DeepSeek vs LLaMA — Kill the Cloud",
-  "AI-Driven Learning Ideathon",
-  "Flutter Butler with Serverpod",
-  "India's Biggest AI Hackathon — Meta & Scalar",
-];
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+};
+
 
 export default function Hackathons() {
   return (
-    <section id="hackathons">
+    <section id="achievements">
       <div className="container">
         <div className="reveal">
           <div className="section-label">Competitions</div>
-          <h2 className="section-title">Hackathons &amp; Challenges</h2>
+          <h2 className="section-title">Achievements &amp; Hackathons</h2>
           <div className="divider"></div>
-          <p className="section-sub">
-            20+ hackathons across global platforms — from Google to AMD, AWS to Anthropic.
-          </p>
-        </div>
-        
-        <div className="hack-highlight reveal">
-          {topAchievements.map((ach, i) => (
-            <div key={i} className="hack-feature">
-              <div className="hack-star">{ach.badge}</div>
-              <div className="hack-name">{ach.name}</div>
-              <div className="hack-detail">{ach.detail}</div>
-            </div>
-          ))}
         </div>
 
-        <div className="hack-pills reveal">
-          {otherPills.map((pill, i) => (
-            <span key={i} className="hack-pill">
-              {pill}
-            </span>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="ach-grid reveal"
+        >
+          {achievements.map((ach, i) => (
+            <motion.div
+              key={i}
+              variants={cardVariants}
+              className={`glass-card ach-card ${ach.featured ? "border-cyan-400/30 shadow-cyan-400/5" : ""}`}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="ach-badge">{ach.badge}</span>
+                <span className="text-cyan-500 text-lg">{ach.icon}</span>
+              </div>
+              <h3 className="ach-title">{ach.title}</h3>
+              <p className="ach-desc">{ach.desc}</p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+

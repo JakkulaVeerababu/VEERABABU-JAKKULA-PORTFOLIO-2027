@@ -8,7 +8,7 @@ import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
 import Hackathons from "@/components/Hackathons";
 import Certifications from "@/components/Certifications";
-import CurrentlyExploring from "@/components/CurrentlyExploring";
+import GithubSection from "@/components/GithubSection";
 import Contact from "@/components/Contact";
 
 export default function Home() {
@@ -45,9 +45,10 @@ export default function Home() {
       <Experience />
       <Hackathons />
       <Certifications />
-      <CurrentlyExploring />
+      <GithubSection />
       <Contact />
     </main>
   );
 }
+
 
