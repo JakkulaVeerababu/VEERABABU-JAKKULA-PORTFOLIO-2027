@@ -18,11 +18,14 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const sections = NAV_LINKS.map((l) => l.href.slice(1));
 
     const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+
       if (window.scrollY < 80) {
         setActiveSection("");
         return;
@@ -30,7 +33,7 @@ export default function Navbar() {
       let current = "";
       for (const id of sections) {
         const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 110) {
+        if (el && window.scrollY >= el.offsetTop - 100) {
           current = id;
         }
       }
@@ -43,10 +46,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav>
+    <nav className={scrolled ? "scrolled" : ""}>
       <div className="nav-inner">
         {/* Logo */}
-        <Link href="#hero" className="nav-logo">
+        <Link href="#hero" className="nav-logo" onClick={() => setMenuOpen(false)}>
           VJ<span>.</span>
         </Link>
 
@@ -66,7 +69,7 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop CTA */}
-        <Link href="#contact" className="nav-cta">
+        <Link href="#contact" className="nav-cta" onClick={() => setMenuOpen(false)}>
           Hire Me
         </Link>
 

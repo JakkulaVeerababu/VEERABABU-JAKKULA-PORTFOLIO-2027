@@ -74,122 +74,119 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 
   return (
     <div className="project-item reveal">
-      {/* Visual Panel */}
-      <div className="project-visual">
-        <span className="project-number">{project.number}</span>
-        <div className="project-visual-title">{project.title}</div>
+      {/* Header row: number + tags */}
+      <div>
+        <div className="project-number">{project.number}</div>
+        <div className="project-tags" style={{ marginTop: "0.5rem" }}>
+          {project.badges.map((b) => (
+            <span key={b} className="project-tag">
+              {b}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* Content Panel */}
-      <div className="project-body">
-        <div>
-          <div className="project-tags">
-            {project.badges.map((b) => (
-              <span key={b} className="project-tag">
-                {b}
-              </span>
-            ))}
-          </div>
+      {/* Title + description */}
+      <div>
+        <h3 className="project-title">{project.title}</h3>
+        <p className="project-desc">{project.desc}</p>
 
-          <h3 className="project-title">{project.title}</h3>
-          <p className="project-desc">{project.desc}</p>
+        {/* Expand toggle */}
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="project-expand-btn"
+        >
+          {expanded ? (
+            <>
+              <FiChevronUp size={13} /> Hide Breakdown
+            </>
+          ) : (
+            <>
+              <FiChevronDown size={13} /> Technical Breakdown
+            </>
+          )}
+        </button>
 
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="project-expand-btn"
-          >
-            {expanded ? (
-              <>
-                <FiChevronUp size={13} /> Hide Breakdown
-              </>
-            ) : (
-              <>
-                <FiChevronDown size={13} /> Technical Breakdown
-              </>
-            )}
-          </button>
-
-          <AnimatePresence initial={false}>
-            {expanded && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.28, ease: "easeInOut" }}
-                style={{ overflow: "hidden" }}
-              >
-                <div className="project-breakdown">
-                  <div className="breakdown-item">
-                    <div className="breakdown-label">Problem</div>
-                    <div className="breakdown-value">{project.problem}</div>
-                  </div>
-                  <div className="breakdown-item">
-                    <div className="breakdown-label">Solution</div>
-                    <div className="breakdown-value">{project.solution}</div>
-                  </div>
-                  <div className="breakdown-item">
-                    <div className="breakdown-label">Key Features</div>
-                    <div className="breakdown-value">
-                      <ul>
-                        {project.features.map((f, i) => (
-                          <li key={i}>{f}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="breakdown-item">
-                    <div className="breakdown-label">Architecture</div>
-                    <div className="breakdown-value">{project.workflow}</div>
+        <AnimatePresence initial={false}>
+          {expanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              style={{ overflow: "hidden" }}
+            >
+              <div className="project-breakdown" style={{ marginTop: "0.75rem" }}>
+                <div className="breakdown-item">
+                  <div className="breakdown-label">Problem</div>
+                  <div className="breakdown-value">{project.problem}</div>
+                </div>
+                <div className="breakdown-item">
+                  <div className="breakdown-label">Solution</div>
+                  <div className="breakdown-value">{project.solution}</div>
+                </div>
+                <div className="breakdown-item">
+                  <div className="breakdown-label">Key Features</div>
+                  <div className="breakdown-value">
+                    <ul>
+                      {project.features.map((f, i) => (
+                        <li key={i}>{f}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+                <div className="breakdown-item">
+                  <div className="breakdown-label">Architecture</div>
+                  <div className="breakdown-value">{project.workflow}</div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
-        <div>
-          <div className="project-actions">
+      {/* Action buttons */}
+      <div className="project-actions">
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="proj-btn-primary"
+        >
+          <FiGithub /> GitHub
+        </a>
+        <a
+          href={project.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="proj-btn-secondary"
+        >
+          <FiExternalLink /> Live Demo
+        </a>
+      </div>
+
+      {/* PDF preview */}
+      {project.doc && (
+        <div className="pdf-block">
+          <div className="pdf-frame">
+            <iframe
+              src={`${project.doc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+              title={`${project.title} PDF`}
+            />
+          </div>
+          <div className="pdf-footer">
+            <span className="pdf-label">Project Certificate</span>
             <a
-              href={project.github}
+              href={project.doc}
               target="_blank"
               rel="noopener noreferrer"
-              className="proj-btn-primary"
+              className="pdf-open-btn"
             >
-              <FiGithub /> GitHub
-            </a>
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="proj-btn-secondary"
-            >
-              <FiExternalLink /> Live Demo
+              <FiExternalLink size={11} /> Open Full PDF
             </a>
           </div>
-
-          {project.doc && (
-            <div className="pdf-block">
-              <div className="pdf-frame">
-                <iframe
-                  src={`${project.doc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-                  title={`${project.title} PDF`}
-                />
-              </div>
-              <div className="pdf-footer">
-                <span className="pdf-label">Project Certificate</span>
-                <a
-                  href={project.doc}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="pdf-open-btn"
-                >
-                  <FiExternalLink size={12} /> Open Full PDF
-                </a>
-              </div>
-            </div>
-          )}
         </div>
-      </div>
+      )}
     </div>
   );
 }
