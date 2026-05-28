@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import { FiExternalLink } from "react-icons/fi";
 
 const certifications = [
   {
@@ -73,8 +74,24 @@ export default function Certifications() {
               <p className="cert-sub">Verified Coursework</p>
 
               {cert.doc && (
-                <div className="cert-pdf-frame">
-                  <iframe src={cert.doc} title={`${cert.name} certificate`} />
+                <div className="pdf-block">
+                  <div className="pdf-frame">
+                    <iframe
+                      src={`${cert.doc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                      title={`${cert.name} certificate`}
+                    />
+                  </div>
+                  <div className="pdf-footer">
+                    <span className="pdf-label">Official Certificate</span>
+                    <a
+                      href={cert.doc}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pdf-open-btn"
+                    >
+                      <FiExternalLink size={12} /> Open Full PDF
+                    </a>
+                  </div>
                 </div>
               )}
             </motion.div>

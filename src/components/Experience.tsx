@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import { FiExternalLink } from "react-icons/fi";
 
 const experiences = [
   {
@@ -88,8 +89,24 @@ export default function Experience() {
                 <p className="exp-desc">{exp.desc}</p>
 
                 {exp.doc && (
-                  <div className="exp-pdf-frame">
-                    <iframe src={exp.doc} title={`${exp.company} certificate`} />
+                  <div className="pdf-block">
+                    <div className="pdf-frame">
+                      <iframe
+                        src={`${exp.doc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                        title={`${exp.company} certificate`}
+                      />
+                    </div>
+                    <div className="pdf-footer">
+                      <span className="pdf-label">Certificate PDF</span>
+                      <a
+                        href={exp.doc}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="pdf-open-btn"
+                      >
+                        <FiExternalLink size={12} /> Open Full PDF
+                      </a>
+                    </div>
                   </div>
                 )}
               </div>

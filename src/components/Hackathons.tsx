@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { FiAward, FiStar, FiMaximize2, FiX } from "react-icons/fi";
+import { FiAward, FiStar, FiMaximize2, FiX, FiExternalLink } from "react-icons/fi";
 
 const achievements = [
   {
@@ -137,8 +137,24 @@ export default function Hackathons() {
 
               {/* PDF */}
               {ach.doc && (
-                <div className="ach-pdf-frame">
-                  <iframe src={ach.doc} title={`${ach.title} PDF`} />
+                <div className="pdf-block">
+                  <div className="pdf-frame">
+                    <iframe
+                      src={`${ach.doc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                      title={`${ach.title} PDF`}
+                    />
+                  </div>
+                  <div className="pdf-footer">
+                    <span className="pdf-label">Certificate / Submission PDF</span>
+                    <a
+                      href={ach.doc}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pdf-open-btn"
+                    >
+                      <FiExternalLink size={12} /> Open Full PDF
+                    </a>
+                  </div>
                 </div>
               )}
             </motion.div>

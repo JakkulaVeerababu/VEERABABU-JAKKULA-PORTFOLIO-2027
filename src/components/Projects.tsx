@@ -168,8 +168,24 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
           </div>
 
           {project.doc && (
-            <div className="proj-pdf-frame">
-              <iframe src={project.doc} title={`${project.title} PDF`} />
+            <div className="pdf-block">
+              <div className="pdf-frame">
+                <iframe
+                  src={`${project.doc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                  title={`${project.title} PDF`}
+                />
+              </div>
+              <div className="pdf-footer">
+                <span className="pdf-label">Project Certificate</span>
+                <a
+                  href={project.doc}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pdf-open-btn"
+                >
+                  <FiExternalLink size={12} /> Open Full PDF
+                </a>
+              </div>
             </div>
           )}
         </div>
