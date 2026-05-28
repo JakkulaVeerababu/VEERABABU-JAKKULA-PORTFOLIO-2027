@@ -3,103 +3,104 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FiGithub, FiLinkedin, FiMail, FiCode } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiMail, FiCode, FiArrowRight } from "react-icons/fi";
+
+const TYPED_WORDS = [
+  "Full Stack Developer",
+  "Backend Engineer",
+  "AI Systems Builder",
+  "Cloud-Native Engineer",
+];
 
 export default function Hero() {
-  const words = [
-    "Full Stack Developer",
-    "Backend Engineer",
-    "AI-Powered Web Applications"
-  ];
-  
-  const [text, setText] = useState("");
-  const [wordIndex, setWordIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [displayText, setDisplayText] = useState("");
+  const [wordIdx, setWordIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const activeWord = words[wordIndex];
+    const word = TYPED_WORDS[wordIdx];
     let timer: NodeJS.Timeout;
 
-    if (!isDeleting && charIndex <= activeWord.length) {
+    if (!deleting && charIdx <= word.length) {
       timer = setTimeout(() => {
-        setText(activeWord.slice(0, charIndex));
-        setCharIndex((prev) => prev + 1);
-      }, 80);
-    } else if (isDeleting && charIndex >= 0) {
+        setDisplayText(word.slice(0, charIdx));
+        setCharIdx((c) => c + 1);
+      }, 75);
+    } else if (deleting && charIdx >= 0) {
       timer = setTimeout(() => {
-        setText(activeWord.slice(0, charIndex));
-        setCharIndex((prev) => prev - 1);
-      }, 40);
+        setDisplayText(word.slice(0, charIdx));
+        setCharIdx((c) => c - 1);
+      }, 38);
     }
 
-    if (charIndex === activeWord.length + 1 && !isDeleting) {
-      timer = setTimeout(() => {
-        setIsDeleting(true);
-      }, 2000);
-    } else if (charIndex === -1 && isDeleting) {
-      setIsDeleting(false);
-      setWordIndex((prev) => (prev + 1) % words.length);
-      setCharIndex(0);
+    if (charIdx === word.length + 1 && !deleting) {
+      timer = setTimeout(() => setDeleting(true), 2200);
+    } else if (charIdx === -1 && deleting) {
+      setDeleting(false);
+      setWordIdx((w) => (w + 1) % TYPED_WORDS.length);
+      setCharIdx(0);
     }
 
     return () => clearTimeout(timer);
-  }, [charIndex, isDeleting, wordIndex]);
+  }, [charIdx, deleting, wordIdx]);
 
   return (
     <section id="hero">
-      <div className="engineering-grid-light"></div>
-      <div className="hero-glow-accents">
-        <div className="hero-glow-1"></div>
-        <div className="hero-glow-2"></div>
-      </div>
-      
+      <div className="dot-grid" />
+      <div className="hero-glow-ring" />
+
       <div className="hero-content">
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="hero-badge"
+          className="hero-availability"
         >
-          <span></span> Available for Opportunities
+          <span className="hero-availability-dot" />
+          Open to Opportunities
         </motion.div>
-        
+
         <motion.h1
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="hero-name"
         >
-          VEERABABU <span>JAKKULA</span>
+          VEERABABU{" "}
+          <span className="hero-name-accent">JAKKULA</span>
         </motion.h1>
-        
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="hero-typed"
+          transition={{ duration: 0.6, delay: 0.22 }}
+          className="hero-typed-wrap"
         >
-          <span>{text}</span>
-          <span className="cursor animate-pulse">|</span>
+          <span className="hero-typed">
+            {displayText}
+            <span className="hero-typed-cursor">|</span>
+          </span>
         </motion.div>
-        
+
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.32 }}
           className="hero-sub"
         >
-          Passionate about building scalable backend systems, AI-powered platforms, and modern cloud-native web applications.
+          Passionate about building scalable backend systems, AI-powered
+          platforms, and modern cloud-native web applications.
         </motion.p>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-wrap gap-4 justify-center"
+          transition={{ duration: 0.6, delay: 0.42 }}
+          style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", justifyContent: "center" }}
         >
           <Link href="#projects" className="btn-primary">
-            View Projects
+            View Projects <FiArrowRight />
           </Link>
           <Link href="#contact" className="btn-outline">
             Contact Me
@@ -110,17 +111,17 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="btn-outline"
           >
-            Download Resume
+            Resume
           </a>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.52 }}
           className="hero-socials"
         >
-          <Link
+          <a
             href="https://www.linkedin.com/in/veerababu/"
             target="_blank"
             rel="noopener noreferrer"
@@ -128,8 +129,8 @@ export default function Hero() {
             title="LinkedIn"
           >
             <FiLinkedin />
-          </Link>
-          <Link
+          </a>
+          <a
             href="https://github.com/JakkulaVeerababu"
             target="_blank"
             rel="noopener noreferrer"
@@ -137,8 +138,8 @@ export default function Hero() {
             title="GitHub"
           >
             <FiGithub />
-          </Link>
-          <Link
+          </a>
+          <a
             href="https://leetcode.com/u/VEERABABU_JAKKULA/"
             target="_blank"
             rel="noopener noreferrer"
@@ -146,7 +147,7 @@ export default function Hero() {
             title="LeetCode"
           >
             <FiCode />
-          </Link>
+          </a>
           <a
             href="mailto:jakkulaveerababu429@gmail.com"
             className="social-link"
@@ -155,8 +156,31 @@ export default function Hero() {
             <FiMail />
           </a>
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.62 }}
+          className="hero-metrics"
+        >
+          <div className="hero-metric">
+            <div className="hero-metric-value">8.71</div>
+            <div className="hero-metric-label">CGPA</div>
+          </div>
+          <div className="hero-metric">
+            <div className="hero-metric-value">6+</div>
+            <div className="hero-metric-label">Hackathons</div>
+          </div>
+          <div className="hero-metric">
+            <div className="hero-metric-value">5</div>
+            <div className="hero-metric-label">Internships</div>
+          </div>
+          <div className="hero-metric">
+            <div className="hero-metric-value">3+</div>
+            <div className="hero-metric-label">Projects</div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
-

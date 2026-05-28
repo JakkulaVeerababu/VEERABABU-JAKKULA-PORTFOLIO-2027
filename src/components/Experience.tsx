@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
-import { FiFileText } from "react-icons/fi";
+import { motion, Variants } from "framer-motion";
 
 const experiences = [
   {
@@ -16,103 +14,82 @@ const experiences = [
     company: "Infosys Springboard",
     role: "Full Stack Development Internship",
     date: "2025",
-    desc: "Developed clean web architectures, covering frontend responsive design, server APIs, secure routing, and database performance optimizations.",
+    desc: "Developed clean web architectures covering frontend responsive design, server APIs, secure routing, and database performance optimizations.",
     doc: "/docs/maritime-vessel-tracking-infosys.pdf",
-    docLabel: "View Project Certificate",
     featured: true,
   },
   {
     company: "Google & APSCHE",
     role: "AI/ML Virtual Internship",
     date: "2025",
-    desc: "Collaborated on machine learning models, exploring neural frameworks, classification algorithms, and high-quality feature engineering.",
+    desc: "Collaborated on machine learning models, exploring neural frameworks, classification algorithms, and high-quality feature engineering pipelines.",
     doc: "/docs/google-aiml-internship.pdf",
-    docLabel: "View Google AI-ML Certificate",
     featured: true,
   },
   {
     company: "Microchip Technology Inc & APSCHE",
     role: "Embedded Systems Internship",
     date: "2024",
-    desc: "Programmed microcontrollers in C using MPLAB IDE, implementing peripheral configurations, analog sensor interfaces, and device drivers.",
+    desc: "Programmed microcontrollers in C using MPLAB IDE, implementing peripheral configurations, analog sensor interfaces, and low-level device drivers.",
     doc: "/docs/embedded-system-internship.pdf",
-    docLabel: "View Internship Certificate",
     featured: false,
   },
   {
     company: "Emertxe",
     role: "IoT Virtual Internship",
     date: "2024",
-    desc: "Constructed Internet of Things prototypes, scripting device telemetry collectors, local gateway nodes, and cloud-to-device event lines.",
+    desc: "Constructed IoT prototypes, scripting device telemetry collectors, local gateway nodes, and cloud-to-device event pipelines.",
     doc: "/docs/iot-internship.pdf",
-    docLabel: "View IoT Certificate",
     featured: false,
   },
 ];
 
-const containerVariants: Variants = {
+const container: Variants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, x: -15 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } },
+const itemAnim: Variants = {
+  hidden: { opacity: 0, x: -14 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.48, ease: "easeOut" } },
 };
 
 export default function Experience() {
   return (
     <section id="experience">
       <div className="container">
-        <div className="reveal">
-          <div className="section-label">Trajectory</div>
+        <div className="reveal section-header">
+          <div className="section-eyebrow">Trajectory</div>
           <h2 className="section-title">Professional Experience</h2>
-          <div className="divider"></div>
+          <div className="section-divider" />
         </div>
 
         <motion.div
-          variants={containerVariants}
+          variants={container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           className="exp-timeline reveal"
         >
           {experiences.map((exp, i) => (
-            <motion.div
-              key={i}
-              variants={itemVariants}
-              className="exp-item"
-            >
+            <motion.div key={i} variants={itemAnim} className="exp-item">
               <div className="exp-dot" />
-              <div className={`glass-card exp-card ${exp.featured ? "border-cyan-400/30 shadow-cyan-400/5 bg-cyan-50/5" : ""}`}>
-                <div className="exp-header flex flex-wrap justify-between items-start gap-2">
+              <div className={`glass-card exp-card${exp.featured ? " border-cyan-400/20" : ""}`}>
+                <div className="exp-card-top">
                   <div>
-                    <h3 className="exp-company">{exp.company}</h3>
+                    <div className="exp-company">{exp.company}</div>
                     <div className="exp-role">{exp.role}</div>
-                  </div>
-                  <div className="flex flex-col items-end gap-1.5">
-                    <span className="exp-date">{exp.date}</span>
                     {exp.featured && (
-                      <span className="text-[9px] uppercase font-extrabold tracking-widest text-cyan-600 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-400/20">
-                        Featured
-                      </span>
+                      <span className="exp-featured-badge">Featured</span>
                     )}
                   </div>
+                  <span className="exp-date">{exp.date}</span>
                 </div>
-                <p className="section-sub" style={{ margin: "0.75rem 0 0 0", fontSize: "0.825rem", lineHeight: "1.5" }}>
-                  {exp.desc}
-                </p>
+                <p className="exp-desc">{exp.desc}</p>
+
                 {exp.doc && (
-                  <div className="mt-4 w-full h-[350px] sm:h-[450px] rounded-lg overflow-hidden border border-gray-200/50 bg-[#fafafa]">
-                    <iframe 
-                      src={exp.doc} 
-                      className="w-full h-full border-none" 
-                      title={`${exp.company} Certificate`}
-                    />
+                  <div className="exp-pdf-frame">
+                    <iframe src={exp.doc} title={`${exp.company} certificate`} />
                   </div>
                 )}
               </div>
@@ -123,4 +100,3 @@ export default function Experience() {
     </section>
   );
 }
-

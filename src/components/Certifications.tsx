@@ -1,15 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
-
+import { motion, Variants } from "framer-motion";
 
 const certifications = [
-  { 
-    name: "Google Data Analytics Professional Certificate", 
-    issuer: "Google", 
+  {
+    name: "Google Data Analytics Professional Certificate",
+    issuer: "Google",
     doc: "/docs/google-certified-data-analyst.pdf",
-    featured: true 
+    featured: true,
   },
   { name: "AWS Cloud Technical Essentials", issuer: "AWS" },
   { name: "DevOps on AWS: Code Build Test", issuer: "AWS" },
@@ -22,76 +20,63 @@ const certifications = [
   { name: "Prompt Engineering", issuer: "Vanderbilt University" },
   { name: "Computer Science 101", issuer: "Stanford" },
   { name: "Software Engineering Basics for Everyone", issuer: "IBM" },
-  { name: "Introduction to Web Development with HTML5 CSS3 and JS", issuer: "IBM" },
-  { name: "Django Application Development with SQL and Databases", issuer: "IBM" },
-  { name: "Introduction to Cloud Computing", issuer: "IBM" }
+  {
+    name: "Introduction to Web Development with HTML5, CSS3 and JS",
+    issuer: "IBM",
+  },
+  {
+    name: "Django Application Development with SQL and Databases",
+    issuer: "IBM",
+  },
+  { name: "Introduction to Cloud Computing", issuer: "IBM" },
 ];
 
-const containerVariants: Variants = {
+const container: Variants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.04,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.04 } },
 };
 
-const cardVariants: Variants = {
+const item: Variants = {
   hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.38, ease: "easeOut" } },
 };
-
 
 export default function Certifications() {
   return (
     <section id="certifications">
       <div className="container">
-        <div className="reveal">
-          <div className="section-label">Credentials</div>
+        <div className="reveal section-header">
+          <div className="section-eyebrow">Credentials</div>
           <h2 className="section-title">Certifications</h2>
-          <div className="divider"></div>
+          <div className="section-divider" />
         </div>
 
         <motion.div
-          variants={containerVariants}
+          variants={container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           className="cert-grid reveal"
         >
           {certifications.map((cert, i) => (
             <motion.div
               key={i}
-              variants={cardVariants}
-              className={`glass-card cert-card flex flex-col justify-between ${
-                cert.featured ? "border-cyan-400/30 shadow-cyan-400/5 bg-cyan-50/5" : ""
-              }`}
+              variants={item}
+              className={`cert-card${cert.featured ? " featured" : ""}`}
             >
-              <div>
-                <div className="flex items-center justify-between gap-2">
-                  <div className="cert-issuer text-cyan-500 font-mono text-[10px] tracking-wider uppercase font-bold">
-                    {cert.issuer}
-                  </div>
-                  {cert.featured && (
-                    <span className="text-[8px] font-bold text-cyan-600 bg-cyan-500/10 px-1.5 py-0.5 rounded font-mono uppercase tracking-wider">
-                      Featured
-                    </span>
-                  )}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span className="cert-issuer">{cert.issuer}</span>
+                {cert.featured && <span className="cert-badge">Featured</span>}
+              </div>
+
+              <h3 className="cert-name">{cert.name}</h3>
+              <p className="cert-sub">Verified Coursework</p>
+
+              {cert.doc && (
+                <div className="cert-pdf-frame">
+                  <iframe src={cert.doc} title={`${cert.name} certificate`} />
                 </div>
-                <h3 className="cert-title mt-2">{cert.name}</h3>
-              </div>
-              <div className="flex flex-col mt-3 pt-2 border-t border-gray-100/50 gap-3">
-                <span className="cert-desc m-0">Verified Coursework</span>
-                {cert.doc && (
-                  <div className="w-full h-[250px] rounded-lg overflow-hidden border border-gray-200/50 bg-[#fafafa]">
-                    <iframe 
-                      src={cert.doc} 
-                      className="w-full h-full border-none" 
-                      title={`${cert.name} PDF`}
-                    />
-                  </div>
-                )}
-              </div>
+              )}
             </motion.div>
           ))}
         </motion.div>

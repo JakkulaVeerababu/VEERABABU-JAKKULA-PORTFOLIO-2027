@@ -6,7 +6,7 @@ import { SiNextdotjs, SiFastapi, SiExpress, SiPostgresql, SiMongodb, SiDocker } 
 
 const skills = [
   { name: "React.js", icon: <FaReact />, color: "#61dafb" },
-  { name: "Next.js", icon: <SiNextdotjs />, color: "#000000" },
+  { name: "Next.js", icon: <SiNextdotjs />, color: "#111" },
   { name: "FastAPI", icon: <SiFastapi />, color: "#009688" },
   { name: "Node.js", icon: <FaNodeJs />, color: "#339933" },
   { name: "Express.js", icon: <SiExpress />, color: "#555" },
@@ -21,47 +21,39 @@ const skills = [
   { name: "SQL", icon: <FaDatabase />, color: "#0052cc" },
 ];
 
-const containerVariants: Variants = {
+const container: Variants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.045 } },
 };
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
+const item: Variants = {
+  hidden: { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
-
 
 export default function Skills() {
   return (
     <section id="skills">
       <div className="container">
-        <div className="reveal">
-          <div className="section-label">Capabilities</div>
+        <div className="reveal section-header">
+          <div className="section-eyebrow">Capabilities</div>
           <h2 className="section-title">Technical Arsenal</h2>
-          <div className="divider"></div>
+          <div className="section-divider" />
           <p className="section-sub">
-            A verified stack of modern programming languages, frameworks, cloud services, and databases used to build scalable systems.
+            A verified stack of modern languages, frameworks, cloud services,
+            and databases used to build scalable, production-grade systems.
           </p>
         </div>
 
         <motion.div
-          variants={containerVariants}
+          variants={container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           className="skills-grid reveal"
         >
           {skills.map((skill) => (
-            <motion.div
-              key={skill.name}
-              variants={cardVariants}
-              className="glass-card skill-card"
-            >
+            <motion.div key={skill.name} variants={item} className="skill-card">
               <div className="skill-icon" style={{ color: skill.color }}>
                 {skill.icon}
               </div>
@@ -73,5 +65,3 @@ export default function Skills() {
     </section>
   );
 }
-
-

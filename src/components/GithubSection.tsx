@@ -1,17 +1,29 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FiGithub, FiStar, FiGitBranch } from "react-icons/fi";
+
+const GRID_SIZE = 168; // 7 rows × 24 cols
+
+function getContribColor(rand: number) {
+  if (rand < 0.48) return "#ebedf0";
+  if (rand < 0.70) return "#b3e8f0";
+  if (rand < 0.87) return "#3ecbdf";
+  return "#06b6d4";
+}
+
+const gridCells = Array.from({ length: GRID_SIZE }, () =>
+  getContribColor(Math.random())
+);
 
 const pinnedRepos = [
   {
     name: "VEERABABU-JAKKULA-PORTFOLIO-2027",
-    desc: "Premium white-neon developer portfolio website built using Next.js, Tailwind CSS, and Framer Motion.",
+    desc: "Premium white-neon developer portfolio built using Next.js 15, TypeScript, and Framer Motion.",
     lang: "TypeScript",
     langColor: "#3178c6",
     stars: 1,
     forks: 0,
-    url: "https://github.com/JakkulaVeerababu/VEERABABU-JAKKULA-PORTFOLIO-2027"
+    url: "https://github.com/JakkulaVeerababu/VEERABABU-JAKKULA-PORTFOLIO-2027",
   },
   {
     name: "ShrFlow",
@@ -20,89 +32,201 @@ const pinnedRepos = [
     langColor: "#3572A5",
     stars: 2,
     forks: 1,
-    url: "https://github.com/JakkulaVeerababu"
-  }
+    url: "https://github.com/JakkulaVeerababu",
+  },
 ];
 
 export default function GithubSection() {
-  const gridCells = Array.from({ length: 154 }).map((_, i) => {
-    const r = Math.random();
-    if (r < 0.5) return "bg-gray-200/50";
-    if (r < 0.75) return "bg-cyan-100";
-    if (r < 0.9) return "bg-cyan-300";
-    return "bg-cyan-500";
-  });
-
   return (
     <section id="github">
       <div className="container">
-        <div className="reveal">
-          <div className="section-label">Open Source</div>
+        <div className="reveal section-header">
+          <div className="section-eyebrow">Open Source</div>
           <h2 className="section-title">GitHub Activity</h2>
-          <div className="divider"></div>
+          <div className="section-divider" />
         </div>
 
-        <div className="github-grid">
-          {/* Left: Contributions Graph */}
-          <div className="github-card reveal flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <FiGithub className="text-cyan-500 text-lg" />
-                <h3 className="font-bold text-sm text-[#121314]">Coding Activity</h3>
-              </div>
-              <p className="section-sub" style={{ fontSize: "0.8rem", marginBottom: "1.5rem" }}>
-                Continuous integration commits, algorithmic practices, and system repository updates.
-              </p>
-              
-              {/* Contributions Grid */}
-              <div className="grid grid-flow-col grid-rows-7 gap-[3px] p-2 bg-[#f6f8fa] border border-gray-200/50 rounded-lg max-w-full overflow-x-auto select-none">
-                {gridCells.map((val, idx) => (
-                  <div key={idx} className={`w-[9px] h-[9px] rounded-[1px] ${val}`} />
-                ))}
-              </div>
+        <div className="github-layout reveal">
+          {/* Contribution Graph */}
+          <div className="github-card">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                marginBottom: "0.75rem",
+              }}
+            >
+              <FiGithub style={{ color: "var(--neon-cyan)", fontSize: "1.05rem" }} />
+              <h3
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
+                }}
+              >
+                Coding Activity
+              </h3>
             </div>
-            
-            <div className="flex justify-between items-center text-[10px] text-gray-400 mt-4 font-mono">
+
+            <p
+              style={{
+                fontSize: "0.78rem",
+                color: "var(--text-muted)",
+                lineHeight: 1.6,
+                marginBottom: "1.25rem",
+              }}
+            >
+              Continuous integration commits, algorithmic practices, and
+              system repository updates.
+            </p>
+
+            {/* Grid */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateRows: "repeat(7, 10px)",
+                gridAutoFlow: "column",
+                gap: "3px",
+                padding: "0.875rem",
+                background: "var(--bg-canvas)",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: "8px",
+                overflowX: "auto",
+              }}
+            >
+              {gridCells.map((color, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 2,
+                    backgroundColor: color,
+                  }}
+                />
+              ))}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "0.75rem",
+                fontSize: "0.65rem",
+                color: "var(--text-muted)",
+                fontFamily: "var(--font-mono)",
+              }}
+            >
               <span>@JakkulaVeerababu</span>
-              <div className="flex items-center gap-1">
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}
+              >
                 <span>Less</span>
-                <div className="w-2.5 h-2.5 bg-gray-200/50 rounded-[1px]" />
-                <div className="w-2.5 h-2.5 bg-cyan-100 rounded-[1px]" />
-                <div className="w-2.5 h-2.5 bg-cyan-300 rounded-[1px]" />
-                <div className="w-2.5 h-2.5 bg-cyan-500 rounded-[1px]" />
+                {["#ebedf0", "#b3e8f0", "#3ecbdf", "#06b6d4"].map((c) => (
+                  <div
+                    key={c}
+                    style={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: 2,
+                      backgroundColor: c,
+                    }}
+                  />
+                ))}
                 <span>More</span>
               </div>
             </div>
           </div>
 
           {/* Pinned Repos */}
-          <div className="flex flex-col gap-4">
-            {pinnedRepos.map((repo, i) => (
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {pinnedRepos.map((repo) => (
               <a
+                key={repo.name}
                 href={repo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                key={i}
-                className="glass-card p-5 block hover:-translate-y-1 transition-all text-decoration-none reveal"
+                className="github-card"
+                style={{ display: "block", textDecoration: "none", transition: "all 0.25s" }}
               >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <FiGithub className="text-cyan-500 text-sm" />
-                    <h4 className="font-bold text-sm text-[#121314]">{repo.name}</h4>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}
+                  >
+                    <FiGithub
+                      style={{ color: "var(--neon-cyan)", fontSize: "0.9rem", flexShrink: 0 }}
+                    />
+                    <h4
+                      style={{
+                        fontSize: "0.825rem",
+                        fontWeight: 700,
+                        color: "var(--text-primary)",
+                        wordBreak: "break-all",
+                      }}
+                    >
+                      {repo.name}
+                    </h4>
                   </div>
-                  <span className="text-[10px] font-mono text-gray-400">Public</span>
+                  <span
+                    style={{
+                      fontSize: "0.62rem",
+                      fontFamily: "var(--font-mono)",
+                      color: "var(--text-muted)",
+                      flexShrink: 0,
+                      marginLeft: "0.5rem",
+                    }}
+                  >
+                    Public
+                  </span>
                 </div>
-                <p className="text-xs text-gray-500 mb-4 leading-relaxed">{repo.desc}</p>
-                <div className="flex items-center gap-4 text-[11px] text-gray-400 font-mono">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: repo.langColor }} />
-                    <span>{repo.lang}</span>
+
+                <p
+                  style={{
+                    fontSize: "0.775rem",
+                    color: "var(--text-muted)",
+                    lineHeight: 1.6,
+                    marginBottom: "1rem",
+                  }}
+                >
+                  {repo.desc}
+                </p>
+
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "1rem",
+                    fontSize: "0.7rem",
+                    fontFamily: "var(--font-mono)",
+                    color: "var(--text-muted)",
+                    alignItems: "center",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                    <span
+                      style={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: "50%",
+                        backgroundColor: repo.langColor,
+                        display: "inline-block",
+                      }}
+                    />
+                    {repo.lang}
                   </div>
-                  <div className="flex items-center gap-1">
-                    <FiStar /> <span>{repo.stars}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
+                    <FiStar size={11} /> {repo.stars}
                   </div>
-                  <div className="flex items-center gap-1">
-                    <FiGitBranch /> <span>{repo.forks}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
+                    <FiGitBranch size={11} /> {repo.forks}
                   </div>
                 </div>
               </a>

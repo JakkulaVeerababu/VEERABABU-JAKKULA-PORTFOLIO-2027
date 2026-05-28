@@ -27,9 +27,9 @@ export default function LoadingScreen() {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.4 }}
-            style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", letterSpacing: "0.15em", color: "var(--text-primary)", fontWeight: 600 }}
+            className="loader-name"
           >
-            VEERABABU JAKKULA
+            VJ<span>.</span>
           </motion.div>
           <div className="loader-bar">
             <div className="loader-progress" />

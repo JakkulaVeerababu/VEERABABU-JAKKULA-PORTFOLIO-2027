@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { FiAward, FiStar, FiMaximize2, FiFileText } from "react-icons/fi";
+import { FiAward, FiStar, FiMaximize2, FiX } from "react-icons/fi";
 
 const achievements = [
   {
@@ -20,7 +20,6 @@ const achievements = [
     icon: <FiAward />,
     featured: true,
     doc: "/docs/amd-slingshot-ideathon.pdf",
-    docLabel: "View Regional Shortlist PDF",
   },
   {
     badge: "AWS Cloud",
@@ -29,7 +28,6 @@ const achievements = [
     icon: <FiStar />,
     featured: false,
     doc: "/docs/ai-for-bharat-hackathon.pdf",
-    docLabel: "View Adaptive Copilot PDF",
   },
   {
     badge: "Buildathon",
@@ -38,7 +36,6 @@ const achievements = [
     icon: <FiAward />,
     featured: true,
     doc: "/docs/buildathon-2025.pdf",
-    docLabel: "View Recognition Certificate",
   },
   {
     badge: "AMD Hardware",
@@ -48,7 +45,6 @@ const achievements = [
     featured: false,
     images: ["/amd-slingshot.png"],
     doc: "/docs/amd-slingshot-hackathon.pdf",
-    docLabel: "View Submission Details",
   },
   {
     badge: "IBM Developer",
@@ -57,7 +53,6 @@ const achievements = [
     icon: <FiStar />,
     featured: false,
     doc: "/docs/ibm-dev-day-hackathon.pdf",
-    docLabel: "View Participation PDF",
   },
   {
     badge: "GitLab DevSecOps",
@@ -75,131 +70,103 @@ const achievements = [
   },
 ];
 
-const containerVariants: Variants = {
+const container: Variants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.07 } },
 };
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
+const card: Variants = {
+  hidden: { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
 export default function Hackathons() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
   return (
     <section id="achievements">
       <div className="container">
-        <div className="reveal">
-          <div className="section-label">Competitions</div>
-          <h2 className="section-title">Achievements &amp; Hackathons</h2>
-          <div className="divider"></div>
+        <div className="reveal section-header">
+          <div className="section-eyebrow">Competitions</div>
+          <h2 className="section-title">Achievements & Hackathons</h2>
+          <div className="section-divider" />
         </div>
 
         <motion.div
-          variants={containerVariants}
+          variants={container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           className="ach-grid reveal"
         >
           {achievements.map((ach, i) => (
             <motion.div
               key={i}
-              variants={cardVariants}
-              className={`glass-card ach-card flex flex-col justify-between ${
-                ach.featured ? "border-cyan-400/30 shadow-cyan-400/5 md:col-span-2 bg-cyan-50/5" : ""
-              }`}
+              variants={card}
+              className={`ach-card${ach.featured ? " featured" : ""}`}
             >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="ach-badge">{ach.badge}</span>
-                    {ach.featured && (
-                      <span className="text-[8px] font-bold text-cyan-600 bg-cyan-500/10 px-1.5 py-0.5 rounded font-mono uppercase tracking-wider">
-                        Priority
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-cyan-500 text-lg">{ach.icon}</span>
+              {/* Header */}
+              <div className="ach-header">
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <span className="ach-badge">{ach.badge}</span>
+                  {ach.featured && <span className="ach-priority">Priority</span>}
                 </div>
-                <h3 className="ach-title">{ach.title}</h3>
-                <p className="ach-desc">{ach.desc}</p>
+                <span className="ach-icon">{ach.icon}</span>
               </div>
 
-              <div className="mt-4 flex flex-col gap-3">
-                {ach.images && (
-                  <div className={`grid gap-3 ${
-                    ach.images.length > 1 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
-                  }`}>
-                    {ach.images.map((img, idx) => (
-                      <div 
-                        key={idx} 
-                        onClick={() => setSelectedImage(img)}
-                        className={`relative overflow-hidden rounded-lg border border-gray-200/50 bg-[#fafafa] group/img cursor-zoom-in ${
-                          ach.images.length === 1 ? "h-[180px]" : "h-[140px] sm:h-[160px]"
-                        }`}
-                      >
-                        <img 
-                          src={img} 
-                          alt={`${ach.title} asset ${idx + 1}`}
-                          className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover/img:scale-102"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/5 transition-all flex items-center justify-center">
-                          <FiMaximize2 className="text-white opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/40 p-1.5 rounded-full w-8 h-8" />
-                        </div>
+              <h3 className="ach-title">{ach.title}</h3>
+              <p className="ach-desc">{ach.desc}</p>
+
+              {/* Images */}
+              {ach.images && (
+                <div className={`ach-images${ach.images.length > 1 ? " cols-2" : ""}`}>
+                  {ach.images.map((img, idx) => (
+                    <div
+                      key={idx}
+                      className="ach-img-wrap"
+                      onClick={() => setLightbox(img)}
+                    >
+                      <img src={img} alt={`${ach.title} image ${idx + 1}`} />
+                      <div className="ach-img-overlay">
+                        <FiMaximize2 className="ach-img-zoom-icon" />
                       </div>
-                    ))}
-                  </div>
-                )}
+                    </div>
+                  ))}
+                </div>
+              )}
 
-                {ach.doc && (
-                  <div className="w-full h-[350px] sm:h-[450px] rounded-lg overflow-hidden border border-gray-200/50 bg-[#fafafa]">
-                    <iframe 
-                      src={ach.doc} 
-                      className="w-full h-full border-none" 
-                      title={`${ach.title} PDF`}
-                    />
-                  </div>
-                )}
-              </div>
+              {/* PDF */}
+              {ach.doc && (
+                <div className="ach-pdf-frame">
+                  <iframe src={ach.doc} title={`${ach.title} PDF`} />
+                </div>
+              )}
             </motion.div>
           ))}
         </motion.div>
       </div>
 
-      {/* Image Modal Lightbox */}
+      {/* Lightbox */}
       <AnimatePresence>
-        {selectedImage && (
-          <motion.div 
+        {lightbox && (
+          <motion.div
+            className="lightbox-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[10000] bg-[#121314]/75 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setLightbox(null)}
           >
-            <motion.div 
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-              className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-xl bg-white p-1.5 shadow-2xl"
+            <motion.div
+              className="lightbox-inner"
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
             >
-              <img 
-                src={selectedImage} 
-                alt="Enlarged view" 
-                className="max-w-full max-h-[85vh] object-contain rounded-lg" 
-              />
-              <button 
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-2 hover:bg-black/75 transition-all border-none cursor-pointer text-xs"
-              >
-                ✕ Close
+              <img src={lightbox} alt="Enlarged view" />
+              <button className="lightbox-close" onClick={() => setLightbox(null)}>
+                <FiX size={14} />
               </button>
             </motion.div>
           </motion.div>
@@ -208,4 +175,3 @@ export default function Hackathons() {
     </section>
   );
 }
-

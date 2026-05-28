@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { FiMail, FiLinkedin, FiGithub, FiMapPin, FiSend } from "react-icons/fi";
-import Link from "next/link";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
@@ -12,7 +11,7 @@ export default function Contact() {
     setStatus("sending");
     setTimeout(() => {
       setStatus("sent");
-      setTimeout(() => setStatus("idle"), 3000);
+      setTimeout(() => setStatus("idle"), 3500);
     }, 1200);
   };
 
@@ -20,90 +19,131 @@ export default function Contact() {
     <>
       <section id="contact">
         <div className="container">
-          <div className="reveal">
-            <div className="section-label">Collaboration</div>
+          <div className="reveal section-header">
+            <div className="section-eyebrow">Collaboration</div>
             <h2 className="section-title">Get in Touch</h2>
-            <div className="divider"></div>
+            <div className="section-divider" />
             <p className="section-sub">
-              Open to internships, freelance projects, and full stack developer opportunities. Feel free to send a message.
+              Open to internships, freelance projects, and full-stack developer opportunities.
             </p>
           </div>
 
-          <div className="contact-grid">
-            {/* Left: Contact Info */}
-            <div className="contact-info reveal">
-              <a href="mailto:jakkulaveerababu429@gmail.com" className="contact-item">
+          <div className="contact-layout reveal">
+            {/* Left: Info */}
+            <div className="contact-info">
+              <a
+                href="mailto:jakkulaveerababu429@gmail.com"
+                className="contact-item"
+              >
                 <FiMail className="contact-icon" />
-                <span className="contact-item-text font-mono">jakkulaveerababu429@gmail.com</span>
+                <div>
+                  <span className="contact-item-label">Email</span>
+                  <span className="contact-item-value">jakkulaveerababu429@gmail.com</span>
+                </div>
               </a>
-              <Link
+
+              <a
                 href="https://www.linkedin.com/in/veerababu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-item"
               >
                 <FiLinkedin className="contact-icon" />
-                <span className="contact-item-text font-mono">linkedin.com/in/veerababu</span>
-              </Link>
-              <Link
+                <div>
+                  <span className="contact-item-label">LinkedIn</span>
+                  <span className="contact-item-value">linkedin.com/in/veerababu</span>
+                </div>
+              </a>
+
+              <a
                 href="https://github.com/JakkulaVeerababu"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-item"
               >
                 <FiGithub className="contact-icon" />
-                <span className="contact-item-text font-mono">github.com/JakkulaVeerababu</span>
-              </Link>
-              <div className="contact-item text-[#868c92]">
+                <div>
+                  <span className="contact-item-label">GitHub</span>
+                  <span className="contact-item-value">github.com/JakkulaVeerababu</span>
+                </div>
+              </a>
+
+              <div className="contact-item">
                 <FiMapPin className="contact-icon" />
-                <span className="contact-item-text font-mono">Andhra Pradesh, India</span>
+                <div>
+                  <span className="contact-item-label">Location</span>
+                  <span className="contact-item-value">Andhra Pradesh, India</span>
+                </div>
               </div>
             </div>
 
-            {/* Right: Contact Form */}
-            <div className="reveal">
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className="form-group">
-                  <label htmlFor="name">Name</label>
-                  <input type="text" id="name" required placeholder="Your Name" />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input type="email" id="email" required placeholder="your@email.com" />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="message">Message</label>
-                  <textarea id="message" rows={4} required placeholder="Hi Veerababu, let's discuss..." />
-                </div>
+            {/* Right: Form */}
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-group">
+                <label htmlFor="cf-name" className="form-label">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="cf-name"
+                  className="form-input"
+                  required
+                  placeholder="Your full name"
+                />
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={status !== "idle"}
-                  className="proj-btn-primary py-3 flex justify-center items-center gap-2 cursor-pointer disabled:opacity-50"
-                  style={{ width: "100%", border: "none" }}
-                >
-                  {status === "idle" && (
-                    <>
-                      <FiSend /> Send Message
-                    </>
-                  )}
-                  {status === "sending" && "Sending message..."}
-                  {status === "sent" && "Message Sent!"}
-                </button>
-              </form>
-            </div>
+              <div className="form-group">
+                <label htmlFor="cf-email" className="form-label">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="cf-email"
+                  className="form-input"
+                  required
+                  placeholder="your@email.com"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="cf-message" className="form-label">
+                  Message
+                </label>
+                <textarea
+                  id="cf-message"
+                  className="form-textarea"
+                  rows={5}
+                  required
+                  placeholder="Hi Veerababu, let's discuss..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={status !== "idle"}
+                className="form-submit"
+              >
+                {status === "idle" && (
+                  <>
+                    <FiSend size={14} /> Send Message
+                  </>
+                )}
+                {status === "sending" && "Sending..."}
+                {status === "sent" && "Message Sent!"}
+              </button>
+            </form>
           </div>
         </div>
       </section>
 
       <footer>
-        <div className="container">
-          <p>&copy; {new Date().getFullYear()} Veerababu Jakkula. All rights reserved.</p>
+        <div className="footer-inner">
+          <p className="footer-copy">
+            &copy; {new Date().getFullYear()} Veerababu Jakkula<span className="footer-dot">.</span> All rights reserved.
+          </p>
+          <span className="footer-tag">Built with Next.js & TypeScript</span>
         </div>
       </footer>
     </>
   );
 }
-
