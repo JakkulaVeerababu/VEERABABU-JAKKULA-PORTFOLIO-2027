@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiGithub, FiExternalLink, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { FiGithub, FiExternalLink, FiChevronDown, FiChevronUp, FiFileText } from "react-icons/fi";
 
 const projects = [
   {
@@ -12,6 +12,7 @@ const projects = [
     badges: ["FastAPI", "PostgreSQL", "PostGIS", "Docker", "AWS EC2", "React"],
     github: "https://github.com/JakkulaVeerababu",
     demo: "#",
+    doc: "/docs/maritime-vessel-tracking-infosys.pdf",
     problem: "Lack of real-time visibility and predictive analytics in port operations leading to logistics congestion and vessel delays.",
     solution: "Developed a distributed tracking system feeding high-frequency AIS vessel feeds into PostgreSQL/PostGIS, paired with a FastAPI backend to expose low-latency telemetry endpoints.",
     features: [
@@ -44,6 +45,7 @@ const projects = [
     badges: ["React", "Express.js", "PostgreSQL", "Tailwind CSS", "Node.js"],
     github: "https://github.com/JakkulaVeerababu",
     demo: "#",
+    doc: "/docs/tech-learning-hub.pdf",
     problem: "ECE and CS students lack a structured, roadmap-focused preparation hub for core software engineering roles.",
     solution: "Designed a clean learning management hub offering structured paths in systems, networks, and databases, with progress tracking.",
     features: [
@@ -121,7 +123,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           </AnimatePresence>
         </div>
 
-        <div className="proj-actions">
+        <div className="proj-actions flex flex-wrap gap-2">
           <a
             href={project.github}
             target="_blank"
@@ -138,6 +140,16 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           >
             <FiExternalLink /> Live Demo
           </a>
+          {project.doc && (
+            <a
+              href={project.doc}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="proj-btn-secondary border-cyan-200/60 hover:border-cyan-400 hover:text-cyan-600 bg-cyan-50/5"
+            >
+              <FiFileText /> View PDF
+            </a>
+          )}
         </div>
       </div>
     </div>

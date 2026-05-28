@@ -4,7 +4,12 @@ import { motion, Variants } from "framer-motion";
 
 
 const certifications = [
-  { name: "Google Data Analytics Professional Certificate", issuer: "Google" },
+  { 
+    name: "Google Data Analytics Professional Certificate", 
+    issuer: "Google", 
+    doc: "/docs/google-certified-data-analyst.pdf",
+    featured: true 
+  },
   { name: "AWS Cloud Technical Essentials", issuer: "AWS" },
   { name: "DevOps on AWS: Code Build Test", issuer: "AWS" },
   { name: "DevOps on AWS: Release and Deploy", issuer: "AWS" },
@@ -57,13 +62,36 @@ export default function Certifications() {
             <motion.div
               key={i}
               variants={cardVariants}
-              className="glass-card cert-card"
+              className={`glass-card cert-card flex flex-col justify-between ${
+                cert.featured ? "border-cyan-400/30 shadow-cyan-400/5 bg-cyan-50/5" : ""
+              }`}
             >
-              <div className="cert-issuer text-cyan-500 font-mono text-[10px] tracking-wider uppercase font-bold">
-                {cert.issuer}
+              <div>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="cert-issuer text-cyan-500 font-mono text-[10px] tracking-wider uppercase font-bold">
+                    {cert.issuer}
+                  </div>
+                  {cert.featured && (
+                    <span className="text-[8px] font-bold text-cyan-600 bg-cyan-500/10 px-1.5 py-0.5 rounded font-mono uppercase tracking-wider">
+                      Featured
+                    </span>
+                  )}
+                </div>
+                <h3 className="cert-title mt-2">{cert.name}</h3>
               </div>
-              <h3 className="cert-title">{cert.name}</h3>
-              <div className="cert-desc">Verified Coursework</div>
+              <div className="flex items-center justify-between mt-3 pt-2 border-t border-gray-100/50">
+                <span className="cert-desc m-0">Verified Coursework</span>
+                {cert.doc && (
+                  <a
+                    href={cert.doc}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-[10px] font-bold text-cyan-600 hover:text-cyan-700 font-mono cursor-pointer"
+                  >
+                    View PDF
+                  </a>
+                )}
+              </div>
             </motion.div>
           ))}
         </motion.div>

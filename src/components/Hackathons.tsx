@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { FiAward, FiStar, FiMaximize2 } from "react-icons/fi";
+import { FiAward, FiStar, FiMaximize2, FiFileText } from "react-icons/fi";
 
 const achievements = [
   {
@@ -14,11 +14,50 @@ const achievements = [
     images: ["/google-big-code-banner.png", "/google-big-code-email.png"],
   },
   {
+    badge: "Regional Ideathon",
+    title: "AMD Slingshot Regional Ideathon 2026",
+    desc: "Shortlisted for the regional level of the AMD Slingshot Ideathon in Hyderabad, pitching system accelerators and IoT designs.",
+    icon: <FiAward />,
+    featured: true,
+    doc: "/docs/amd-slingshot-ideathon.pdf",
+    docLabel: "View Regional Shortlist PDF",
+  },
+  {
     badge: "AWS Cloud",
     title: "AWS AI for Bharat Hackathon",
     desc: "Participated and built local-language LLM orchestration agents utilizing AWS Bedrock, Lambda functions, and DynamoDB.",
     icon: <FiStar />,
     featured: false,
+    doc: "/docs/ai-for-bharat-hackathon.pdf",
+    docLabel: "View Adaptive Copilot PDF",
+  },
+  {
+    badge: "Buildathon",
+    title: "BUILDATHON 2025 by Hack2Skill",
+    desc: "Successfully built, shipped, and received official recognition at Buildathon 2025, deploying end-to-end full-stack web tools.",
+    icon: <FiAward />,
+    featured: true,
+    doc: "/docs/buildathon-2025.pdf",
+    docLabel: "View Recognition Certificate",
+  },
+  {
+    badge: "AMD Hardware",
+    title: "AMD AI Hackathon",
+    desc: "Developed local model acceleration pipelines leveraging AMD hardware, optimizing inference latency for image generation.",
+    icon: <FiStar />,
+    featured: false,
+    images: ["/amd-slingshot.png"],
+    doc: "/docs/amd-slingshot-hackathon.pdf",
+    docLabel: "View Submission Details",
+  },
+  {
+    badge: "IBM Developer",
+    title: "IBM Dev Day Hackathon",
+    desc: "Participated in the IBM Dev Day Hackathon, building cloud applications and using enterprise APIs.",
+    icon: <FiStar />,
+    featured: false,
+    doc: "/docs/ibm-dev-day-hackathon.pdf",
+    docLabel: "View Participation PDF",
   },
   {
     badge: "GitLab DevSecOps",
@@ -33,14 +72,6 @@ const achievements = [
     desc: "Built prototype applications using multi-modal Gemini Flash and Pro APIs, demonstrating real-time structured data parsing.",
     icon: <FiStar />,
     featured: false,
-  },
-  {
-    badge: "AMD Hardware",
-    title: "AMD AI Hackathon",
-    desc: "Developed local model acceleration pipelines leveraging AMD hardware, optimizing inference latency for image generation.",
-    icon: <FiStar />,
-    featured: false,
-    images: ["/amd-slingshot.png"],
   },
 ];
 
@@ -82,42 +113,64 @@ export default function Hackathons() {
               key={i}
               variants={cardVariants}
               className={`glass-card ach-card flex flex-col justify-between ${
-                ach.featured ? "border-cyan-400/30 shadow-cyan-400/5 md:col-span-2" : ""
+                ach.featured ? "border-cyan-400/30 shadow-cyan-400/5 md:col-span-2 bg-cyan-50/5" : ""
               }`}
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="ach-badge">{ach.badge}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="ach-badge">{ach.badge}</span>
+                    {ach.featured && (
+                      <span className="text-[8px] font-bold text-cyan-600 bg-cyan-500/10 px-1.5 py-0.5 rounded font-mono uppercase tracking-wider">
+                        Priority
+                      </span>
+                    )}
+                  </div>
                   <span className="text-cyan-500 text-lg">{ach.icon}</span>
                 </div>
                 <h3 className="ach-title">{ach.title}</h3>
                 <p className="ach-desc">{ach.desc}</p>
               </div>
 
-              {ach.images && (
-                <div className={`mt-4 grid gap-3 ${
-                  ach.images.length > 1 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
-                }`}>
-                  {ach.images.map((img, idx) => (
-                    <div 
-                      key={idx} 
-                      onClick={() => setSelectedImage(img)}
-                      className={`relative overflow-hidden rounded-lg border border-gray-200/50 bg-[#fafafa] group/img cursor-zoom-in ${
-                        ach.images.length === 1 ? "h-[200px]" : "h-[140px] sm:h-[160px]"
-                      }`}
-                    >
-                      <img 
-                        src={img} 
-                        alt={`${ach.title} asset ${idx + 1}`}
-                        className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover/img:scale-102"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/5 transition-all flex items-center justify-center">
-                        <FiMaximize2 className="text-white opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/40 p-1.5 rounded-full w-8 h-8" />
+              <div className="mt-4 flex flex-col gap-3">
+                {ach.images && (
+                  <div className={`grid gap-3 ${
+                    ach.images.length > 1 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
+                  }`}>
+                    {ach.images.map((img, idx) => (
+                      <div 
+                        key={idx} 
+                        onClick={() => setSelectedImage(img)}
+                        className={`relative overflow-hidden rounded-lg border border-gray-200/50 bg-[#fafafa] group/img cursor-zoom-in ${
+                          ach.images.length === 1 ? "h-[180px]" : "h-[140px] sm:h-[160px]"
+                        }`}
+                      >
+                        <img 
+                          src={img} 
+                          alt={`${ach.title} asset ${idx + 1}`}
+                          className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover/img:scale-102"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/5 transition-all flex items-center justify-center">
+                          <FiMaximize2 className="text-white opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/40 p-1.5 rounded-full w-8 h-8" />
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
+
+                {ach.doc && (
+                  <div className="flex">
+                    <a
+                      href={ach.doc}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-600 hover:text-cyan-700 font-mono border border-cyan-400/30 hover:border-cyan-500/50 rounded px-2.5 py-1 bg-cyan-50/5 hover:bg-cyan-500/10 transition-all cursor-pointer w-fit"
+                    >
+                      <FiFileText className="text-[12px]" /> {ach.docLabel}
+                    </a>
+                  </div>
+                )}
+              </div>
             </motion.div>
           ))}
         </motion.div>
