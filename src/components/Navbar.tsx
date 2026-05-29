@@ -5,14 +5,11 @@ import Link from "next/link";
 import { FiMenu, FiX } from "react-icons/fi";
 
 const NAV_LINKS = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
+  { href: "#about", label: "Expertise" },
   { href: "#experience", label: "Experience" },
-  { href: "#achievements", label: "Achievements" },
-  { href: "#certifications", label: "Certs" },
-  { href: "#github", label: "GitHub" },
-  { href: "#contact", label: "Contact" },
+  { href: "#projects", label: "Projects" },
+  { href: "#achievements", label: "Hackathons" },
+  { href: "#certifications", label: "Certifications" },
 ];
 
 export default function Navbar() {
@@ -50,7 +47,7 @@ export default function Navbar() {
       <div className="nav-inner">
         {/* Logo */}
         <Link href="#hero" className="nav-logo" onClick={() => setMenuOpen(false)}>
-          VJ<span>.</span>
+          V. Jakkula
         </Link>
 
         {/* Desktop links */}
@@ -70,7 +67,7 @@ export default function Navbar() {
 
         {/* Desktop CTA */}
         <Link href="#contact" className="nav-cta" onClick={() => setMenuOpen(false)}>
-          Hire Me
+          Connect
         </Link>
 
         {/* Mobile hamburger */}

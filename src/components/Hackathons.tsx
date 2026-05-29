@@ -1,193 +1,115 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
-import { FiAward, FiStar, FiMaximize2, FiX, FiExternalLink } from "react-icons/fi";
+import { motion, Variants } from "framer-motion";
+import { FiAward, FiStar } from "react-icons/fi";
 
-const achievements = [
+const highlights = [
   {
     badge: "National Round",
-    title: "Google Big Code Challenge 2026",
-    desc: "Cleared the Qualifier Round and Round 1, competing at a national scale in structural coding and algorithmic puzzles.",
-    icon: <FiAward />,
-    featured: true,
-    images: ["/google-big-code-banner.png", "/google-big-code-email.png"],
+    title: "Google Big Code Challenge",
+    desc: "2026 Qualifier & Rd 1 Cleared. Competing on national architectural coding.",
+    leftBorder: "4px solid var(--secondary)",
+  },
+  {
+    badge: "Buildathon Winner",
+    title: "Buildathon 2025",
+    desc: "Dreamflow Winner. Shipped and deployed high-performance full-stack web solutions.",
+    leftBorder: "4px solid var(--accent)",
   },
   {
     badge: "Regional Ideathon",
-    title: "AMD Slingshot Regional Ideathon 2026",
-    desc: "Shortlisted for the regional level of the AMD Slingshot Ideathon in Hyderabad, pitching system accelerators and IoT designs.",
-    icon: <FiAward />,
-    featured: true,
-    doc: "/docs/amd-slingshot-ideathon.pdf",
+    title: "AMD Slingshot",
+    desc: "Innovation Track Participant. Pitching customized system accelerators and edge IoT.",
+    leftBorder: "4px solid var(--tertiary)",
   },
-  {
-    badge: "AWS Cloud",
-    title: "AWS AI for Bharat Hackathon",
-    desc: "Participated and built local-language LLM orchestration agents utilizing AWS Bedrock, Lambda functions, and DynamoDB.",
-    icon: <FiStar />,
-    featured: false,
-    doc: "/docs/ai-for-bharat-hackathon.pdf",
-  },
-  {
-    badge: "Buildathon",
-    title: "BUILDATHON 2025 by Hack2Skill",
-    desc: "Successfully built, shipped, and received official recognition at Buildathon 2025, deploying end-to-end full-stack web tools.",
-    icon: <FiAward />,
-    featured: true,
-    doc: "/docs/buildathon-2025.pdf",
-  },
-  {
-    badge: "AMD Hardware",
-    title: "AMD AI Hackathon",
-    desc: "Developed local model acceleration pipelines leveraging AMD hardware, optimizing inference latency for image generation.",
-    icon: <FiStar />,
-    featured: false,
-    images: ["/amd-slingshot.png"],
-    doc: "/docs/amd-slingshot-hackathon.pdf",
-  },
-  {
-    badge: "IBM Developer",
-    title: "IBM Dev Day Hackathon",
-    desc: "Participated in the IBM Dev Day Hackathon, building cloud applications and using enterprise APIs.",
-    icon: <FiStar />,
-    featured: false,
-    doc: "/docs/ibm-dev-day-hackathon.pdf",
-  },
-  {
-    badge: "GitLab DevSecOps",
-    title: "GitLab AI Hackathon",
-    desc: "Participated in designing developer productivity tools using GitLab Duo APIs and automated CI/CD pipeline triggers.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Google AI",
-    title: "Gemini 3 Hackathon",
-    desc: "Built prototype applications using multi-modal Gemini Flash and Pro APIs, demonstrating real-time structured data parsing.",
-    icon: <FiStar />,
-    featured: false,
-  },
+];
+
+const tags = [
+  "IBM Dev Day",
+  "AWS AI for Bharat",
+  "GitLab AI Challenge",
+  "Gemini 3 Hack",
+  "GenAI Summit",
+  "Google Cloud Community",
+  "AMD AI Hackathon",
+  "Cisco Cybersecurity Labs",
 ];
 
 const container: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.07 } },
+  visible: { transition: { staggerChildren: 0.05 } },
 };
 
-const card: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+const itemAnim: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
 export default function Hackathons() {
-  const [lightbox, setLightbox] = useState<string | null>(null);
-
   return (
-    <section id="achievements">
-      <div className="container">
-        <div className="reveal section-header">
+    <section id="achievements" style={{ background: "var(--bg-pure)", padding: "6rem 1.5rem" }}>
+      <div className="container mx-auto max-w-[960px]">
+        <div className="reveal section-header text-center mb-12">
           <div className="section-eyebrow">Competitions</div>
-          <h2 className="section-title">Achievements & Hackathons</h2>
-          <div className="section-divider" />
+          <h2 className="section-title">Competitive Achievements</h2>
+          <p className="text-on-surface-variant text-sm mt-2" style={{ color: "var(--text-secondary)" }}>
+            Hackathons & Technical Challenges
+          </p>
+          <div className="section-divider mx-auto" style={{ background: "var(--accent)" }} />
         </div>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="ach-grid reveal"
-        >
-          {achievements.map((ach, i) => (
-            <motion.div
+        {/* Highlight Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 reveal">
+          {highlights.map((hl, i) => (
+            <div
               key={i}
-              variants={card}
-              className={`ach-card${ach.featured ? " featured" : ""}`}
+              className="glass-card p-6 flex flex-col gap-4 rounded-lg"
+              style={{
+                background: "var(--card-bg)",
+                border: "1px solid var(--border-subtle)",
+                borderLeft: hl.leftBorder,
+                transition: "all 0.3s ease",
+              }}
             >
-              {/* Header */}
-              <div className="ach-header">
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <span className="ach-badge">{ach.badge}</span>
-                  {ach.featured && <span className="ach-priority">Priority</span>}
-                </div>
-                <span className="ach-icon">{ach.icon}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded" style={{ backgroundColor: "rgba(0,0,0,0.03)", color: "var(--text-secondary)" }}>
+                  {hl.badge}
+                </span>
+                <FiAward size={18} style={{ color: "var(--accent)" }} />
               </div>
-
-              <h3 className="ach-title">{ach.title}</h3>
-              <p className="ach-desc">{ach.desc}</p>
-
-              {/* Images */}
-              {ach.images && (
-                <div className={`ach-images${ach.images.length > 1 ? " cols-2" : ""}`}>
-                  {ach.images.map((img, idx) => (
-                    <div
-                      key={idx}
-                      className="ach-img-wrap"
-                      onClick={() => setLightbox(img)}
-                    >
-                      <img src={img} alt={`${ach.title} image ${idx + 1}`} />
-                      <div className="ach-img-overlay">
-                        <FiMaximize2 className="ach-img-zoom-icon" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* PDF */}
-              {ach.doc && (
-                <div className="pdf-block">
-                  <div className="pdf-frame">
-                    <iframe
-                      src={`${ach.doc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-                      title={`${ach.title} PDF`}
-                    />
-                  </div>
-                  <div className="pdf-footer">
-                    <span className="pdf-label">Certificate / Submission PDF</span>
-                    <a
-                      href={ach.doc}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="pdf-open-btn"
-                    >
-                      <FiExternalLink size={12} /> Open Full PDF
-                    </a>
-                  </div>
-                </div>
-              )}
-            </motion.div>
+              <div>
+                <h3 className="font-semibold text-base mb-1" style={{ color: "var(--text-primary)" }}>{hl.title}</h3>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>{hl.desc}</p>
+              </div>
+            </div>
           ))}
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox && (
+        {/* Tag Cloud of all other hackathons */}
+        <div className="reveal text-center">
+          <h4 className="text-[10px] font-bold uppercase tracking-widest mb-6" style={{ color: "var(--text-muted)" }}>
+            MORE INVOLVEMENT & HACKATHON PARTICIPATIONS
+          </h4>
           <motion.div
-            className="lightbox-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setLightbox(null)}
+            variants={container}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto"
           >
-            <motion.div
-              className="lightbox-inner"
-              initial={{ scale: 0.94, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.94, opacity: 0 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img src={lightbox} alt="Enlarged view" />
-              <button className="lightbox-close" onClick={() => setLightbox(null)}>
-                <FiX size={14} />
-              </button>
-            </motion.div>
+            {tags.map((tag, i) => (
+              <motion.span
+                key={i}
+                variants={itemAnim}
+                className="bg-surface-variant/40 text-xs font-semibold px-4 py-2 rounded-full border border-stone-900/5 cursor-default hover:bg-black/5 transition-colors"
+                style={{ backgroundColor: "rgba(0, 0, 0, 0.03)", color: "var(--text-secondary)" }}
+              >
+                {tag}
+              </motion.span>
+            ))}
           </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </div>
     </section>
   );
 }

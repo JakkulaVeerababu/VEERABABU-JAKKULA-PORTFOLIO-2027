@@ -136,12 +136,39 @@ export default function Contact() {
         </div>
       </section>
 
-      <footer>
-        <div className="footer-inner">
-          <p className="footer-copy">
-            &copy; {new Date().getFullYear()} Veerababu Jakkula<span className="footer-dot">.</span> All rights reserved.
-          </p>
-          <span className="footer-tag">Built with Next.js & TypeScript</span>
+      <footer style={{ borderTop: "1px solid var(--border-subtle)", padding: "4rem 1.5rem", background: "var(--bg-pure)" }}>
+        <div className="container mx-auto max-w-[960px] flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="font-headline-md text-lg font-bold text-on-surface" style={{ color: "var(--text-primary)" }}>V. Jakkula</div>
+          <div className="text-xs text-center md:text-left" style={{ color: "var(--text-secondary)" }}>
+            &copy; {new Date().getFullYear()} Veerababu Jakkula. Built for Enterprise Systems Performance.
+          </div>
+          <div className="flex gap-6 text-xs font-semibold uppercase tracking-wider">
+            <a
+              href="https://www.linkedin.com/in/veerababu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--accent)" }}
+              className="hover:underline"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/JakkulaVeerababu"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--accent)" }}
+              className="hover:underline"
+            >
+              GitHub
+            </a>
+            <a
+              href="mailto:jakkulaveerababu429@gmail.com"
+              style={{ color: "var(--accent)" }}
+              className="hover:underline"
+            >
+              Email
+            </a>
+          </div>
         </div>
       </footer>
     </>

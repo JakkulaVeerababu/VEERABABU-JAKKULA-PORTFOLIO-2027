@@ -55,20 +55,25 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="hero-availability"
+          className="inline-block px-3 py-1 mb-6 border border-primary/30 bg-primary/10 rounded-full"
+          style={{ background: "rgba(173, 198, 255, 0.1)", borderColor: "rgba(173, 198, 255, 0.3)" }}
         >
-          <span className="hero-availability-dot" />
-          Open to Opportunities
+          <span className="font-label-caps text-label-caps text-primary text-xs uppercase tracking-wider font-semibold" style={{ color: "var(--accent)" }}>
+            Enterprise Portfolio 2026
+          </span>
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="hero-name"
+          className="hero-name uppercase tracking-tight"
+          style={{ letterSpacing: "-0.02em" }}
         >
           VEERABABU{" "}
-          <span className="hero-name-accent">JAKKULA</span>
+          <span className="hero-name-accent" style={{ background: "linear-gradient(135deg, var(--accent-bright) 0%, var(--accent) 50%, var(--accent-deep) 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            JAKKULA
+          </span>
         </motion.h1>
 
         <motion.div
@@ -87,10 +92,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.32 }}
-          className="hero-sub"
+          className="hero-sub font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto"
+          style={{ fontSize: "1.1rem", color: "var(--text-secondary)" }}
         >
-          Passionate about building scalable backend systems, AI-powered
-          platforms, and modern cloud-native web applications.
+          Full-Stack Engineer & AI/ML Specialist | B.Tech ECE @ Narasaraopeta Engineering College |{" "}
+          <span className="font-bold" style={{ color: "var(--secondary)" }}>8.71 CGPA</span>
         </motion.p>
 
         <motion.div
@@ -99,19 +105,23 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.42 }}
           className="hero-actions"
         >
-          <Link href="#projects" className="btn-primary">
-            View Projects <FiArrowRight />
-          </Link>
-          <Link href="#contact" className="btn-outline">
-            Contact Me
-          </Link>
           <a
-            href="https://www.linkedin.com/in/veerababu/"
+            href="/docs/maritime-vessel-tracking-infosys.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+            style={{ padding: "0.85rem 2rem", fontSize: "0.9rem", color: "var(--bg-canvas)", background: "var(--accent)" }}
+          >
+            Download Resume <FiArrowRight />
+          </a>
+          <a
+            href="https://github.com/JakkulaVeerababu"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline"
+            style={{ padding: "0.85rem 2rem", fontSize: "0.9rem" }}
           >
-            Resume
+            View GitHub
           </a>
         </motion.div>
 

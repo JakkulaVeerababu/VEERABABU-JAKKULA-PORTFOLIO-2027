@@ -6,9 +6,9 @@ const GRID_SIZE = 168; // 7 rows × 24 cols
 
 function getContribColor(rand: number) {
   if (rand < 0.48) return "#ebedf0";
-  if (rand < 0.70) return "#b3e8f0";
-  if (rand < 0.87) return "#3ecbdf";
-  return "#06b6d4";
+  if (rand < 0.70) return "#ddd6fe";
+  if (rand < 0.87) return "#a78bfa";
+  return "#8b5cf6";
 }
 
 const gridCells = Array.from({ length: GRID_SIZE }, () =>
@@ -57,7 +57,7 @@ export default function GithubSection() {
                 marginBottom: "0.75rem",
               }}
             >
-              <FiGithub style={{ color: "var(--neon-cyan)", fontSize: "1.05rem" }} />
+              <FiGithub style={{ color: "var(--accent)", fontSize: "1.05rem" }} />
               <h3
                 style={{
                   fontSize: "0.875rem",
@@ -124,7 +124,7 @@ export default function GithubSection() {
                 style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}
               >
                 <span>Less</span>
-                {["#ebedf0", "#b3e8f0", "#3ecbdf", "#06b6d4"].map((c) => (
+                {["#ebedf0", "#ddd6fe", "#a78bfa", "#8b5cf6"].map((c) => (
                   <div
                     key={c}
                     style={{

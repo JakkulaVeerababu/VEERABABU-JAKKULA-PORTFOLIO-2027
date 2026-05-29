@@ -1,85 +1,51 @@
 "use client";
 
-import { FiCode, FiCloud, FiCpu, FiCheckCircle } from "react-icons/fi";
+import { FiCode, FiCpu, FiTrendingUp, FiCheckCircle } from "react-icons/fi";
 
 const cards = [
   {
-    icon: <FiCode />,
-    title: "Full Stack & Backend",
-    desc: "Building robust interfaces and high-performance server architectures using React, Next.js, FastAPI, and Node.js.",
+    icon: <FiCode style={{ fontSize: "28px" }} />,
+    title: "Full-Stack Development",
+    desc: "Architecting scalable web solutions using React, Next.js 14, and high-performance FastAPI backends.",
+    accentColor: "var(--accent)",
+    bgAccent: "rgba(173, 198, 255, 0.1)",
   },
   {
-    icon: <FiCloud />,
-    title: "Cloud & DevOps",
-    desc: "Deploying microservices and scalable cloud pipelines on AWS and Vercel with Docker-based CI/CD workflows.",
+    icon: <FiCpu style={{ fontSize: "28px" }} />,
+    title: "AI & Machine Learning",
+    desc: "Designing GenAI pipelines, RAG systems, and predictive models for enterprise-grade performance.",
+    accentColor: "var(--secondary)",
+    bgAccent: "rgba(78, 222, 163, 0.1)",
   },
   {
-    icon: <FiCpu />,
-    title: "AI/ML Systems",
-    desc: "Integrating intelligent API workflows and exploring hardware-accelerated learning models with LangChain and Bedrock.",
-  },
-  {
-    icon: <FiCheckCircle />,
-    title: "Problem Solving",
-    desc: "Applying ECE hardware concepts and algorithmic theory to write optimized, production-grade software solutions.",
+    icon: <FiTrendingUp style={{ fontSize: "28px" }} />,
+    title: "Data Analytics",
+    desc: "Uncovering insights through big data visualization, statistical analysis, and complex data modeling.",
+    accentColor: "var(--tertiary)",
+    bgAccent: "rgba(255, 183, 134, 0.1)",
   },
 ];
 
 export default function About() {
   return (
-    <section id="about">
+    <section id="about" style={{ background: "var(--bg-canvas)", borderTop: "1px solid var(--border-subtle)", borderBottom: "1px solid var(--border-subtle)" }}>
       <div className="container">
-        <div className="about-layout">
-          {/* Left: Text */}
-          <div className="reveal">
-            <div className="section-eyebrow">Profile</div>
-            <h2 className="section-title">Engineering Mindset</h2>
-            <div className="section-divider" />
-            <div className="about-text">
-              <p>
-                I&apos;m a <strong>Electronics & Communication Engineering student</strong> at
-                Narasaraopeta Engineering College, maintaining a CGPA of{" "}
-                <strong>8.71</strong>. I specialize in building full-stack web
-                platforms, AI-powered tools, and systems solutions that solve real-world problems.
-              </p>
-              <p>
-                I study the software stack from user interfaces down to CPU instruction
-                pipelines — preparing myself for advanced software engineering and
-                systems roles at product-driven companies.
-              </p>
-              <p>
-                Notable enterprise projects like <strong>ShrFlow</strong> — an automated
-                email marketing pipeline — have been directly validated by industry
-                founders for their architecture design.
-              </p>
-            </div>
+        <div className="mb-12 text-center md:text-left reveal">
+          <div className="section-eyebrow">Capabilities</div>
+          <h2 className="section-title">Technical Expertise</h2>
+          <div className="section-divider" style={{ background: "var(--accent)" }} />
+        </div>
 
-            <div className="about-stat-row">
-              <div className="about-stat">
-                <div className="about-stat-number">8<span>.71</span></div>
-                <div className="about-stat-label">CGPA</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+          {cards.map((card, i) => (
+            <div key={i} className="glass-card p-8 flex flex-col items-start gap-5 rounded-lg" style={{ background: "var(--card-bg)", border: "1px solid var(--border-subtle)", transition: "all 0.3s ease" }}>
+              <div className="p-3.5 rounded-lg" style={{ backgroundColor: card.bgAccent, color: card.accentColor }}>
+                {card.icon}
               </div>
-              <div className="about-stat">
-                <div className="about-stat-number">5</div>
-                <div className="about-stat-label">Internships</div>
-              </div>
-              <div className="about-stat">
-                <div className="about-stat-number">6<span>+</span></div>
-                <div className="about-stat-label">Hackathons</div>
-              </div>
+              <h3 className="font-headline-md text-xl font-bold text-on-surface" style={{ color: "var(--text-primary)" }}>{card.title}</h3>
+              <p className="text-on-surface-variant text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>{card.desc}</p>
             </div>
-          </div>
-
-          {/* Right: Cards */}
-          <div className="about-cards reveal">
-            {cards.map((card, i) => (
-              <div key={i} className="about-card">
-                <div className="about-card-icon">{card.icon}</div>
-                <div className="about-card-title">{card.title}</div>
-                <div className="about-card-desc">{card.desc}</div>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </section>
