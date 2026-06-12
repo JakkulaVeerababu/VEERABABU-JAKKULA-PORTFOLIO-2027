@@ -53,11 +53,15 @@ export default function Skills() {
           className="skills-grid reveal"
         >
           {skills.map((skill) => (
-            <motion.div key={skill.name} variants={item} className="skill-card">
-              <div className="skill-icon" style={{ color: skill.color }}>
+            <motion.div 
+              key={skill.name} 
+              variants={item} 
+              className="skill-card bg-white/40 hover:bg-white/80 hover:shadow-md hover:scale-105 border border-black/5 rounded-xl transition-all duration-300 p-5 flex flex-col items-center justify-center cursor-default"
+            >
+              <div className="skill-icon text-2xl mb-2 transition-transform duration-300" style={{ color: skill.color }}>
                 {skill.icon}
               </div>
-              <span className="skill-name">{skill.name}</span>
+              <span className="skill-name font-mono text-xs font-bold text-slate-700 tracking-tight">{skill.name}</span>
             </motion.div>
           ))}
         </motion.div>

@@ -5,11 +5,14 @@ import Link from "next/link";
 import { FiMenu, FiX } from "react-icons/fi";
 
 const NAV_LINKS = [
-  { href: "#about", label: "Expertise" },
-  { href: "#experience", label: "Experience" },
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
-  { href: "#achievements", label: "Hackathons" },
-  { href: "#certifications", label: "Certifications" },
+  { href: "#experience", label: "Experience" },
+  { href: "#achievements", label: "Achievements" },
+  { href: "#certifications", label: "Certs" },
+  { href: "#github", label: "GitHub" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -46,8 +49,8 @@ export default function Navbar() {
     <nav className={scrolled ? "scrolled" : ""}>
       <div className="nav-inner">
         {/* Logo */}
-        <Link href="#hero" className="nav-logo" onClick={() => setMenuOpen(false)}>
-          V. Jakkula
+        <Link href="#hero" className="nav-logo group" onClick={() => setMenuOpen(false)}>
+          VJ<span className="group-hover:translate-x-1 duration-300 ease-in-out">.</span>
         </Link>
 
         {/* Desktop links */}
@@ -56,7 +59,7 @@ export default function Navbar() {
             <li key={href}>
               <Link
                 href={href}
-                className={activeSection === href.slice(1) ? "active" : ""}
+                className={`transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 ${activeSection === href.slice(1) ? "active font-semibold" : ""}`}
                 onClick={() => setMenuOpen(false)}
               >
                 {label}
@@ -66,8 +69,12 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop CTA */}
-        <Link href="#contact" className="nav-cta" onClick={() => setMenuOpen(false)}>
-          Connect
+        <Link 
+          href="#contact" 
+          className="nav-cta active:scale-95 hover:opacity-90 duration-200 transition-all font-semibold uppercase tracking-[0.05em]" 
+          onClick={() => setMenuOpen(false)}
+        >
+          Contact Node
         </Link>
 
         {/* Mobile hamburger */}

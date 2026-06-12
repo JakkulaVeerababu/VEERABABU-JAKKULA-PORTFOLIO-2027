@@ -5,10 +5,10 @@ import { FiGithub, FiStar, FiGitBranch } from "react-icons/fi";
 const GRID_SIZE = 168; // 7 rows × 24 cols
 
 function getContribColor(rand: number) {
-  if (rand < 0.48) return "#ebedf0";
-  if (rand < 0.70) return "#ddd6fe";
-  if (rand < 0.87) return "#a78bfa";
-  return "#8b5cf6";
+  if (rand < 0.48) return "rgba(30, 30, 36, 0.05)";
+  if (rand < 0.70) return "rgba(99, 102, 241, 0.2)";
+  if (rand < 0.87) return "rgba(99, 102, 241, 0.5)";
+  return "#6366f1";
 }
 
 const gridCells = Array.from({ length: GRID_SIZE }, () =>
@@ -18,7 +18,7 @@ const gridCells = Array.from({ length: GRID_SIZE }, () =>
 const pinnedRepos = [
   {
     name: "VEERABABU-JAKKULA-PORTFOLIO-2027",
-    desc: "Premium white-neon developer portfolio built using Next.js 15, TypeScript, and Framer Motion.",
+    desc: "Premium pitch-black developer portfolio built using Next.js 15, TypeScript, and Framer Motion.",
     lang: "TypeScript",
     langColor: "#3178c6",
     stars: 1,
@@ -43,7 +43,7 @@ export default function GithubSection() {
         <div className="reveal section-header">
           <div className="section-eyebrow">Open Source</div>
           <h2 className="section-title">GitHub Activity</h2>
-          <div className="section-divider" />
+          <div className="section-divider" style={{ background: "var(--accent)" }} />
         </div>
 
         <div className="github-layout reveal">
@@ -72,13 +72,12 @@ export default function GithubSection() {
             <p
               style={{
                 fontSize: "0.78rem",
-                color: "var(--text-muted)",
+                color: "var(--text-secondary)",
                 lineHeight: 1.6,
                 marginBottom: "1.25rem",
               }}
             >
-              Continuous integration commits, algorithmic practices, and
-              system repository updates.
+              Continuous integration commits, algorithmic practices, and system repository updates.
             </p>
 
             {/* Grid */}
@@ -89,9 +88,9 @@ export default function GithubSection() {
                 gridAutoFlow: "column",
                 gap: "3px",
                 padding: "0.875rem",
-                background: "var(--bg-canvas)",
+                background: "rgba(255, 255, 255, 0.35)",
                 border: "1px solid var(--border-subtle)",
-                borderRadius: "8px",
+                borderRadius: "6px",
                 overflowX: "auto",
               }}
             >
@@ -124,7 +123,7 @@ export default function GithubSection() {
                 style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}
               >
                 <span>Less</span>
-                {["#ebedf0", "#ddd6fe", "#a78bfa", "#8b5cf6"].map((c) => (
+                {["rgba(30, 30, 36, 0.05)", "rgba(99, 102, 241, 0.2)", "rgba(99, 102, 241, 0.5)", "#6366f1"].map((c) => (
                   <div
                     key={c}
                     style={{
@@ -163,7 +162,7 @@ export default function GithubSection() {
                     style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}
                   >
                     <FiGithub
-                      style={{ color: "var(--neon-cyan)", fontSize: "0.9rem", flexShrink: 0 }}
+                      style={{ color: "var(--accent-bright)", fontSize: "0.9rem", flexShrink: 0 }}
                     />
                     <h4
                       style={{
@@ -192,7 +191,7 @@ export default function GithubSection() {
                 <p
                   style={{
                     fontSize: "0.775rem",
-                    color: "var(--text-muted)",
+                    color: "var(--text-secondary)",
                     lineHeight: 1.6,
                     marginBottom: "1rem",
                   }}
@@ -206,7 +205,7 @@ export default function GithubSection() {
                     gap: "1rem",
                     fontSize: "0.7rem",
                     fontFamily: "var(--font-mono)",
-                    color: "var(--text-muted)",
+                    color: "var(--text-secondary)",
                     alignItems: "center",
                   }}
                 >

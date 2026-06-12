@@ -1,25 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function CursorGlow() {
-  const [position, setPosition] = useState({ x: -500, y: -500 });
+  const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
     <div
+      ref={glowRef}
       className="cursor-glow-dot hidden md:block"
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        position: "fixed",
+        top: 0,
+        left: 0,
+        transform: "translate3d(-500px, -500px, 0) translate(-50%, -50%)",
       }}
     />
   );
