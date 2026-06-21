@@ -1,24 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { FiGithub, FiStar, FiGitBranch } from "react-icons/fi";
+import { SiLeetcode } from "react-icons/si";
 
 const GRID_SIZE = 168; // 7 rows × 24 cols
 
 function getContribColor(rand: number) {
-  if (rand < 0.48) return "rgba(30, 30, 36, 0.05)";
-  if (rand < 0.70) return "rgba(99, 102, 241, 0.2)";
-  if (rand < 0.87) return "rgba(99, 102, 241, 0.5)";
-  return "#6366f1";
+  if (rand < 0.48) return "#ebedf0";
+  if (rand < 0.70) return "#b3e8f0";
+  if (rand < 0.87) return "#3ecbdf";
+  return "#06b6d4";
 }
 
-const gridCells = Array.from({ length: GRID_SIZE }, () =>
-  getContribColor(Math.random())
-);
 
 const pinnedRepos = [
   {
     name: "VEERABABU-JAKKULA-PORTFOLIO-2027",
-    desc: "Premium pitch-black developer portfolio built using Next.js 15, TypeScript, and Framer Motion.",
+    desc: "Premium developer portfolio built using Next.js, TypeScript, and Framer Motion with liquid glass design.",
     lang: "TypeScript",
     langColor: "#3178c6",
     stars: 1,
@@ -37,104 +36,197 @@ const pinnedRepos = [
 ];
 
 export default function GithubSection() {
+  const [cells, setCells] = useState<string[]>([]);
+
+  useEffect(() => {
+    setCells(Array.from({ length: GRID_SIZE }, () => getContribColor(Math.random())));
+  }, []);
+
+  const displayCells = cells.length > 0 ? cells : Array.from({ length: GRID_SIZE }, () => "#ebedf0");
+
   return (
     <section id="github">
       <div className="container">
         <div className="reveal section-header">
           <div className="section-eyebrow">Open Source</div>
           <h2 className="section-title">GitHub Activity</h2>
-          <div className="section-divider" style={{ background: "var(--accent)" }} />
+          <div className="section-divider" />
         </div>
 
         <div className="github-layout reveal">
-          {/* Contribution Graph */}
-          <div className="github-card">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                marginBottom: "0.75rem",
-              }}
-            >
-              <FiGithub style={{ color: "var(--accent)", fontSize: "1.05rem" }} />
-              <h3
-                style={{
-                  fontSize: "0.875rem",
-                  fontWeight: 700,
-                  color: "var(--text-primary)",
-                }}
-              >
-                Coding Activity
-              </h3>
-            </div>
-
-            <p
-              style={{
-                fontSize: "0.78rem",
-                color: "var(--text-secondary)",
-                lineHeight: 1.6,
-                marginBottom: "1.25rem",
-              }}
-            >
-              Continuous integration commits, algorithmic practices, and system repository updates.
-            </p>
-
-            {/* Grid */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateRows: "repeat(7, 10px)",
-                gridAutoFlow: "column",
-                gap: "3px",
-                padding: "0.875rem",
-                background: "rgba(255, 255, 255, 0.35)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "6px",
-                overflowX: "auto",
-              }}
-            >
-              {gridCells.map((color, i) => (
+          {/* Left Column: LeetCode Profiles (Larger size) */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
+            {/* LeetCode Professional Profile */}
+            <div className="github-card" style={{ display: "flex", flexDirection: "column", padding: "0", overflow: "hidden" }}>
+              <div style={{ padding: "1.5rem 1.5rem 0.875rem 1.5rem", display: "flex", flexDirection: "column", gap: "0.875rem" }}>
                 <div
-                  key={i}
                   style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: 2,
-                    backgroundColor: color,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <SiLeetcode style={{ color: "#FFA116", fontSize: "1.15rem" }} />
+                    <h4
+                      style={{
+                        fontSize: "0.9rem",
+                        fontWeight: 700,
+                        color: "var(--text-primary)",
+                      }}
+                    >
+                      LeetCode (Professional)
+                    </h4>
+                  </div>
+                  <a
+                    href="https://leetcode.com/u/VEERABABU_JAKKULA/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: "0.68rem",
+                      color: "#FFA116",
+                      textDecoration: "none",
+                      fontWeight: 600,
+                      borderBottom: "1px solid transparent",
+                      transition: "border-color 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#FFA116")}
+                    onMouseLeave={(e) => (e.currentTarget.style.borderColor = "transparent")}
+                  >
+                    @veerababu_jakkula
+                  </a>
+                </div>
+
+                <p
+                  style={{
+                    fontSize: "0.78rem",
+                    color: "var(--text-muted)",
+                    lineHeight: 1.45,
+                    minHeight: "2.5rem",
+                  }}
+                >
+                  <strong>811 Solved</strong> · Global Rank <strong>59,985</strong> · 1,059 submissions past year.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  overflow: "hidden",
+                  borderTop: "1px solid var(--border-subtle)",
+                  background: "var(--bg-canvas)",
+                  cursor: "pointer",
+                  marginTop: "auto",
+                }}
+                onClick={() => window.open("https://leetcode.com/u/VEERABABU_JAKKULA/", "_blank")}
+              >
+                <img
+                  src="/IMGS/leetcode_professional.png"
+                  alt="LeetCode Professional Dashboard"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    display: "block",
+                    opacity: 0.95,
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = "1";
+                    e.currentTarget.style.transform = "scale(1.02)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = "0.95";
+                    e.currentTarget.style.transform = "scale(1)";
                   }}
                 />
-              ))}
+              </div>
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: "0.75rem",
-                fontSize: "0.65rem",
-                color: "var(--text-muted)",
-                fontFamily: "var(--font-mono)",
-              }}
-            >
-              <span>@JakkulaVeerababu</span>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}
-              >
-                <span>Less</span>
-                {["rgba(30, 30, 36, 0.05)", "rgba(99, 102, 241, 0.2)", "rgba(99, 102, 241, 0.5)", "#6366f1"].map((c) => (
-                  <div
-                    key={c}
+            {/* LeetCode Practice Profile */}
+            <div className="github-card" style={{ display: "flex", flexDirection: "column", padding: "0", overflow: "hidden" }}>
+              <div style={{ padding: "1.5rem 1.5rem 0.875rem 1.5rem", display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <SiLeetcode style={{ color: "#FFA116", fontSize: "1.15rem" }} />
+                    <h4
+                      style={{
+                        fontSize: "0.9rem",
+                        fontWeight: 700,
+                        color: "var(--text-primary)",
+                      }}
+                    >
+                      LeetCode (Practice)
+                    </h4>
+                  </div>
+                  <a
+                    href="https://leetcode.com/u/veerababu9z/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: 2,
-                      backgroundColor: c,
+                      fontSize: "0.68rem",
+                      color: "#FFA116",
+                      textDecoration: "none",
+                      fontWeight: 600,
+                      borderBottom: "1px solid transparent",
+                      transition: "border-color 0.2s",
                     }}
-                  />
-                ))}
-                <span>More</span>
+                    onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#FFA116")}
+                    onMouseLeave={(e) => (e.currentTarget.style.borderColor = "transparent")}
+                  >
+                    @veerababu9z
+                  </a>
+                </div>
+
+                <p
+                  style={{
+                    fontSize: "0.78rem",
+                    color: "var(--text-muted)",
+                    lineHeight: 1.45,
+                    minHeight: "2.5rem",
+                  }}
+                >
+                  <strong>362 Solved</strong> · Global Rank <strong>350,936</strong> · 475 submissions past year.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  overflow: "hidden",
+                  borderTop: "1px solid var(--border-subtle)",
+                  background: "var(--bg-canvas)",
+                  cursor: "pointer",
+                  marginTop: "auto",
+                }}
+                onClick={() => window.open("https://leetcode.com/u/veerababu9z/", "_blank")}
+              >
+                <img
+                  src="/IMGS/leetcode_practice.png"
+                  alt="LeetCode Practice Dashboard"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    display: "block",
+                    opacity: 0.95,
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = "1";
+                    e.currentTarget.style.transform = "scale(1.02)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = "0.95";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -162,7 +254,7 @@ export default function GithubSection() {
                     style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}
                   >
                     <FiGithub
-                      style={{ color: "var(--accent-bright)", fontSize: "0.9rem", flexShrink: 0 }}
+                      style={{ color: "var(--neon-cyan)", fontSize: "0.9rem", flexShrink: 0 }}
                     />
                     <h4
                       style={{
@@ -191,7 +283,7 @@ export default function GithubSection() {
                 <p
                   style={{
                     fontSize: "0.775rem",
-                    color: "var(--text-secondary)",
+                    color: "var(--text-muted)",
                     lineHeight: 1.6,
                     marginBottom: "1rem",
                   }}
@@ -205,7 +297,7 @@ export default function GithubSection() {
                     gap: "1rem",
                     fontSize: "0.7rem",
                     fontFamily: "var(--font-mono)",
-                    color: "var(--text-secondary)",
+                    color: "var(--text-muted)",
                     alignItems: "center",
                   }}
                 >

@@ -4,185 +4,75 @@ import { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FiAward, FiStar, FiMaximize2, FiX, FiExternalLink } from "react-icons/fi";
 
-interface Achievement {
-  badge: string;
-  title: string;
-  desc: string;
-  icon?: React.ReactNode;
-  featured?: boolean;
-  images?: string[];
-  doc?: string;
-}
-
-const achievements: Achievement[] = [
+const achievements = [
   {
-    badge: "Hack2Skill",
-    title: "BUILDATHON 2025",
-    desc: "Dreamflow AI Project - Built dream flow builder tools utilizing Flutter and Dreamflow under Hack2Skill builder guidelines.",
-    icon: <FiAward />,
-    featured: true,
-  },
-  {
-    badge: "AI Innovator",
-    title: "AMD Slingshot Hackathon",
-    desc: "Designed systems blending human imagination with hardware-accelerated AI models.",
-    icon: <FiAward />,
-    featured: true,
-  },
-  {
-    badge: "Google Cloud",
+    badge: "National Round",
     title: "Google Big Code Challenge 2026",
-    desc: "Successfully cleared the Qualifier Round and Round 1, competing in large-scale algorithmic and coding structures.",
+    desc: "Cleared the Qualifier Round and Round 1, competing at a national scale in structural coding and algorithmic puzzles.",
     icon: <FiAward />,
     featured: true,
+    images: ["/google-big-code-banner.png", "/google-big-code-email.png"],
   },
   {
-    badge: "AWS & H2S",
-    title: "AI for Bharat Hackathon",
-    desc: "Developed local AI applications leveraging cloud infrastructure and advanced engineering models by AWS and Hack2Skill.",
+    badge: "Regional Ideathon",
+    title: "AMD Slingshot Regional Ideathon 2026",
+    desc: "Shortlisted for the regional level of the AMD Slingshot Ideathon in Hyderabad, pitching system accelerators and IoT designs.",
+    icon: <FiAward />,
+    featured: true,
+    doc: "/docs/amd-slingshot-ideathon.pdf",
+    img: "/IMGS/amd-slingshot-ideathon_preview.png",
+  },
+  {
+    badge: "AWS Cloud",
+    title: "AWS AI for Bharat Hackathon",
+    desc: "Participated and built local-language LLM orchestration agents utilizing AWS Bedrock, Lambda functions, and DynamoDB.",
     icon: <FiStar />,
     featured: false,
+    doc: "/docs/ai-for-bharat-hackathon.pdf",
+    img: "/IMGS/ai-for-bharat-hackathon_preview.png",
   },
   {
     badge: "Buildathon",
-    title: "Build with Medo Hackathon",
-    desc: "Successfully built and shipped optimized web platforms in a fast-paced development sprint.",
-    icon: <FiStar />,
-    featured: false,
+    title: "BUILDATHON 2025 by Hack2Skill",
+    desc: "Successfully built, shipped, and received official recognition at Buildathon 2025, deploying end-to-end full-stack web tools.",
+    icon: <FiAward />,
+    featured: true,
+    doc: "/docs/buildathon-2025.pdf",
+    img: "/IMGS/buildathon-2025_preview.png",
   },
   {
-    badge: "DevSecOps",
+    badge: "AMD Hardware",
+    title: "AMD AI Hackathon",
+    desc: "Developed local model acceleration pipelines leveraging AMD hardware, optimizing inference latency for image generation.",
+    icon: <FiStar />,
+    featured: false,
+    images: ["/amd-slingshot.png"],
+    doc: "/docs/amd-slingshot-hackathon.pdf",
+    img: "/IMGS/amd-slingshot-hackathon_preview.png",
+  },
+  {
+    badge: "IBM Developer",
+    title: "IBM Dev Day Hackathon",
+    desc: "Participated in the IBM Dev Day Hackathon, building cloud applications and using enterprise APIs.",
+    icon: <FiStar />,
+    featured: false,
+    doc: "/docs/ibm-dev-day-hackathon.pdf",
+    img: "/IMGS/ibm-dev-day-hackathon_preview.png",
+  },
+  {
+    badge: "GitLab DevSecOps",
     title: "GitLab AI Hackathon",
-    desc: "Built productivity tools leveraging GitLab Duo APIs and automated pipeline triggers.",
+    desc: "Participated in designing developer productivity tools using GitLab Duo APIs and automated CI/CD pipeline triggers.",
     icon: <FiStar />,
     featured: false,
   },
   {
     badge: "Google AI",
     title: "Gemini 3 Hackathon",
-    desc: "Developed intelligent workflows using Google Gemini multi-modal Flash models.",
+    desc: "Built prototype applications using multi-modal Gemini Flash and Pro APIs, demonstrating real-time structured data parsing.",
     icon: <FiStar />,
     featured: false,
   },
-  {
-    badge: "Global Virtual",
-    title: "Global Virtual Hackathon",
-    desc: "Built high-performance local compilation and coding logic with Claude Code running on Opus 4.7.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "IBM Cloud",
-    title: "IBM Dev Day AI Demystified",
-    desc: "Explored enterprise cognitive solutions, Watson Assistant APIs, and cloud-native services.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "AMD Hardware",
-    title: "AMD Slingshot Innovator",
-    desc: "Implemented local execution pipelines optimizing inference for visual generative AI.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Local AI",
-    title: "Deepseek vs Llama: The Kill the Cloud Challenge",
-    desc: "Optimized offline local LLMs to run at high tokens-per-second, bypassing cloud cost structures.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Mobile Dev",
-    title: "Built Your Flutter Butler with Serverpod",
-    desc: "Constructed high-speed responsive mobile applications with automated backend code generators.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "XR / Creator",
-    title: "Meta Horizon Creator Completion",
-    desc: "Elevating mobile worlds with advanced immersive UX paradigms and virtual spaces.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "AWS Cloud",
-    title: "AWS Lambda Hackathon",
-    desc: "Constructed highly scalable serverless backends deploying API triggers and data storage queues.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Bolt.new",
-    title: "World's Largest Hackathon",
-    desc: "Rapidly bootstrapped full-stack production sites using next-gen instant deployment architectures.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Ideathon",
-    title: "AI-Driven Learning Tools Ideathon",
-    desc: "Pitched automated curriculum alignment systems and personalized pedagogical maps.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Google Devs",
-    title: "Prompt Wars",
-    desc: "Completed advanced generative prompt engineering pipelines using Google AI developer tools.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Google Devs",
-    title: "Solution Challenge 2026",
-    desc: "Built with AI systems to address local community challenges under Google guidelines.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Generative",
-    title: "GenAI Exchange Hackathon",
-    desc: "Engineered scalable vector indexing workflows for custom corporate knowledge bases.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Surge AI",
-    title: "AI Agent Olympics Hackathon",
-    desc: "Constructed multi-agent clusters using surge, AI Week, Vultr, Google AI Studio, Gemini, and Speechmatics APIs.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Namespace",
-    title: "Hackhazards 2026",
-    desc: "Participated in designing developer utilities and real-time infrastructure templates.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Meta & Scalar",
-    title: "India's Biggest AI Hackathon",
-    desc: "Co-created large language model interfaces at the Scalar School of Technology campus.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "Economic Times",
-    title: "The Economic Times AI Hackathons",
-    desc: "Presented enterprise-focused AI solutions solving commercial finance bottlenecks.",
-    icon: <FiStar />,
-    featured: false,
-  },
-  {
-    badge: "AMD Cloud",
-    title: "AMD Developer Hackathon",
-    desc: "Built high-performance AI agents and optimized inference engines on cloud AMD GPUs.",
-    icon: <FiStar />,
-    featured: false,
-  }
 ];
 
 const container: Variants = {
@@ -200,6 +90,58 @@ export default function Hackathons() {
 
   return (
     <section id="achievements">
+      <style>{`
+        .ach-marquee-container {
+          overflow: hidden;
+          width: 100%;
+          position: relative;
+          padding: 1.5rem 0;
+        }
+        .ach-marquee-container::before {
+          content: "";
+          position: absolute;
+          top: 0; bottom: 0; left: 0;
+          width: 80px;
+          background: linear-gradient(to right, var(--bg-pure) 0%, transparent 100%);
+          z-index: 5;
+          pointer-events: none;
+        }
+        .ach-marquee-container::after {
+          content: "";
+          position: absolute;
+          top: 0; bottom: 0; right: 0;
+          width: 80px;
+          background: linear-gradient(to left, var(--bg-pure) 0%, transparent 100%);
+          z-index: 5;
+          pointer-events: none;
+        }
+        .ach-marquee-track {
+          display: flex;
+          gap: 1.25rem;
+          width: max-content;
+          animation: marquee-scroll 45s linear infinite;
+        }
+        .ach-marquee-item {
+          flex: 0 0 355px;
+          max-width: 90vw;
+          display: flex;
+          flex-direction: column;
+        }
+        @keyframes marquee-scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-50% - 0.625rem));
+          }
+        }
+        @media (max-width: 600px) {
+          .ach-marquee-item {
+            flex: 0 0 305px;
+          }
+        }
+      `}</style>
+
       <div className="container">
         <div className="reveal section-header">
           <div className="section-eyebrow">Competitions</div>
@@ -207,68 +149,169 @@ export default function Hackathons() {
           <div className="section-divider" />
         </div>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="matrix-grid reveal"
-        >
-          {achievements.map((ach, i) => (
-            <motion.div
-              key={i}
-              variants={card}
-              className={`matrix-card p-5 border border-black/5 hover:-translate-y-1 hover:shadow-lg duration-300 ease-in-out transition-all flex flex-col justify-between ${ach.featured ? "shadow-md bg-white/70" : "bg-white/40"}`}
-              style={{ borderRadius: "var(--radius-lg)" }}
-            >
-              {/* Header */}
-              <div className="matrix-header flex justify-between items-center mb-4 gap-2">
-                <span className="matrix-category font-mono text-[10px] text-indigo-600 font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-50 border border-indigo-100">{ach.badge}</span>
-                {ach.featured ? (
-                  <span className="inline-block bg-emerald-500/90 border border-emerald-400/50 text-white font-bold rounded-full px-2.5 py-0.5 text-[9px] uppercase tracking-wider shadow-sm">WINNER</span>
-                ) : (
-                  <span className="inline-block bg-slate-200/90 border border-slate-300/50 text-slate-700 font-bold rounded-full px-2 py-0.5 text-[9px] uppercase tracking-wider">FINALIST</span>
+        <div className="ach-marquee-container reveal">
+          <div className="ach-marquee-track">
+            {/* Copy 1 of achievements */}
+            {achievements.map((ach, i) => (
+              <div
+                key={`ach-1-${i}`}
+                className={`ach-card ach-marquee-item${ach.featured ? " featured" : ""}`}
+              >
+                {/* Header */}
+                <div className="ach-header">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span className="ach-badge">{ach.badge}</span>
+                    {ach.featured && <span className="ach-priority">Priority</span>}
+                  </div>
+                  <span className="ach-icon">{ach.icon}</span>
+                </div>
+
+                <h3 className="ach-title">{ach.title}</h3>
+                <p className="ach-desc">{ach.desc}</p>
+
+                {/* Images */}
+                {ach.images && (
+                  <div className={`ach-images${ach.images.length > 1 ? " cols-2" : ""}`}>
+                    {ach.images.map((img, idx) => (
+                      <div
+                        key={idx}
+                        className="ach-img-wrap"
+                        onClick={() => setLightbox(img)}
+                      >
+                        <img src={img} alt={`${ach.title} image ${idx + 1}`} />
+                        <div className="ach-img-overlay">
+                          <FiMaximize2 className="ach-img-zoom-icon" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* PDF */}
+                {ach.doc && ach.img && (
+                  <div className="pdf-block" style={{ marginTop: "auto" }}>
+                    <div className="pdf-frame" style={{ overflow: "hidden", height: "200px" }}>
+                      <img
+                        src={ach.img}
+                        alt={`${ach.title} certificate preview`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                          background: "rgba(0, 0, 0, 0.4)",
+                        }}
+                      />
+                    </div>
+                    <div className="pdf-footer">
+                      <span className="pdf-label">Certificate Preview</span>
+                      <a
+                        href={ach.doc}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="pdf-open-btn"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          background: "var(--accent-pale, rgba(255, 255, 255, 0.08))",
+                          padding: "6px 14px",
+                          borderRadius: "99px",
+                          border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.15))",
+                          color: "var(--text-primary)",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                          transition: "all 0.2s ease",
+                        }}
+                      >
+                        <FiExternalLink size={12} /> PDF
+                      </a>
+                    </div>
+                  </div>
                 )}
               </div>
+            ))}
 
-              <h3 className="matrix-title text-sm font-bold text-slate-800 tracking-tight mb-2">{ach.title}</h3>
-              <p className="matrix-issuer text-slate-600 leading-relaxed text-xs mb-4 flex-grow">{ach.desc}</p>
+            {/* Copy 2 of achievements (for seamless scroll loop) */}
+            {achievements.map((ach, i) => (
+              <div
+                key={`ach-2-${i}`}
+                className={`ach-card ach-marquee-item${ach.featured ? " featured" : ""}`}
+              >
+                {/* Header */}
+                <div className="ach-header">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span className="ach-badge">{ach.badge}</span>
+                    {ach.featured && <span className="ach-priority">Priority</span>}
+                  </div>
+                  <span className="ach-icon">{ach.icon}</span>
+                </div>
 
-              {/* Images */}
-              {ach.images && (
-                <div className={`ach-images gap-2 flex mb-4${ach.images.length > 1 ? " cols-2" : ""}`}>
-                  {ach.images.map((img, idx) => (
-                    <div
-                      key={idx}
-                      className="ach-img-wrap relative cursor-zoom-in rounded overflow-hidden shadow-sm"
-                      onClick={() => setLightbox(img)}
-                    >
-                      <img src={img} alt={`${ach.title} image ${idx + 1}`} className="w-full h-16 object-cover" />
-                      <div className="ach-img-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                        <FiMaximize2 className="ach-img-zoom-icon text-white" />
+                <h3 className="ach-title">{ach.title}</h3>
+                <p className="ach-desc">{ach.desc}</p>
+
+                {/* Images */}
+                {ach.images && (
+                  <div className={`ach-images${ach.images.length > 1 ? " cols-2" : ""}`}>
+                    {ach.images.map((img, idx) => (
+                      <div
+                        key={idx}
+                        className="ach-img-wrap"
+                        onClick={() => setLightbox(img)}
+                      >
+                        <img src={img} alt={`${ach.title} image ${idx + 1}`} />
+                        <div className="ach-img-overlay">
+                          <FiMaximize2 className="ach-img-zoom-icon" />
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
 
-              {/* PDF */}
-              {ach.doc && (
-                <div className="mt-4 pt-4 border-t border-black/5 flex justify-between items-center">
-                  <span className="pdf-label font-mono text-[9px] text-slate-500 font-bold uppercase tracking-wider">Proof Node</span>
-                  <a
-                    href={ach.doc}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="pdf-open-btn flex items-center gap-1.5 text-[9px] font-mono font-bold uppercase tracking-wider text-indigo-600 hover:text-indigo-800 transition-colors active:scale-95"
-                  >
-                    <FiExternalLink size={12} /> View PDF Proof
-                  </a>
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
+                {/* PDF */}
+                {ach.doc && ach.img && (
+                  <div className="pdf-block" style={{ marginTop: "auto" }}>
+                    <div className="pdf-frame" style={{ overflow: "hidden", height: "200px" }}>
+                      <img
+                        src={ach.img}
+                        alt={`${ach.title} certificate preview`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                          background: "rgba(0, 0, 0, 0.4)",
+                        }}
+                      />
+                    </div>
+                    <div className="pdf-footer">
+                      <span className="pdf-label">Certificate Preview</span>
+                      <a
+                        href={ach.doc}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="pdf-open-btn"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          background: "var(--accent-pale, rgba(255, 255, 255, 0.08))",
+                          padding: "6px 14px",
+                          borderRadius: "99px",
+                          border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.15))",
+                          color: "var(--text-primary)",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                          transition: "all 0.2s ease",
+                        }}
+                      >
+                        <FiExternalLink size={12} /> PDF
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Lightbox */}

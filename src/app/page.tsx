@@ -7,9 +7,11 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
 import Hackathons from "@/components/Hackathons";
-import Certifications from "@/components/Certifications";
 import GithubSection from "@/components/GithubSection";
+import Certifications from "@/components/Certifications";
+import VisualShowcase from "@/components/VisualShowcase";
 import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   useEffect(() => {
@@ -44,9 +46,11 @@ export default function Home() {
       <Projects />
       <Experience />
       <Hackathons />
-      <Certifications />
       <GithubSection />
+      <Certifications />
+      <VisualShowcase />
       <Contact />
+      <Footer />
     </main>
   );
 }

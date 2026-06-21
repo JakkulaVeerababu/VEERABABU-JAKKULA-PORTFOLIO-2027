@@ -2,16 +2,17 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 
 const NAV_LINKS = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
-  { href: "#achievements", label: "Achievements" },
-  { href: "#certifications", label: "Certs" },
+  { href: "#achievements", label: "Hackathons" },
   { href: "#github", label: "GitHub" },
+  { href: "#certifications", label: "Certifications" },
+  { href: "#gallery", label: "Gallery" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -19,6 +20,21 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") as "dark" | "light" | null;
+    const initial = saved || "dark";
+    setTheme(initial);
+    document.documentElement.setAttribute("data-theme", initial);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  };
 
   useEffect(() => {
     const sections = NAV_LINKS.map((l) => l.href.slice(1));
@@ -67,6 +83,15 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+
+        {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          className="theme-toggle-btn"
+          aria-label="Toggle Theme"
+        >
+          {theme === "dark" ? <FiSun size={16} /> : <FiMoon size={16} />}
+        </button>
 
         {/* Desktop CTA */}
         <Link 
