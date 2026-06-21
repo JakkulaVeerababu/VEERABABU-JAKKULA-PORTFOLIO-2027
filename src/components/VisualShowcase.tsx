@@ -48,7 +48,7 @@ export default function VisualShowcase() {
             className={`btn-outline ${activeTab === "images" ? "active" : ""}`}
             style={{ display: "flex", alignItems: "center", gap: "8px", height: "44px", padding: "0 18px", fontSize: "14px", borderRadius: "99px" }}
           >
-            <FiImage size={14} /> Screenshots ({filteredImages.length})
+            <FiImage size={14} /> Images & Badges ({filteredImages.length})
           </button>
           <button
             onClick={() => setActiveTab("pdfs")}
@@ -70,33 +70,44 @@ export default function VisualShowcase() {
         >
           {/* Images / Screenshots Grid */}
           {(activeTab === "all" || activeTab === "images") &&
-            filteredImages.map((img, i) => (
-              <motion.div
-                key={`img-${i}`}
-                variants={card}
-                className="ach-card"
-                style={{ padding: "1rem" }}
-              >
-                <div className="ach-header" style={{ marginBottom: "0.5rem" }}>
-                  <span className="ach-badge" style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                    <FiImage size={10} /> Screenshot
-                  </span>
-                </div>
-                <h3 className="ach-title" style={{ fontSize: "0.8rem", marginBottom: "0.75rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                  {img.name}
-                </h3>
-                <div className="ach-img-wrap" onClick={() => setLightbox(img.path)} style={{ height: "140px" }}>
-                  <img
-                    src={encodeURI(img.path)}
-                    alt={img.name}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", padding: 0 }}
-                  />
-                  <div className="ach-img-overlay">
-                    <FiMaximize2 className="ach-img-zoom-icon" />
+            filteredImages.map((img, i) => {
+              const getBadgeText = (name: string) => {
+                if (name.toLowerCase().includes("certificate")) return "Certificate";
+                if (name.toLowerCase().includes("badge")) return "Badge";
+                if (name.toLowerCase().includes("email")) return "Email Notification";
+                if (name.toLowerCase().includes("banner")) return "Banner";
+                if (name.toLowerCase().includes("letter")) return "Official Letter";
+                if (name.toLowerCase().includes("structure") || name.toLowerCase().includes("directory")) return "Project Preview";
+                return "Verification Proof";
+              };
+              return (
+                <motion.div
+                  key={`img-${i}`}
+                  variants={card}
+                  className="ach-card"
+                  style={{ padding: "1rem" }}
+                >
+                  <div className="ach-header" style={{ marginBottom: "0.5rem" }}>
+                    <span className="ach-badge" style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                      <FiImage size={10} /> {getBadgeText(img.name)}
+                    </span>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  <h3 className="ach-title" style={{ fontSize: "0.8rem", marginBottom: "0.75rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    {img.name}
+                  </h3>
+                  <div className="ach-img-wrap" onClick={() => setLightbox(img.path)} style={{ height: "140px" }}>
+                    <img
+                      src={encodeURI(img.path)}
+                      alt={img.name}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", padding: 0 }}
+                    />
+                    <div className="ach-img-overlay">
+                      <FiMaximize2 className="ach-img-zoom-icon" />
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
 
           {/* PDFs Grid */}
           {(activeTab === "all" || activeTab === "pdfs") &&

@@ -8,7 +8,7 @@ const certifications = [
     name: "Google Data Analytics Professional Certificate",
     issuer: "Google",
     doc: "/docs/google-certified-data-analyst.pdf",
-    img: "/IMGS/google-certified-data-analyst_preview.png",
+    img: "/IMGS/Screenshot 2026-06-21 115923.png",
     featured: true,
   },
   { name: "AWS Cloud Technical Essentials", issuer: "AWS" },
@@ -83,8 +83,7 @@ export default function Certifications() {
                       style={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "contain",
-                        background: "rgba(0, 0, 0, 0.4)",
+                        objectFit: "cover",
                       }}
                     />
                   </div>

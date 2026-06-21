@@ -100,13 +100,14 @@ export default function Experience() {
                   {/* Right Column: PDF Preview Card */}
                   {exp.doc && exp.img && (
                     <div className="pdf-block">
-                      <div className="pdf-frame" style={{ overflow: "hidden", height: "auto" }}>
+                      <div className="pdf-frame" style={{ overflow: "hidden", height: "200px", width: "100%" }}>
                         <img
                           src={exp.img}
                           alt={`${exp.company} certificate preview`}
                           style={{
                             width: "100%",
-                            height: "auto",
+                            height: "100%",
+                            objectFit: "cover",
                             display: "block",
                           }}
                         />

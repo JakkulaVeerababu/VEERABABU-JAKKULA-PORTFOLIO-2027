@@ -62,7 +62,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={scrolled ? "scrolled" : ""}>
+    <nav className={`${scrolled ? "scrolled" : ""} ${menuOpen ? "nav-open" : ""}`}>
       <div className="nav-inner">
         {/* Logo */}
         <Link href="#hero" className="nav-logo group" onClick={() => setMenuOpen(false)}>
@@ -82,6 +82,16 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          {/* Mobile CTA inside dropdown for Dynamic Island integration */}
+          <li className="mobile-cta-wrapper">
+            <Link
+              href="#contact"
+              className="mobile-cta active:scale-95 duration-200 transition-all font-semibold uppercase tracking-[0.05em] text-center block w-full py-3"
+              onClick={() => setMenuOpen(false)}
+            >
+              Get in Touch
+            </Link>
+          </li>
         </ul>
 
         {/* Theme Toggle Button */}
@@ -99,7 +109,7 @@ export default function Navbar() {
           className="nav-cta active:scale-95 hover:opacity-90 duration-200 transition-all font-semibold uppercase tracking-[0.05em]" 
           onClick={() => setMenuOpen(false)}
         >
-          Contact Node
+          Get in Touch
         </Link>
 
         {/* Mobile hamburger */}

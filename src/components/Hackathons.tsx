@@ -197,8 +197,7 @@ export default function Hackathons() {
                         style={{
                           width: "100%",
                           height: "100%",
-                          objectFit: "contain",
-                          background: "rgba(0, 0, 0, 0.4)",
+                          objectFit: "cover",
                         }}
                       />
                     </div>
@@ -277,8 +276,7 @@ export default function Hackathons() {
                         style={{
                           width: "100%",
                           height: "100%",
-                          objectFit: "contain",
-                          background: "rgba(0, 0, 0, 0.4)",
+                          objectFit: "cover",
                         }}
                       />
                     </div>
