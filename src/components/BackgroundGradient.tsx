@@ -1,9 +1,26 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 export default function BackgroundGradient() {
+  const { scrollYProgress } = useScroll();
+
+  // Create a spring-smoothed version of scroll progress for liquid inertia
+  const smoothScroll = useSpring(scrollYProgress, {
+    stiffness: 35,
+    damping: 15,
+    mass: 0.4
+  });
+
+  // Green glow moves diagonally from Bottom-Left to Top-Right
+  const greenX = useTransform(smoothScroll, [0, 1], ['-30vw', '80vw']);
+  const greenY = useTransform(smoothScroll, [0, 1], ['50vh', '-60vh']);
+
+  // Blue glow moves diagonally from Top-Right to Bottom-Left
+  const blueX = useTransform(smoothScroll, [0, 1], ['80vw', '-30vw']);
+  const blueY = useTransform(smoothScroll, [0, 1], ['-60vh', '50vh']);
+
   return (
     <div 
       className="fixed inset-0 w-screen h-screen overflow-hidden pointer-events-none -z-50 bg-gradient-container"
@@ -16,73 +33,91 @@ export default function BackgroundGradient() {
       <style>{`
         .bg-gradient-container {
           --bg-blue-size: 480px;
-          --bg-green-size: 627px;
+          --bg-green-size: 480px;
         }
         @media (min-width: 768px) {
           .bg-gradient-container {
             --bg-blue-size: 720px;
-            --bg-green-size: 969px;
+            --bg-green-size: 720px;
           }
         }
         @media (min-width: 1024px) {
           .bg-gradient-container {
             --bg-blue-size: 960px;
-            --bg-green-size: 1254px;
+            --bg-green-size: 960px;
           }
         }
       `}</style>
 
       {/* Layer 1: Pure Base (implied by container) */}
 
-      {/* Layer 2: Luxury Emerald Green Glow (Bottom-Left) */}
+      {/* Layer 2: Luxury Emerald Green Glow (Bottom-Left to Top-Right) */}
       <motion.div
         className="absolute"
         style={{
-          bottom: 'calc(var(--bg-green-size) * 1.6 * -0.62)',
-          left: 'calc(var(--bg-green-size) * -0.5)',
+          left: 0,
+          top: 0,
           width: 'var(--bg-green-size)',
-          height: 'calc(var(--bg-green-size) * 1.6)',
-          background: 'radial-gradient(ellipse at center, #6EEB83 0%, rgba(82, 214, 106, 0.95) 30%, rgba(82, 214, 106, 0.4) 60%, transparent 80%)',
-          opacity: 0.57,
-          filter: 'blur(180px)',
-          borderRadius: '50%',
+          height: 'var(--bg-green-size)',
+          x: greenX,
+          y: greenY,
           willChange: 'transform',
-          rotate: 45,
         }}
-        animate={{
-          x: [-15, 15, -15],
-        }}
-        transition={{
-          duration: 25,
-          ease: 'easeInOut',
-          repeat: Infinity,
-        }}
-      />
+      >
+        <motion.div
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'radial-gradient(circle at center, var(--glow-green-color, #6EEB83) 0%, var(--glow-green-mid, rgba(82, 214, 106, 0.95)) 30%, var(--glow-green-low, rgba(82, 214, 106, 0.4)) 60%, transparent 80%)',
+            opacity: 'var(--glow-green-opacity, 0.70)',
+            filter: 'blur(120px)',
+            borderRadius: '50%',
+          }}
+          animate={{
+            x: [-15, 15, -15],
+            y: [-10, 10, -10],
+          }}
+          transition={{
+            duration: 25,
+            ease: 'easeInOut',
+            repeat: Infinity,
+          }}
+        />
+      </motion.div>
 
-      {/* Layer 3: Blue Glow (Top-Right) */}
+      {/* Layer 3: Blue Glow (Top-Right to Bottom-Left) */}
       <motion.div
         className="absolute"
         style={{
-          top: 'calc(var(--bg-blue-size) * -0.5)',
-          right: 'calc(var(--bg-blue-size) * -0.5)',
+          left: 0,
+          top: 0,
           width: 'var(--bg-blue-size)',
           height: 'var(--bg-blue-size)',
-          background: 'radial-gradient(circle, #1E4CCF 0%, #1A4ED8 40%, rgba(20, 61, 158, 0.75) 65%, transparent 80%)',
-          opacity: 0.70,
-          filter: 'blur(160px)',
-          borderRadius: '50%',
+          x: blueX,
+          y: blueY,
           willChange: 'transform',
-          transform: 'translate3d(0, 0, 0)',
         }}
-        animate={{
-          y: [-10, 10, -10],
-        }}
-        transition={{
-          duration: 20,
-          ease: 'easeInOut',
-          repeat: Infinity,
-        }}
-      />
+      >
+        <motion.div
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'radial-gradient(circle at center, var(--glow-blue-color, #1E4CCF) 0%, var(--glow-blue-mid, #1A4ED8) 40%, var(--glow-blue-low, rgba(20, 61, 158, 0.75)) 65%, transparent 80%)',
+            opacity: 'var(--glow-blue-opacity, 0.80)',
+            filter: 'blur(120px)',
+            borderRadius: '50%',
+          }}
+          animate={{
+            x: [10, -10, 10],
+            y: [-15, 15, -15],
+          }}
+          transition={{
+            duration: 20,
+            ease: 'easeInOut',
+            repeat: Infinity,
+          }}
+        />
+      </motion.div>
 
       {/* Layer 3.5: Diagonal Dark/Theme-matching Divider Mask */}
       <div
@@ -119,3 +154,5 @@ export default function BackgroundGradient() {
     </div>
   );
 }
+
+

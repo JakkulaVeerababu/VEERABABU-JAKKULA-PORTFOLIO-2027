@@ -35,7 +35,7 @@ export default function VisualShowcase() {
         </div>
 
         {/* Tab Controls */}
-        <div style={{ display: "flex", justifyContent: "center", gap: "10px", marginBottom: "35px" }} className="reveal">
+        <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "10px", marginBottom: "35px" }} className="reveal">
           <button
             onClick={() => setActiveTab("all")}
             className={`btn-outline ${activeTab === "all" ? "active" : ""}`}

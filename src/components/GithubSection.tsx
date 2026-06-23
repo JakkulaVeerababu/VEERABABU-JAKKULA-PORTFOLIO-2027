@@ -1,18 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { FiGithub, FiStar, FiGitBranch } from "react-icons/fi";
 import { SiLeetcode } from "react-icons/si";
-
-const GRID_SIZE = 168; // 7 rows × 24 cols
-
-function getContribColor(rand: number) {
-  if (rand < 0.48) return "#ebedf0";
-  if (rand < 0.70) return "#b3e8f0";
-  if (rand < 0.87) return "#3ecbdf";
-  return "#06b6d4";
-}
-
 
 const pinnedRepos = [
   {
@@ -36,13 +25,6 @@ const pinnedRepos = [
 ];
 
 export default function GithubSection() {
-  const [cells, setCells] = useState<string[]>([]);
-
-  useEffect(() => {
-    setCells(Array.from({ length: GRID_SIZE }, () => getContribColor(Math.random())));
-  }, []);
-
-  const displayCells = cells.length > 0 ? cells : Array.from({ length: GRID_SIZE }, () => "#ebedf0");
 
   return (
     <section id="github">
@@ -55,7 +37,7 @@ export default function GithubSection() {
 
         <div className="github-layout reveal">
           {/* Left Column: LeetCode Profiles (Larger size) */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
+          <div className="leetcode-grid">
             {/* LeetCode Professional Profile */}
             <div className="github-card" style={{ display: "flex", flexDirection: "column", padding: "0", overflow: "hidden" }}>
               <div style={{ padding: "1.5rem 1.5rem 0.875rem 1.5rem", display: "flex", flexDirection: "column", gap: "0.875rem" }}>
