@@ -375,6 +375,11 @@ button {
   pointer-events: none;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.05) 100%);
   opacity: 0.9;
+  z-index: 1;
+}
+
+.glass-card > * {
+  position: relative;
   z-index: 2;
 }
 
@@ -554,7 +559,7 @@ nav:hover::after {
 }
 
 .mobile-cta-wrapper {
-  display: none !important;
+  display: none;
 }
 
 .nav-cta {
@@ -642,15 +647,18 @@ nav:hover::after {
   }
 
   .nav-logo {
+    grid-row: 1;
     grid-column: 1;
   }
 
   .theme-toggle-btn {
+    grid-row: 1;
     grid-column: 3;
     margin-right: 0.5rem;
   }
 
   .hamburger {
+    grid-row: 1;
     grid-column: 4;
     display: flex;
     align-items: center;
@@ -661,6 +669,7 @@ nav:hover::after {
   }
 
   .nav-links {
+    grid-row: 2;
     grid-column: 1 / span 4;
     display: flex;
     flex-direction: column;
@@ -695,6 +704,7 @@ nav:hover::after {
   }
 
   .mobile-cta-wrapper {
+    display: block;
     width: 100%;
     padding-top: 0.75rem;
     padding-inline: 0.5rem;
